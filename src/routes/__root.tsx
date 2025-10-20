@@ -2,9 +2,10 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
-import Header from '../components/Header'
+import Header from '../components/header'
 
 import appCss from '../styles.css?url'
+import Sidebar from '@/components/sidebar'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -38,8 +39,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Header />
-        {children}
+        {/* <Header /> */}
+        <div className='w-full overflow-x-hidden flex'>
+          <Sidebar/>
+          <div className='flex-1 p-2'>
+            {children}
+          </div>
+        </div>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
