@@ -70,7 +70,7 @@ const Sidebar = () => {
       </div>
 
       <div className="p-4 border-t border-gray-200 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600" />
+        <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-indigo-600" />
         <div className="flex-1 min-w-0">
           <div className="text-sm font-medium text-gray-900 truncate">
             Judha Mayuasya
