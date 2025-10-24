@@ -8,7 +8,7 @@
     "what do you do",
     "tell me your story"
   ],
-  
+
   "projects": [
     "what have you built",
     "show me your work",
@@ -19,7 +19,7 @@
     "what are your best projects",
     "what have you worked on"
   ],
-  
+
   "skills": [
     "what are your skills",
     "what can you do",
@@ -29,7 +29,7 @@
     "what are your strengths",
     "list your skills"
   ],
-  
+
   "experience": [
     "what is your experience",
     "where have you worked",
@@ -39,7 +39,7 @@
     "tell me your career path",
     "where did you work before"
   ],
-  
+
   "tech_stack": [
     "what technologies do you use",
     "what tech stack do you know",
@@ -49,7 +49,7 @@
     "which technologies are you familiar with",
     "what do you code in"
   ],
-  
+
   "contact": [
     "how can i contact you",
     "what is your email",
@@ -59,7 +59,7 @@
     "what is your contact information",
     "send me your details"
   ],
-  
+
   "general": [
     "hello",
     "hi",

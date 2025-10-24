@@ -1,23 +1,23 @@
-import { Home, Compass, Library, Clock, Search, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Home, Compass, Library, Clock, Search, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const Sidebar = () => {
   const navItems = [
-    { icon: Home, label: "Home" },
-    { icon: Compass, label: "Explore" },
-    { icon: Library, label: "Library" },
-    { icon: Clock, label: "History" },
+    { icon: Home, label: 'Home' },
+    { icon: Compass, label: 'Explore' },
+    { icon: Library, label: 'Library' },
+    { icon: Clock, label: 'History' },
   ];
 
   const conversationHistory = [
-    "Tomorrow",
+    'Tomorrow',
     "What's something you've learn...",
-    "If you could teleport anywher...",
+    'If you could teleport anywher...',
     "What's one goal you want to re...",
-    "7 Days Ago",
-    "Ask me anything weird or rand...",
-    "How are you feeling today, real...",
+    '7 Days Ago',
+    'Ask me anything weird or rand...',
+    'How are you feeling today, real...',
     "What's one habit you wish you...",
   ];
 
@@ -59,9 +59,9 @@ const Sidebar = () => {
           <div
             key={index}
             className={`text-xs py-2 ${
-              ["Tomorrow", "7 Days Ago"].includes(item)
-                ? "text-gray-400 font-medium uppercase tracking-wider"
-                : "text-gray-600 cursor-pointer hover:text-gray-900"
+              ['Tomorrow', '7 Days Ago'].includes(item)
+                ? 'text-gray-400 font-medium uppercase tracking-wider'
+                : 'text-gray-600 cursor-pointer hover:text-gray-900'
             }`}
           >
             {item}

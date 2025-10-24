@@ -1,11 +1,11 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+import { TanStackDevtools } from '@tanstack/react-devtools';
 
-import Header from '../components/header'
+import Header from '../components/header';
 
-import appCss from '../styles.css?url'
-import Sidebar from '@/components/sidebar'
+import appCss from '../styles.css?url';
+import Sidebar from '@/components/sidebar';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -30,7 +30,7 @@ export const Route = createRootRoute({
   }),
 
   shellComponent: RootDocument,
-})
+});
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
@@ -40,11 +40,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {/* <Header /> */}
-        <div className='w-full overflow-x-hidden flex'>
-          <Sidebar/>
-          <div className='flex-1 p-2'>
-            {children}
-          </div>
+        <div className="w-full overflow-x-hidden flex">
+          <Sidebar />
+          <div className="flex-1 p-2">{children}</div>
         </div>
         <TanStackDevtools
           config={{
@@ -60,5 +58,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
