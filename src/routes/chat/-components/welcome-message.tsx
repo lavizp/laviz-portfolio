@@ -1,8 +1,8 @@
+import BaloonIcon from '@/components/icons/baloon';
+import BlockIcon from '@/components/icons/block';
+import OfficeEmployeeIcon from '@/components/icons/office-employee';
+import TaskListPin from '@/components/icons/task-list-pin';
 import { Plus } from 'lucide-react';
-import OfficeEmployeeIcon from '../icons/office-employee';
-import BlockIcon from '../icons/block';
-import BaloonIcon from '../icons/baloon';
-import TaskListPin from '../icons/task-list-pin';
 
 const WelcomeMessage = () => {
   const suggestions = [

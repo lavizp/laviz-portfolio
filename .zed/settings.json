@@ -1,0 +1,8 @@
+{
+  "lsp": {
+    "tailwindcss": {
+      "command": "npx",
+      "args": ["tailwindcss-language-server", "--stdio"]
+    }
+  }
+}

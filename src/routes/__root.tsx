@@ -2,10 +2,9 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 
-import Header from '../components/header';
-
 import appCss from '../styles.css?url';
 import Sidebar from '@/components/sidebar';
+import { ChatProvider } from '@/routes/chat/-hooks/useChat';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -40,10 +39,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {/* <Header /> */}
-        <div className="w-full overflow-x-hidden flex">
-          <Sidebar />
-          <div className="flex-1 p-2">{children}</div>
-        </div>
+        <ChatProvider>
+          <div className="w-full max-h-screen overflow-hidden flex">
+            <Sidebar />
+            <div className="flex-1 p-2">{children}</div>
+          </div>
+        </ChatProvider>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
