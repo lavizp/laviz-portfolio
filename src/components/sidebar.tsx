@@ -1,31 +1,38 @@
-import { Home, Compass, Library, Clock, Search, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import {
+  Home,
+  Compass,
+  Search,
+  Sparkles,
+  MessageSquare,
+  Menu,
+  X,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+import { useRouter } from '@tanstack/react-router';
 
-const Sidebar = () => {
+const SidebarContent = ({ onNavigate }: { onNavigate?: () => void }) => {
+  const router = useRouter();
+
   const navItems = [
-    { icon: Home, label: 'Home' },
-    { icon: Compass, label: 'Explore' },
-    { icon: Library, label: 'Library' },
-    { icon: Clock, label: 'History' },
+    { icon: Home, label: 'Chat', path: '/chat' },
+    { icon: Compass, label: 'Blog', path: '/blog' },
   ];
 
-  const conversationHistory = [
-    'Tomorrow',
-    "What's something you've learn...",
-    'If you could teleport anywher...',
-    "What's one goal you want to re...",
-    '7 Days Ago',
-    'Ask me anything weird or rand...',
-    'How are you feeling today, real...',
-    "What's one habit you wish you...",
-  ];
+  const conversationHistory = ['About', 'Projects', 'Tech Stack', 'Skill'];
+
+  const handleNavClick = (path: string) => {
+    router.navigate({ to: path });
+    onNavigate?.();
+  };
 
   return (
-    <div className="w-64 bg-white border-r border-gray-200 flex flex-col h-screen">
+    <>
       <div className="p-4 flex items-center gap-2">
         <Sparkles className="w-5 h-5 text-blue-600" />
-        <span className="font-semibold text-gray-900">BeeBot</span>
+        <span className="font-semibold text-gray-900">LavizP</span>
       </div>
 
       <div className="px-4 pb-4">
@@ -47,6 +54,7 @@ const Sidebar = () => {
             key={item.label}
             variant="ghost"
             className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            onClick={() => handleNavClick(item.path)}
           >
             <item.icon className="w-4 h-4 mr-3" />
             {item.label}
@@ -55,22 +63,20 @@ const Sidebar = () => {
       </nav>
 
       <div className="flex-1 overflow-y-auto px-4 pt-6">
+        <h3 className="text-sm font-medium text-gray-500 mb-2">History:</h3>
         {conversationHistory.map((item, index) => (
           <div
             key={index}
-            className={`text-xs py-2 ${
-              ['Tomorrow', '7 Days Ago'].includes(item)
-                ? 'text-gray-400 font-medium uppercase tracking-wider'
-                : 'text-gray-600 cursor-pointer hover:text-gray-900'
-            }`}
+            className="flex items-center gap-3 py-3 px-3 transition-colors duration-150 border-b border-gray-100 hover:bg-orange-50 hover:text-orange-700 rounded-md cursor-pointer"
           >
-            {item}
+            <MessageSquare className="h-3 w-3" />
+            <div className="truncate">{item}</div>
           </div>
         ))}
       </div>
 
       <div className="p-4 border-t border-gray-200 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-indigo-600" />
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600" />
         <div className="flex-1 min-w-0">
           <div className="text-sm font-medium text-gray-900 truncate">
             Judha Mayuasya
@@ -83,7 +89,70 @@ const Sidebar = () => {
           <span className="text-gray-400">⋮</span>
         </Button>
       </div>
-    </div>
+    </>
+  );
+};
+
+const Sidebar = () => {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  return (
+    <>
+      {/* Mobile Header */}
+      <header className="lg:hidden sticky top-0 z-30 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="flex h-14 items-center px-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMobileOpen(true)}
+            className="mr-2"
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-gray-900">LavizP</span>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Sidebar */}
+      <div className="lg:hidden">
+        {/* Overlay */}
+        {isMobileOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-40 transition-opacity"
+            onClick={() => setIsMobileOpen(false)}
+          />
+        )}
+
+        {/* Sliding Sidebar */}
+        <div
+          className={cn(
+            'fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 flex flex-col z-50 transform transition-transform duration-300 ease-in-out',
+            isMobileOpen ? 'translate-x-0' : '-translate-x-full',
+          )}
+        >
+          {/* Close button for mobile */}
+          <div className="absolute top-4 right-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileOpen(false)}
+              className="h-8 w-8"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+
+          <SidebarContent onNavigate={() => setIsMobileOpen(false)} />
+        </div>
+      </div>
+
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:flex w-64 bg-white border-r border-gray-200 flex-col h-screen">
+        <SidebarContent />
+      </div>
+    </>
   );
 };
 

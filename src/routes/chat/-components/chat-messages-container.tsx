@@ -13,7 +13,7 @@ const ChatMessagesContainer = () => {
   }, [messages]);
 
   return (
-    <div className="h-full flex flex-col flex-1">
+    <div className="h-full flex flex-col flex-1 p-2">
       {messages.map((item) => (
         <ChatMessage chat={item} />
       ))}
