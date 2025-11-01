@@ -14,7 +14,7 @@ export default function ChatInput() {
     handleKeyDown,
     handleSuggestionClick,
     setShowSuggestions,
-    sendMessage,
+    onSubmit,
   } = useChatInput();
 
   return (
@@ -61,7 +61,7 @@ export default function ChatInput() {
                   <Button
                     size="icon"
                     className="relative bg-linear-to-br from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:via-indigo-700 hover:to-blue-800 text-white rounded-2xl w-12 h-12 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105"
-                    onClick={() => sendMessage(inputValue)}
+                    onClick={() => onSubmit(inputValue)}
                   >
                     <Sparkles className="w-5 h-5" />
                   </Button>

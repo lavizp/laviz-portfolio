@@ -32,7 +32,7 @@ const WelcomeMessage = () => {
     },
   ];
   return (
-    <div className="flex-1 flex items-center justify-center overflow-hidden">
+    <div className="flex-1 flex items-center justify-center overflow-hidden h-full">
       <div className="text-center relative px-8">
         {/* Multiple Gradient Blobs for depth */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-32 w-64 h-64 bg-linear-to-br from-blue-400 via-indigo-400 to-purple-300 rounded-full blur-3xl opacity-40 animate-pulse" />

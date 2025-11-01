@@ -1,9 +1,39 @@
-import { IChatMessage } from '@/types/chat';
+import { IChatMessage, IChatResponseFormat } from '@/types/chat';
+import AboutResponse from './chat-responses/about';
+import ContactResponse from './chat-responses/contact';
+import ProjectsResponse from './chat-responses/project';
+import SkillsResponse from './chat-responses/skills';
+import TechStackResponse from './chat-responses/tech_stack';
+import ExperienceResponse from './chat-responses/experience';
+import NotFoundResponse from './chat-responses/not_found';
+import GeneralResponse from './chat-responses/general';
 
 type ChatMessageProps = {
   chat: IChatMessage;
 };
 const ChatMessage = ({ chat }: ChatMessageProps) => {
+  const renderResponseComponent = (format: IChatResponseFormat) => {
+    switch (format) {
+      case 'about':
+        return <AboutResponse />;
+      case 'contact':
+        return <ContactResponse />;
+      case 'skills':
+        return <SkillsResponse />;
+      case 'tech_stack':
+        return <TechStackResponse />;
+      case 'projects':
+        return <ProjectsResponse />;
+      case 'experience':
+        return <ExperienceResponse />;
+      case 'general':
+        return <GeneralResponse />;
+      case 'not_found':
+        return <NotFoundResponse />;
+      default:
+        return <NotFoundResponse />;
+    }
+  };
   return (
     <div
       key={chat.id}
@@ -23,9 +53,15 @@ const ChatMessage = ({ chat }: ChatMessageProps) => {
               : 'bg-white border border-gray-200 text-gray-900 shadow-sm'
           }`}
         >
-          <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
-            {chat.message}
-          </p>
+          {chat.type && (
+            <div className="space-y-3 w-full mt-0">
+              <div>
+                {chat.role == 'ai'
+                  ? renderResponseComponent(chat.type)
+                  : chat.message}
+              </div>
+            </div>
+          )}
         </div>
         <span className="text-xs text-gray-400 mt-1.5 px-1">now</span>
       </div>

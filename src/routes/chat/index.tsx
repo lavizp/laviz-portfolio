@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="flex flex-col max-h-screen h-screen">
-      <div className={`flex-1 overflow-y-auto flex`}>
+      <div className={`flex-1 overflow-y-auto`}>
         {messages.length === 0 ? <WelcomeMessage /> : <ChatMessagesContainer />}
       </div>
       <div className="sticky bottom-0 bg-background">

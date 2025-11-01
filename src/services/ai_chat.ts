@@ -1,4 +1,5 @@
 import example_prompts from '@/data/example_prompts.json';
+import { IChatResponseFormat } from '@/types/chat';
 
 const convertSentenceToArray = (prompt: string): string[] => {
   return prompt.toLowerCase().split(' ');
@@ -170,14 +171,16 @@ const getDiceCoefficient = (
   return diceScore;
 };
 
-const getPromptKey = (prompt: string[]): string[] => {
+const getPromptKey = (prompt: string[]): IChatResponseFormat[] => {
   const json = example_prompts;
-  const scores: Record<string, number> = Object.fromEntries(
+  const scores: Record<IChatResponseFormat, number> = Object.fromEntries(
     Object.keys(json).map((key) => [key, 0]),
-  );
+  ) as Record<IChatResponseFormat, number>;
 
   for (const [category, examples] of Object.entries(json)) {
     let categoryBestScore = 0;
+
+    const chatCategory = category as IChatResponseFormat;
 
     for (const example of examples) {
       const exampleArray = convertSentenceToArray(example);
@@ -191,7 +194,7 @@ const getPromptKey = (prompt: string[]): string[] => {
       }
     }
 
-    scores[category] = categoryBestScore;
+    scores[chatCategory] = categoryBestScore;
   }
 
   const PRIMARY_THRESHOLD = 0.3;
@@ -206,22 +209,22 @@ const getPromptKey = (prompt: string[]): string[] => {
     sortedCategories.length === 0 ||
     sortedCategories[0][1] < PRIMARY_THRESHOLD
   ) {
-    return ['general'];
+    return ['not_found'];
   }
 
   const topScore = sortedCategories[0][1];
-  const matchedCategories: string[] = [];
+  const matchedCategories: IChatResponseFormat[] = [];
 
   for (const [category, score] of sortedCategories) {
     if (score >= topScore - MIN_DIFFERENCE && score >= SECONDARY_THRESHOLD) {
-      matchedCategories.push(category);
+      matchedCategories.push(category as IChatResponseFormat);
     }
   }
 
   return matchedCategories.slice(0, 3);
 };
 
-export const getPromptResponse = (prompt: string): string[] => {
+export const getPromptResponse = (prompt: string): IChatResponseFormat[] => {
   const promptArray = convertSentenceToArray(prompt);
   const pureArray = removePunctuations(promptArray);
   const filteredArray = removeStopWords(pureArray);

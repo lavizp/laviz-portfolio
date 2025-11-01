@@ -10,4 +10,7 @@ export type IChatResponseFormat =
   | 'about'
   | 'contact'
   | 'skills'
-  | 'tech_stack';
+  | 'tech_stack'
+  | 'experience'
+  | 'general'
+  | 'not_found';

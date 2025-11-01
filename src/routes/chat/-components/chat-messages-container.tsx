@@ -13,10 +13,11 @@ const ChatMessagesContainer = () => {
   }, [messages]);
 
   return (
-    <div className="h-full flex flex-col flex-1 p-2">
+    <div className="h-full flex flex-col flex-1 p-2 gap-3 my-24 lg:my-2">
       {messages.map((item) => (
         <ChatMessage chat={item} />
       ))}
+      <div ref={endRef} />
     </div>
   );
 };

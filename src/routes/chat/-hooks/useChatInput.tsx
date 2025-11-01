@@ -13,7 +13,7 @@ export interface UseChatInputReturn {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   handleSuggestionClick: (suggestion: string, send: boolean) => void;
-  sendMessage: (prompt: string) => void;
+  onSubmit: (prompt: string) => void;
 }
 
 export const useChatInput = (): UseChatInputReturn => {
@@ -62,13 +62,20 @@ export const useChatInput = (): UseChatInputReturn => {
     setInputValue(suggestion);
     inputRef.current?.focus();
     if (send) {
-      sendMessage(suggestion);
-      setInputValue('');
+      onSubmit(suggestion);
     }
     setShowSuggestions(false);
   };
-
+  const onSubmit = (prompt: string) => {
+    sendMessage(prompt);
+    setInputValue('');
+    setSelectedIndex(-1);
+  };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+      onSubmit(inputValue);
+    }
     if (!showSuggestions) return;
 
     if (e.key === 'ArrowDown') {
@@ -80,13 +87,10 @@ export const useChatInput = (): UseChatInputReturn => {
       e.preventDefault();
       setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
     } else if (e.key === 'Enter') {
-      e.preventDefault();
       if (selectedIndex >= 0) {
+        e.preventDefault();
         handleSuggestionClick(suggestions[selectedIndex], true);
-        return;
       }
-      sendMessage(inputValue);
-      setInputValue('');
     } else if (e.key === 'Escape') {
       setShowSuggestions(false);
     }
@@ -104,6 +108,6 @@ export const useChatInput = (): UseChatInputReturn => {
     handleInputChange,
     handleKeyDown,
     handleSuggestionClick,
-    sendMessage,
+    onSubmit,
   };
 };

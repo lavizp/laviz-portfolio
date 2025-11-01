@@ -25,7 +25,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         id: 1,
         message: prompt,
         role: 'chat',
-        type: 'about',
+        type: 'general',
       },
     ]);
     const response = getPromptResponse(prompt);
@@ -36,7 +36,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
           id: messages.length + 1,
           message: res,
           role: 'ai',
-          type: 'about',
+          type: res,
         },
       ]);
     });

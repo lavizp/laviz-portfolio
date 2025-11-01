@@ -42,9 +42,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ChatProvider>
           <div className="w-full max-h-screen h-screen overflow-hidden flex flex-col lg:flex-row">
             <Sidebar />
-            <main className="flex-1 overflow-auto">
-              <div className="">{children}</div>
-            </main>
+            <main className="flex-1">{children}</main>
           </div>
         </ChatProvider>
         <TanStackDevtools
