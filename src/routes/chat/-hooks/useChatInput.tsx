@@ -14,6 +14,7 @@ export interface UseChatInputReturn {
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   handleSuggestionClick: (suggestion: string, send: boolean) => void;
   onSubmit: (prompt: string) => void;
+  resetChat: () => void;
 }
 
 export const useChatInput = (): UseChatInputReturn => {
@@ -21,24 +22,14 @@ export const useChatInput = (): UseChatInputReturn => {
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { sendMessage } = useChat();
+  const { sendMessage, resetMessages } = useChat();
 
   const allSuggestions: string[] = [
-    'How to create a React component',
-    'How to use useState hook',
-    'How to build a responsive navbar',
-    'How to add animations with CSS',
-    'How to fetch data from an API',
-    'How to deploy a web application',
-    'How to optimize website performance',
-    'How to create a todo app',
-    'How to use Tailwind CSS',
-    'How to implement dark mode',
-    'Write a function to sort an array',
-    'Explain async/await in JavaScript',
-    'Create a login form with validation',
-    'Design a landing page',
-    'Build a weather app',
+    'Tell me something about yourself',
+    'What projects have you worked on?',
+    'How do I contact you?',
+    'What skills do you have?',
+    'What tech stack do you work with?',
   ];
 
   const suggestions: string[] = inputValue.trim()
@@ -52,7 +43,11 @@ export const useChatInput = (): UseChatInputReturn => {
   useEffect(() => {
     setShowSuggestions(suggestions.length > 0 && inputValue.trim() !== '');
   }, [suggestions.length, inputValue]);
-
+  const resetChat = () => {
+    setInputValue('');
+    setSelectedIndex(-1);
+    resetMessages();
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
     setSelectedIndex(-1);
@@ -109,5 +104,6 @@ export const useChatInput = (): UseChatInputReturn => {
     handleKeyDown,
     handleSuggestionClick,
     onSubmit,
+    resetChat,
   };
 };

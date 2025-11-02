@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { useRouter } from '@tanstack/react-router';
+import { Link, useRouter } from '@tanstack/react-router';
 
 const SidebarContent = ({ onNavigate }: { onNavigate?: () => void }) => {
   const router = useRouter();
@@ -21,10 +21,27 @@ const SidebarContent = ({ onNavigate }: { onNavigate?: () => void }) => {
     { icon: Compass, label: 'Blog', path: '/blog' },
   ];
 
-  const conversationHistory = ['About', 'Projects', 'Tech Stack', 'Skill'];
+  const conversationHistory = [
+    {
+      title: 'About',
+      prompt: 'Tell me something about yourself',
+      key: 'about',
+    },
+    {
+      title: 'Projects',
+      prompt: 'What projects have you worked on?',
+      key: 'projects',
+    },
+    {
+      title: 'Tech Stack',
+      prompt: 'What Tech Stack Do you use?',
+      key: 'tech stack',
+    },
+    { title: 'Skill', prompt: 'What Skill Do you have?', key: 'skill' },
+  ];
 
   const handleNavClick = (path: string) => {
-    router.navigate({ to: path });
+    router.navigate({ to: path, search: { prompt: '' } });
     onNavigate?.();
   };
 
@@ -53,7 +70,7 @@ const SidebarContent = ({ onNavigate }: { onNavigate?: () => void }) => {
           <Button
             key={item.label}
             variant="ghost"
-            className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-gray-50 cursor-pointer"
             onClick={() => handleNavClick(item.path)}
           >
             <item.icon className="w-4 h-4 mr-3" />
@@ -64,30 +81,17 @@ const SidebarContent = ({ onNavigate }: { onNavigate?: () => void }) => {
 
       <div className="flex-1 overflow-y-auto px-4 pt-6">
         <h3 className="text-sm font-medium text-gray-500 mb-2">History:</h3>
-        {conversationHistory.map((item, index) => (
-          <div
-            key={index}
+        {conversationHistory.map((item) => (
+          <Link
+            key={item.key}
             className="flex items-center gap-3 py-3 px-3 transition-colors duration-150 border-b border-gray-100 hover:bg-orange-50 hover:text-orange-700 rounded-md cursor-pointer"
+            to="/chat"
+            search={{ prompt: item.prompt }}
           >
             <MessageSquare className="h-3 w-3" />
-            <div className="truncate">{item}</div>
-          </div>
+            <div className="truncate">{item.title}</div>
+          </Link>
         ))}
-      </div>
-
-      <div className="p-4 border-t border-gray-200 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600" />
-        <div className="flex-1 min-w-0">
-          <div className="text-sm font-medium text-gray-900 truncate">
-            Judha Mayuasya
-          </div>
-          <div className="text-xs text-gray-500 truncate">
-            judha.m@yusya.com
-          </div>
-        </div>
-        <Button variant="ghost" size="icon" className="w-6 h-6">
-          <span className="text-gray-400">⋮</span>
-        </Button>
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import BaloonIcon from '@/components/icons/baloon';
 import BlockIcon from '@/components/icons/block';
 import OfficeEmployeeIcon from '@/components/icons/office-employee';
 import TaskListPin from '@/components/icons/task-list-pin';
+import { Link } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
 
 const WelcomeMessage = () => {
@@ -11,24 +12,28 @@ const WelcomeMessage = () => {
       key: 'projects',
       icon: <BlockIcon />,
       color: '#86efac', // green-300
+      prompt: 'What projects have you worked on?',
     },
     {
       title: 'About',
       key: 'about',
       icon: <OfficeEmployeeIcon />,
       color: '#93c5fd', // blue-300
+      prompt: 'Tell me something about yourself',
     },
     {
       title: 'Skills',
       key: 'skils',
       icon: <BaloonIcon />,
       color: '#fca5a5', // red-300
+      prompt: 'What skills do you have?',
     },
     {
       title: 'Contact',
       key: 'contact',
       icon: <TaskListPin />,
       color: '#fde68a', // amber-200
+      prompt: 'How can I contact you?',
     },
   ];
   return (
@@ -68,7 +73,9 @@ const WelcomeMessage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center justify-center px-5 mt-10">
           {suggestions.map((item) => {
             return (
-              <div
+              <Link
+                to="/chat"
+                search={{ prompt: item.prompt }}
                 key={item.title}
                 className="rounded-xl border font-semibold border-gray-200 px-3 py-3 flex justify-between items-center"
               >
@@ -84,7 +91,7 @@ const WelcomeMessage = () => {
                 <div className="flex items-center justify-center h-8 w-8 rounded-full border border-gray-300 cursor-pointer mr-1 transition-transform duration-100 hover:scale-110">
                   <Plus size={18} />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

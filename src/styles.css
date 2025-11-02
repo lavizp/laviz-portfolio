@@ -123,7 +123,21 @@ code {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+@keyframes chatMessageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* Define a utility class that uses the keyframes */
+.animate-chat-entry {
+  animation: chatMessageAppear 0.3s ease-out forwards;
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;

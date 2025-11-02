@@ -37,7 +37,7 @@ const ChatMessage = ({ chat }: ChatMessageProps) => {
   return (
     <div
       key={chat.id}
-      className={`flex ${
+      className={`flex animate-chat-entry ${
         chat.role === 'chat' ? 'justify-end' : 'justify-start'
       }`}
     >
@@ -63,7 +63,7 @@ const ChatMessage = ({ chat }: ChatMessageProps) => {
             </div>
           )}
         </div>
-        <span className="text-xs text-gray-400 mt-1.5 px-1">now</span>
+        <span className="text-xs text-gray-400 mt-1.5 px-1">{chat.time}</span>
       </div>
     </div>
   );

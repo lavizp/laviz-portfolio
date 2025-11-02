@@ -3,6 +3,7 @@ export type IChatMessage = {
   role: 'ai' | 'chat';
   message: string;
   type: IChatResponseFormat;
+  time: string;
 };
 
 export type IChatResponseFormat =
