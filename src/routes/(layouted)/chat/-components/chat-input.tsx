@@ -2,8 +2,12 @@ import { Sparkles, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useChatInput } from '../-hooks/useChatInput';
-import { useSearch } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import {
+  useLayoutEffect,
+  useRouterState,
+  useSearch,
+} from '@tanstack/react-router';
+import { useEffect, useRef } from 'react';
 
 export default function ChatInput() {
   const {
@@ -19,11 +23,11 @@ export default function ChatInput() {
     onSubmit,
     resetChat,
   } = useChatInput();
-
-  const search = useSearch({ from: '/chat/' });
+  const search = useSearch({ from: '/(layouted)/chat/' });
   useEffect(() => {
     resetChat();
     if (search.prompt.length > 0) {
+      console.log('asdasdadasdadadas');
       onSubmit(search.prompt);
       return;
     }

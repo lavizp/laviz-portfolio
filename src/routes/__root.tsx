@@ -3,8 +3,6 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 
 import appCss from '../styles.css?url';
-import Sidebar from '@/components/sidebar';
-import { ChatProvider } from '@/routes/chat/-hooks/useChat';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -39,12 +37,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {/* <Header /> */}
-        <ChatProvider>
-          <div className="w-full max-h-screen h-screen overflow-hidden flex flex-col lg:flex-row">
-            <Sidebar />
-            <main className="flex-1">{children}</main>
-          </div>
-        </ChatProvider>
+        <main>{children}</main>
         <TanStackDevtools
           config={{
             position: 'bottom-right',

@@ -5,11 +5,17 @@ import ChatMessagesContainer from './-components/chat-messages-container';
 import ChatInput from './-components/chat-input';
 import { useChat } from './-hooks/useChat';
 
-export const Route = createFileRoute('/chat/')({
+export const Route = createFileRoute('/(layouted)/chat/')({
   validateSearch: (search) => ({
     prompt: (search.prompt as string) || '',
   }),
   component: App,
+  beforeLoad: ({ search }) => {
+    if (search.prompt) {
+      // Handle prompt here
+      return { initialPrompt: search.prompt };
+    }
+  },
 });
 
 function App() {

@@ -10,18 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
-import { Route as BlogRouteImport } from './routes/blog'
+import { Route as layoutedRouteRouteImport } from './routes/(layouted)/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ChatIndexRouteImport } from './routes/chat/index'
+import { Route as layoutedChatIndexRouteImport } from './routes/(layouted)/chat/index'
+import { Route as layoutedBlogIndexRouteImport } from './routes/(layouted)/blog/index'
 
 const TestRoute = TestRouteImport.update({
   id: '/test',
   path: '/test',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
+const layoutedRouteRoute = layoutedRouteRouteImport.update({
+  id: '/(layouted)',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -29,44 +29,55 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChatIndexRoute = ChatIndexRouteImport.update({
+const layoutedChatIndexRoute = layoutedChatIndexRouteImport.update({
   id: '/chat/',
   path: '/chat/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => layoutedRouteRoute,
+} as any)
+const layoutedBlogIndexRoute = layoutedBlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => layoutedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/test': typeof TestRoute
-  '/chat': typeof ChatIndexRoute
+  '/blog': typeof layoutedBlogIndexRoute
+  '/chat': typeof layoutedChatIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/test': typeof TestRoute
-  '/chat': typeof ChatIndexRoute
+  '/blog': typeof layoutedBlogIndexRoute
+  '/chat': typeof layoutedChatIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
+  '/(layouted)': typeof layoutedRouteRouteWithChildren
   '/test': typeof TestRoute
-  '/chat/': typeof ChatIndexRoute
+  '/(layouted)/blog/': typeof layoutedBlogIndexRoute
+  '/(layouted)/chat/': typeof layoutedChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/test' | '/chat'
+  fullPaths: '/' | '/test' | '/blog' | '/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/test' | '/chat'
-  id: '__root__' | '/' | '/blog' | '/test' | '/chat/'
+  to: '/' | '/test' | '/blog' | '/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/(layouted)'
+    | '/test'
+    | '/(layouted)/blog/'
+    | '/(layouted)/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRoute
+  layoutedRouteRoute: typeof layoutedRouteRouteWithChildren
   TestRoute: typeof TestRoute
-  ChatIndexRoute: typeof ChatIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,11 +89,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
+    '/(layouted)': {
+      id: '/(layouted)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof layoutedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -92,21 +103,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/chat/': {
-      id: '/chat/'
+    '/(layouted)/chat/': {
+      id: '/(layouted)/chat/'
       path: '/chat'
       fullPath: '/chat'
-      preLoaderRoute: typeof ChatIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof layoutedChatIndexRouteImport
+      parentRoute: typeof layoutedRouteRoute
+    }
+    '/(layouted)/blog/': {
+      id: '/(layouted)/blog/'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof layoutedBlogIndexRouteImport
+      parentRoute: typeof layoutedRouteRoute
     }
   }
 }
 
+interface layoutedRouteRouteChildren {
+  layoutedBlogIndexRoute: typeof layoutedBlogIndexRoute
+  layoutedChatIndexRoute: typeof layoutedChatIndexRoute
+}
+
+const layoutedRouteRouteChildren: layoutedRouteRouteChildren = {
+  layoutedBlogIndexRoute: layoutedBlogIndexRoute,
+  layoutedChatIndexRoute: layoutedChatIndexRoute,
+}
+
+const layoutedRouteRouteWithChildren = layoutedRouteRoute._addFileChildren(
+  layoutedRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogRoute: BlogRoute,
+  layoutedRouteRoute: layoutedRouteRouteWithChildren,
   TestRoute: TestRoute,
-  ChatIndexRoute: ChatIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
