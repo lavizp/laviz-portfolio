@@ -16,6 +16,7 @@ const config = defineConfig({
     tailwindcss(),
     react(),
   ],
+  base: '/',
 });
 
 export default config;
