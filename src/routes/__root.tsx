@@ -1,56 +1,32 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
-import { TanStackDevtools } from '@tanstack/react-devtools';
+// src/routes/__root.tsx
 
-import appCss from '../styles.css?url';
+// 1. Only import what is necessary for a layout/route definition
+import { createRootRoute, Outlet } from '@tanstack/react-router';
+// Import Devtools component directly from its package
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
+// 2. Define the route without the shellComponent or head properties
 export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'Laviz Pandey',
-      },
-    ],
-    links: [
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
-    ],
-  }),
+  // Add a component property that defines the main application layout
+  component: RootLayout,
 
-  shellComponent: RootDocument,
+  // Good practice: Define a generic error/loading component here
+  // You may need to create these components separately
+  // errorComponent: MyErrorComponent,
+  // pendingComponent: MyLoadingComponent,
 });
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+// 3. Define a simple layout component
+function RootLayout() {
   return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {/* <Header /> */}
-        <main>{children}</main>
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
-        <Scripts />
-      </body>
-    </html>
+    <>
+      <main>
+        <Outlet />
+      </main>
+
+      <footer>
+        <TanStackRouterDevtools position="bottom-right" />
+      </footer>
+    </>
   );
 }
