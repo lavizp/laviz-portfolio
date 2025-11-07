@@ -1,13 +1,5 @@
 import { useState } from 'react';
-import {
-  Home,
-  Compass,
-  Search,
-  Sparkles,
-  MessageSquare,
-  Menu,
-  X,
-} from 'lucide-react';
+import { Home, Compass, Search, MessageSquare, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -48,21 +40,8 @@ const SidebarContent = ({ onNavigate }: { onNavigate?: () => void }) => {
   return (
     <>
       <div className="p-4 flex items-center gap-2">
-        <Sparkles className="w-5 h-5 text-blue-600" />
+        <img src="/lavizp-logo.png" alt="logo" className="h-10 w-10" />
         <span className="font-semibold text-gray-900">LavizP</span>
-      </div>
-
-      <div className="px-4 pb-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <Input
-            placeholder="Search"
-            className="pl-9 bg-gray-50 border-gray-200 text-sm"
-          />
-          <kbd className="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-xs text-gray-400 bg-white border border-gray-200 rounded">
-            ⌘F
-          </kbd>
-        </div>
       </div>
 
       <nav className="px-2 space-y-1">
