@@ -3,28 +3,25 @@ import { ExternalLink, Github } from 'lucide-react';
 const ProjectsResponse = () => {
   const projects = [
     {
-      title: 'E-Commerce Platform',
+      title: 'Gyanarthi',
       description:
-        'A full-stack e-commerce solution with real-time inventory management and payment processing.',
-      tech: ['React', 'Node.js', 'PostgreSQL'],
-      github: 'https://github.com/yourusername/project1',
-      demo: 'https://project1-demo.com',
+        'An AI research assistant that helps users with their research needs.',
+      tech: ['React', 'Fast API', 'RAG'],
+      github: 'https://github.com/lavizp/gyanarthi-fe',
     },
     {
-      title: 'Task Management App',
+      title: 'SNWA',
       description:
-        'Collaborative task management tool with real-time updates and team workspace features.',
+        'A web app for a real estate agency based in Australia to handle CMS and property listings.',
       tech: ['Next.js', 'TypeScript', 'Tailwind'],
-      github: 'https://github.com/yourusername/project2',
-      demo: 'https://project2-demo.com',
+      demo: 'https://snwa.com.au/',
     },
     {
-      title: 'Portfolio CMS',
+      title: 'Beatzbazar',
       description:
-        'Content management system for portfolios with drag-and-drop builder and theme customization.',
-      tech: ['React', 'MongoDB', 'Express'],
-      github: 'https://github.com/yourusername/project3',
-      demo: 'https://project3-demo.com',
+        'A music store that allows users to browse and purchase music.',
+      tech: ['React', 'Typescript', 'Tailwind'],
+      demo: 'https://beatzbazar.com/',
     },
   ];
 
@@ -52,24 +49,28 @@ const ProjectsResponse = () => {
               ))}
             </div>
             <div className="flex gap-3">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                <span>Code</span>
-              </a>
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                <ExternalLink className="w-4 h-4" />
-                <span>Demo</span>
-              </a>
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                >
+                  <Github className="w-4 h-4" />
+                  <span>Code</span>
+                </a>
+              )}
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Demo</span>
+                </a>
+              )}
             </div>
           </div>
         ))}
