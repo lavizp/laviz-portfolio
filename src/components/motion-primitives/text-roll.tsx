@@ -5,7 +5,6 @@ import {
   Target,
   TargetAndTransition,
   Transition,
-  MotionStyle,
 } from 'motion/react';
 
 export type TextRollProps = {
