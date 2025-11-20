@@ -7,7 +7,7 @@ import {
   Disclosure,
   DisclosureContent,
   DisclosureTrigger,
-} from 'components/motion-primitives/disclosure';
+} from '@/components/motion-primitives/disclosure';
 import { useNavigate } from '@tanstack/react-router';
 
 export function ChatHero() {
