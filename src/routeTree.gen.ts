@@ -9,20 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TestRouteImport } from './routes/test'
-import { Route as layoutedRouteRouteImport } from './routes/(layouted)/route'
+import { Route as SkillsRouteImport } from './routes/skills'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as layoutedChatIndexRouteImport } from './routes/(layouted)/chat/index'
-import { Route as layoutedBlogIndexRouteImport } from './routes/(layouted)/blog/index'
-import { Route as layoutedBlogBlogSlugRouteImport } from './routes/(layouted)/blog/$blogSlug'
 
-const TestRoute = TestRouteImport.update({
-  id: '/test',
-  path: '/test',
+const SkillsRoute = SkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
   getParentRoute: () => rootRouteImport,
 } as any)
-const layoutedRouteRoute = layoutedRouteRouteImport.update({
-  id: '/(layouted)',
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -30,80 +40,73 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const layoutedChatIndexRoute = layoutedChatIndexRouteImport.update({
-  id: '/chat/',
-  path: '/chat/',
-  getParentRoute: () => layoutedRouteRoute,
-} as any)
-const layoutedBlogIndexRoute = layoutedBlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
-  getParentRoute: () => layoutedRouteRoute,
-} as any)
-const layoutedBlogBlogSlugRoute = layoutedBlogBlogSlugRouteImport.update({
-  id: '/blog/$blogSlug',
-  path: '/blog/$blogSlug',
-  getParentRoute: () => layoutedRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
-  '/blog/$blogSlug': typeof layoutedBlogBlogSlugRoute
-  '/blog': typeof layoutedBlogIndexRoute
-  '/chat': typeof layoutedChatIndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/projects': typeof ProjectsRoute
+  '/skills': typeof SkillsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
-  '/blog/$blogSlug': typeof layoutedBlogBlogSlugRoute
-  '/blog': typeof layoutedBlogIndexRoute
-  '/chat': typeof layoutedChatIndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/projects': typeof ProjectsRoute
+  '/skills': typeof SkillsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/(layouted)': typeof layoutedRouteRouteWithChildren
-  '/test': typeof TestRoute
-  '/(layouted)/blog/$blogSlug': typeof layoutedBlogBlogSlugRoute
-  '/(layouted)/blog/': typeof layoutedBlogIndexRoute
-  '/(layouted)/chat/': typeof layoutedChatIndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/projects': typeof ProjectsRoute
+  '/skills': typeof SkillsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test' | '/blog/$blogSlug' | '/blog' | '/chat'
+  fullPaths: '/' | '/about' | '/contact' | '/projects' | '/skills'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test' | '/blog/$blogSlug' | '/blog' | '/chat'
-  id:
-    | '__root__'
-    | '/'
-    | '/(layouted)'
-    | '/test'
-    | '/(layouted)/blog/$blogSlug'
-    | '/(layouted)/blog/'
-    | '/(layouted)/chat/'
+  to: '/' | '/about' | '/contact' | '/projects' | '/skills'
+  id: '__root__' | '/' | '/about' | '/contact' | '/projects' | '/skills'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  layoutedRouteRoute: typeof layoutedRouteRouteWithChildren
-  TestRoute: typeof TestRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  ProjectsRoute: typeof ProjectsRoute
+  SkillsRoute: typeof SkillsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/test': {
-      id: '/test'
-      path: '/test'
-      fullPath: '/test'
-      preLoaderRoute: typeof TestRouteImport
+    '/skills': {
+      id: '/skills'
+      path: '/skills'
+      fullPath: '/skills'
+      preLoaderRoute: typeof SkillsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(layouted)': {
-      id: '/(layouted)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof layoutedRouteRouteImport
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -113,50 +116,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(layouted)/chat/': {
-      id: '/(layouted)/chat/'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof layoutedChatIndexRouteImport
-      parentRoute: typeof layoutedRouteRoute
-    }
-    '/(layouted)/blog/': {
-      id: '/(layouted)/blog/'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof layoutedBlogIndexRouteImport
-      parentRoute: typeof layoutedRouteRoute
-    }
-    '/(layouted)/blog/$blogSlug': {
-      id: '/(layouted)/blog/$blogSlug'
-      path: '/blog/$blogSlug'
-      fullPath: '/blog/$blogSlug'
-      preLoaderRoute: typeof layoutedBlogBlogSlugRouteImport
-      parentRoute: typeof layoutedRouteRoute
-    }
   }
 }
 
-interface layoutedRouteRouteChildren {
-  layoutedBlogBlogSlugRoute: typeof layoutedBlogBlogSlugRoute
-  layoutedBlogIndexRoute: typeof layoutedBlogIndexRoute
-  layoutedChatIndexRoute: typeof layoutedChatIndexRoute
-}
-
-const layoutedRouteRouteChildren: layoutedRouteRouteChildren = {
-  layoutedBlogBlogSlugRoute: layoutedBlogBlogSlugRoute,
-  layoutedBlogIndexRoute: layoutedBlogIndexRoute,
-  layoutedChatIndexRoute: layoutedChatIndexRoute,
-}
-
-const layoutedRouteRouteWithChildren = layoutedRouteRoute._addFileChildren(
-  layoutedRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  layoutedRouteRoute: layoutedRouteRouteWithChildren,
-  TestRoute: TestRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  ProjectsRoute: ProjectsRoute,
+  SkillsRoute: SkillsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
