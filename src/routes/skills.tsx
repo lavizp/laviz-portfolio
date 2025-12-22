@@ -116,32 +116,16 @@ function RouteComponent() {
                        </div>
     
                        {/* Skill Specs Grid */}
-                       <div className="flex-1 space-y-8">
+                       <div className="flex-1 space-y-3">
                           {category.specs.map((spec) => (
-                            <div key={spec.name} className="group/spec relative">
+                            <div key={spec.name} className="group/spec relative p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-all duration-300">
                                {/* Spec Header */}
-                               <div className="flex justify-between items-end mb-2 relative z-10">
+                               <div className="flex justify-between items-center relative z-10">
                                   <span className="text-lg font-sans text-slate-200 group-hover/spec:text-white transition-colors">{spec.name}</span>
-                                  <span className="text-xs font-mono text-slate-500 group-hover/spec:text-brand-accent transition-colors">{spec.role}</span>
+                                  <span className="text-[10px] uppercase font-mono text-slate-500 group-hover/spec:text-brand-accent transition-colors border border-white/10 px-2 py-1 rounded bg-black/20">{spec.role}</span>
                                </div>
     
-                               {/* Visual Bar */}
-                               <div className="h-1 w-full bg-white/5 overflow-hidden relative">
-                                  {/* Background Lines */}
-                                  <div className="absolute inset-0 flex gap-1">
-                                     {Array.from({ length: 40 }).map((_, i) => (
-                                        <div key={i} className="flex-1 bg-black/20"></div>
-                                     ))}
-                                  </div>
-                                  
-                                  {/* Fill Progress */}
-                                  <div 
-                                    className={`h-full bg-linear-to-r ${category.color} relative`}
-                                    style={{ width: `${spec.level}%` }}
-                                  >
-                                     <div className="absolute right-0 top-0 bottom-0 w-px bg-white/50 shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
-                                  </div>
-                               </div>
+
                             </div>
                           ))}
                        </div>
