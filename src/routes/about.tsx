@@ -73,11 +73,11 @@ function RouteComponent() {
 
           <div className="flex justify-between items-end border-t border-white/10 pt-6">
              <div>
-                <span className="block text-4xl font-serif text-white mb-1">05+</span>
+                <span className="block text-4xl font-serif text-white mb-1">02+</span>
                 <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">Years Experience</span>
              </div>
              <div className="text-right">
-                <span className="block text-4xl font-serif text-white mb-1">20+</span>
+                <span className="block text-4xl font-serif text-white mb-1">10+</span>
                 <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">Projects Shipped</span>
              </div>
           </div>

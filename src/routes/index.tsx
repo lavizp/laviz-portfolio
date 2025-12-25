@@ -95,7 +95,7 @@ function RouteComponent() {
          <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
            
            {/* Left: Minimal Editorial Design */}
-           <div className="order-2 lg:order-1 flex flex-col justify-center">
+           <div className="flex flex-col justify-center">
                
                <div className="mb-4 flex items-center gap-4">
                    <div className="h-px w-12 bg-indigo-500"></div>
@@ -140,7 +140,7 @@ function RouteComponent() {
            </div>
    
            {/* Right: Clean, Minimal Code Editor */}
-           <div className="order-1 lg:order-2">
+           <div>
              <div className="relative group">
                {/* Soft Shadow behind */}
                <div className="absolute -inset-4 bg-linear-to-tr from-indigo-500/10 to-purple-500/10 rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition duration-700"></div>

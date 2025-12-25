@@ -15,9 +15,8 @@ function RouteComponent() {
   };
 
   const socials = [
-    { platform: "GitHub", url: "https://github.com", handle: "github.com/laviz-pandey" },
-    { platform: "LinkedIn", url: "https://linkedin.com", handle: "linkedin.com/in/laviz" },
-    { platform: "Twitter", url: "https://twitter.com", handle: "@laviz_dev" }
+    { platform: "GitHub", url: "https://github.com/lavizp", handle: "github.com/laviz-pandey" },
+    { platform: "LinkedIn", url: "https://www.linkedin.com/in/laviz-pandey-4b8b55208/", handle: "linkedin.com/in/laviz" },
   ];
   return (
     <section className="min-h-screen pt-32 pb-20 px-4 sm:px-6 bg-brand-dark flex flex-col items-center justify-center relative overflow-hidden">
@@ -46,7 +45,7 @@ function RouteComponent() {
                 
                 <div className="flex-1 bg-[#0d1117] border border-white/10 rounded px-3 py-1.5 flex items-center gap-3 text-xs font-mono overflow-x-auto scrollbar-hide">
                    <span className="text-brand-secondary font-bold">GET</span>
-                   <span className="text-slate-500 whitespace-nowrap">https://api.laviz.dev/v1/contact</span>
+                   <span className="text-slate-500 whitespace-nowrap">https://api.lavizpandey.com.np/v1/contact</span>
                 </div>
 
                 <div className="hidden sm:block px-3 py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px] font-mono text-green-400 uppercase tracking-wider shrink-0">
@@ -81,7 +80,7 @@ function RouteComponent() {
                             onClick={() => handleCopy('laviz.dev@example.com', 'email')}
                             className="text-orange-300 hover:text-orange-200 hover:underline transition-colors decoration-dashed underline-offset-4"
                           >
-                            "laviz.dev@example.com"
+                            "pandeylaviz@gmail.com"
                           </button>
                           
                           {/* Tooltip */}

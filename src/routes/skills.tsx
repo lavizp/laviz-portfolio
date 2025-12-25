@@ -15,7 +15,7 @@ const skillCategories = [
       { name: "React / Next.js", level: 98, role: "Core Framework" },
       { name: "TypeScript", level: 95, role: "Type Safety" },
       { name: "Tailwind / CSS", level: 99, role: "Styling Engine" },
-      { name: "Three.js / R3F", level: 85, role: "3D Rendering" },
+      { name: "Zustand", level: 85, role: "State Management" },
       { name: "Framer Motion", level: 90, role: "Physics Animation" }
     ]
   },
@@ -29,7 +29,7 @@ const skillCategories = [
       { name: "Node.js / Bun", level: 92, role: "Runtime Env" },
       { name: "PostgreSQL", level: 88, role: "Primary DB" },
       { name: "GraphQL", level: 85, role: "Data Query" },
-      { name: "Docker / K8s", level: 80, role: "Containerization" },
+      { name: "Docker", level: 80, role: "Containerization" },
       { name: "Redis", level: 82, role: "Caching Layer" }
     ]
   },
@@ -44,7 +44,6 @@ const skillCategories = [
       { name: "Design Systems", level: 90, role: "Component Libs" },
       { name: "UI Motion", level: 88, role: "Micro-Interactions" },
       { name: "Accessibility", level: 85, role: "WCAG Compliance" },
-      { name: "Blender 3D", level: 70, role: "Asset Modeling" }
     ]
   }
 ];
