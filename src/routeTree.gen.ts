@@ -9,19 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TestRouteImport } from './routes/test'
-import { Route as layoutedRouteRouteImport } from './routes/(layouted)/route'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as layoutedChatIndexRouteImport } from './routes/(layouted)/chat/index'
-import { Route as layoutedBlogIndexRouteImport } from './routes/(layouted)/blog/index'
 
-const TestRoute = TestRouteImport.update({
-  id: '/test',
-  path: '/test',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const layoutedRouteRoute = layoutedRouteRouteImport.update({
-  id: '/(layouted)',
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -29,71 +22,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const layoutedChatIndexRoute = layoutedChatIndexRouteImport.update({
-  id: '/chat/',
-  path: '/chat/',
-  getParentRoute: () => layoutedRouteRoute,
-} as any)
-const layoutedBlogIndexRoute = layoutedBlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
-  getParentRoute: () => layoutedRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
-  '/blog': typeof layoutedBlogIndexRoute
-  '/chat': typeof layoutedChatIndexRoute
+  '/chat': typeof ChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
-  '/blog': typeof layoutedBlogIndexRoute
-  '/chat': typeof layoutedChatIndexRoute
+  '/chat': typeof ChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/(layouted)': typeof layoutedRouteRouteWithChildren
-  '/test': typeof TestRoute
-  '/(layouted)/blog/': typeof layoutedBlogIndexRoute
-  '/(layouted)/chat/': typeof layoutedChatIndexRoute
+  '/chat': typeof ChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test' | '/blog' | '/chat'
+  fullPaths: '/' | '/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test' | '/blog' | '/chat'
-  id:
-    | '__root__'
-    | '/'
-    | '/(layouted)'
-    | '/test'
-    | '/(layouted)/blog/'
-    | '/(layouted)/chat/'
+  to: '/' | '/chat'
+  id: '__root__' | '/' | '/chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  layoutedRouteRoute: typeof layoutedRouteRouteWithChildren
-  TestRoute: typeof TestRoute
+  ChatRoute: typeof ChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/test': {
-      id: '/test'
-      path: '/test'
-      fullPath: '/test'
-      preLoaderRoute: typeof TestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(layouted)': {
-      id: '/(layouted)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof layoutedRouteRouteImport
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -103,41 +65,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(layouted)/chat/': {
-      id: '/(layouted)/chat/'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof layoutedChatIndexRouteImport
-      parentRoute: typeof layoutedRouteRoute
-    }
-    '/(layouted)/blog/': {
-      id: '/(layouted)/blog/'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof layoutedBlogIndexRouteImport
-      parentRoute: typeof layoutedRouteRoute
-    }
   }
 }
 
-interface layoutedRouteRouteChildren {
-  layoutedBlogIndexRoute: typeof layoutedBlogIndexRoute
-  layoutedChatIndexRoute: typeof layoutedChatIndexRoute
-}
-
-const layoutedRouteRouteChildren: layoutedRouteRouteChildren = {
-  layoutedBlogIndexRoute: layoutedBlogIndexRoute,
-  layoutedChatIndexRoute: layoutedChatIndexRoute,
-}
-
-const layoutedRouteRouteWithChildren = layoutedRouteRoute._addFileChildren(
-  layoutedRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  layoutedRouteRoute: layoutedRouteRouteWithChildren,
-  TestRoute: TestRoute,
+  ChatRoute: ChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

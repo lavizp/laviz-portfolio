@@ -1,32 +1,30 @@
 // src/routes/__root.tsx
-
-// 1. Only import what is necessary for a layout/route definition
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-// Import Devtools component directly from its package
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ChatProvider } from '@/hooks/use-chat';
+import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
+import { ChatWidget } from '@/components/chat/chat-widget';
 
-// 2. Define the route without the shellComponent or head properties
 export const Route = createRootRoute({
-  // Add a component property that defines the main application layout
   component: RootLayout,
-
-  // Good practice: Define a generic error/loading component here
-  // You may need to create these components separately
-  // errorComponent: MyErrorComponent,
-  // pendingComponent: MyLoadingComponent,
 });
 
-// 3. Define a simple layout component
 function RootLayout() {
   return (
-    <>
-      <main>
-        <Outlet />
-      </main>
-
-      <footer>
-        <TanStackRouterDevtools position="bottom-right" />
-      </footer>
-    </>
+    <ThemeProvider>
+      <ChatProvider>
+        <div className="flex min-h-screen flex-col">
+          <Navbar />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+        <ChatWidget />
+        <TanStackRouterDevtools position="bottom-left" />
+      </ChatProvider>
+    </ThemeProvider>
   );
 }
