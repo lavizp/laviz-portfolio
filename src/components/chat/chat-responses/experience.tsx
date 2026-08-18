@@ -3,7 +3,7 @@ import { experience } from '@/data/portfolio';
 const ExperienceResponse = () => {
   return (
     <div>
-      <h3 className="mb-3 font-serif text-base font-semibold text-foreground">
+      <h3 className="mb-3 font-sans text-base font-extrabold text-foreground">
         Experience
       </h3>
       <div className="space-y-4">

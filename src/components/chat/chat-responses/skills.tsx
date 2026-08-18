@@ -3,7 +3,7 @@ import { skills } from '@/data/portfolio';
 const SkillsResponse = () => {
   return (
     <div>
-      <h3 className="mb-3 font-serif text-base font-semibold text-foreground">
+      <h3 className="mb-3 font-sans text-base font-extrabold text-foreground">
         Skills
       </h3>
       <div className="space-y-3">
@@ -16,7 +16,7 @@ const SkillsResponse = () => {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-border bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                  className="border border-divider bg-background px-2.5 py-1 text-xs font-medium text-secondary-foreground"
                 >
                   {item}
                 </span>

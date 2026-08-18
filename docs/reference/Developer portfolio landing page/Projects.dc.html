@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-6b6139dc-e6cb-4cf1-8860-b657e1316a43/styles.css">
+<script src="_ds/modernist-6b6139dc-e6cb-4cf1-8860-b657e1316a43/_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); text-wrap: pretty; }
+  a { color: var(--color-text); text-decoration: none; border-bottom: 2px solid var(--color-accent); padding-bottom: 1px; }
+  a:hover { color: var(--color-accent-700); }
+  a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--color-bg); font-family: var(--font-body); font-size: 16px; line-height: 28px;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding: 22px 0 20px; border-bottom: 2px solid var(--color-divider);">
+      <span style="display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; line-height: 20px; letter-spacing: 0.02em;">
+        <span style="width: 10px; height: 10px; background: var(--color-accent); flex: none;"></span>lavizp
+      </span>
+      <nav style="display: flex; gap: 22px; font-size: 12.5px; line-height: 20px; letter-spacing: 0.08em; text-transform: uppercase;">
+        <a href="Indie Dev Page.dc.html">Home</a>
+        <a href="Writing.dc.html">Writing</a>
+        <a href="#hello">Say hello</a>
+      </nav>
+    </div>
+
+    <header style="padding: clamp(48px, 9vh, 96px) 0 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px clamp(24px, 5vw, 56px); align-items: end;">
+      <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(40px, 7.6vw, 84px); line-height: 0.96; letter-spacing: -0.03em; margin: 0; margin-left: -0.058em;">Projects</h1>
+      <p style="margin: 0 0 6px; font-size: 16.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 80%, transparent); max-width: 34ch;">Three tools I maintain, and the smaller things I keep around because they still do their one job.</p>
+    </header>
+
+    <section style="padding: clamp(40px, 6vw, 64px) 0 0;">
+      <span style="display: block; font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin: 0 0 10px;">Maintained</span>
+
+      <article style="border-top: 2px solid var(--color-divider); padding: 34px 0 38px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 22px clamp(24px, 5vw, 56px); align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 13px; line-height: 14px; letter-spacing: 0.08em; color: var(--color-accent); font-feature-settings: 'tnum' 1;">01</span>
+            <span class="tag tag-outline">CLI · Node</span>
+          </div>
+          <h2 style="margin: 0; margin-left: -0.03em; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(30px, 4vw, 44px); line-height: 1.06; letter-spacing: -0.02em;">promptic</h2>
+          <p style="margin: 6px 0 0; font-size: 16.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 44ch;">Notes that live in your terminal, with an AI that has actually read them. One plaintext folder is the only source of truth — no database, no crawling, nothing to sync.</p>
+          <p style="margin: 0; font-size: 15.5px; line-height: 27px; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 44ch;">Started as a shell alias in 2024. Now the thing I open first every morning.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+          <div style="width: 100%; background: var(--color-text); color: var(--color-bg); padding: 15px 18px; display: flex; gap: 10px; font-size: 14px; line-height: 20px; overflow-wrap: anywhere;">
+            <span style="color: var(--color-accent-300); flex: none;">$</span>
+            <span>npm i -g promptic</span>
+          </div>
+          <div style="width: 100%; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 2px solid var(--color-divider); padding: 10px 0; font-size: 12.5px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 62%, transparent);"><span>Status</span><span style="color: var(--color-text);">Active</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 2px solid var(--color-divider); padding: 10px 0; font-size: 12.5px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 62%, transparent);"><span>Released</span><span style="color: var(--color-text); font-feature-settings: 'tnum' 1;">2024</span></div>
+          </div>
+          <p style="margin: 0; font-size: 13px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase;"><a href="https://github.com/lavizp">Source</a></p>
+        </div>
+      </article>
+
+      <article style="border-top: 2px solid var(--color-divider); padding: 34px 0 38px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 22px clamp(24px, 5vw, 56px); align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 13px; line-height: 14px; letter-spacing: 0.08em; color: var(--color-accent); font-feature-settings: 'tnum' 1;">02</span>
+            <span class="tag tag-outline">Web · TypeScript</span>
+          </div>
+          <h2 style="margin: 0; margin-left: -0.03em; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(30px, 4vw, 44px); line-height: 1.06; letter-spacing: -0.02em;">storymark</h2>
+          <p style="margin: 6px 0 0; font-size: 16.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 44ch;">Storybook, but for Markdown. Point it at a folder and get a browsable, live-reloading workbench for your docs — no config file, no framework opinions, no build step to learn.</p>
+          <p style="margin: 0; font-size: 15.5px; line-height: 27px; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 44ch;">Built in a weekend by cutting themes, plugins and config. That version is the one people use.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+          <div style="width: 100%; background: var(--color-text); color: var(--color-bg); padding: 15px 18px; display: flex; gap: 10px; font-size: 14px; line-height: 20px; overflow-wrap: anywhere;">
+            <span style="color: var(--color-accent-300); flex: none;">$</span>
+            <span>npx storymark ./docs</span>
+          </div>
+          <div style="width: 100%; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 2px solid var(--color-divider); padding: 10px 0; font-size: 12.5px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 62%, transparent);"><span>Status</span><span style="color: var(--color-text);">Active</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 2px solid var(--color-divider); padding: 10px 0; font-size: 12.5px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 62%, transparent);"><span>Released</span><span style="color: var(--color-text); font-feature-settings: 'tnum' 1;">2025</span></div>
+          </div>
+          <p style="margin: 0; font-size: 13px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase;"><a href="https://storymark.lavizpandey.com.np/">Live site</a></p>
+        </div>
+      </article>
+
+      <article style="border-top: 2px solid var(--color-divider); border-bottom: 2px solid var(--color-divider); padding: 34px 0 38px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 22px clamp(24px, 5vw, 56px); align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 13px; line-height: 14px; letter-spacing: 0.08em; color: var(--color-accent); font-feature-settings: 'tnum' 1;">03</span>
+            <span class="tag tag-outline">CLI · TypeScript</span>
+          </div>
+          <h2 style="margin: 0; margin-left: -0.03em; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(30px, 4vw, 44px); line-height: 1.06; letter-spacing: -0.02em;">confseal</h2>
+          <p style="margin: 6px 0 0; font-size: 16.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 44ch;">An .env manager for people who have twelve of them. Encrypt, share and switch environment files per project — and never paste a secret into chat again.</p>
+          <p style="margin: 0; font-size: 15.5px; line-height: 27px; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 44ch;">Written after losing a staging config for the third time. Age-based encryption, no accounts.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+          <div style="width: 100%; background: var(--color-text); color: var(--color-bg); padding: 15px 18px; display: flex; gap: 10px; font-size: 14px; line-height: 20px; overflow-wrap: anywhere;">
+            <span style="color: var(--color-accent-300); flex: none;">$</span>
+            <span>confseal pull staging</span>
+          </div>
+          <div style="width: 100%; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 2px solid var(--color-divider); padding: 10px 0; font-size: 12.5px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 62%, transparent);"><span>Status</span><span style="color: var(--color-text);">Active</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 2px solid var(--color-divider); padding: 10px 0; font-size: 12.5px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 62%, transparent);"><span>Released</span><span style="color: var(--color-text); font-feature-settings: 'tnum' 1;">2026</span></div>
+          </div>
+          <p style="margin: 0; font-size: 13px; line-height: 20px; letter-spacing: 0.06em; text-transform: uppercase;"><a href="https://github.com/lavizp">Source</a></p>
+        </div>
+      </article>
+    </section>
+
+    <section style="padding: clamp(40px, 6vw, 60px) 0 0;">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px 32px; margin: 0 0 10px;">
+        <span style="font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Smaller things</span>
+        <span style="font-size: 12.5px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Unmaintained, still useful</span>
+      </div>
+
+      <div style="border-top: 2px solid var(--color-divider); display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 6px clamp(20px, 4vw, 44px); align-items: baseline; padding: 18px 0;">
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px; line-height: 26px; letter-spacing: -0.01em;">tsconf-doctor</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 26px; color: color-mix(in srgb, var(--color-text) 76%, transparent);">Explains your tsconfig back to you in plain sentences.</p>
+      </div>
+
+      <div style="border-top: 2px solid var(--color-divider); display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 6px clamp(20px, 4vw, 44px); align-items: baseline; padding: 18px 0;">
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px; line-height: 26px; letter-spacing: -0.01em;">mdlint-min</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 26px; color: color-mix(in srgb, var(--color-text) 76%, transparent);">Six Markdown rules. The only six I have ever agreed with.</p>
+      </div>
+
+      <div style="border-top: 2px solid var(--color-divider); border-bottom: 2px solid var(--color-divider); display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 6px clamp(20px, 4vw, 44px); align-items: baseline; padding: 18px 0;">
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px; line-height: 26px; letter-spacing: -0.01em;">dotfiles</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 26px; color: color-mix(in srgb, var(--color-text) 76%, transparent);">Nothing clever. Copy whatever is useful.</p>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; padding: clamp(36px, 5vw, 52px) 0 0;">
+      <a href="Indie Dev Page.dc.html" class="btn btn-ghost" style="border-bottom-width: 2px;">← Back home</a>
+      <a href="Writing.dc.html" class="btn btn-ghost" style="border-bottom-width: 2px;">Writing →</a>
+    </div>
+
+  </div>
+
+  <section id="hello" style="background: var(--color-neutral-900); color: var(--color-bg); margin-top: clamp(56px, 8vw, 88px);">
+    <div style="max-width: 900px; margin: 0 auto; padding: clamp(48px, 8vw, 76px) clamp(20px, 5vw, 56px);">
+      <span style="display: block; width: 12px; height: 12px; background: var(--color-accent); margin: 0 0 24px;"></span>
+      <h2 style="margin: 0; margin-left: -0.058em; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(28px, 4vw, 46px); line-height: 1.06; letter-spacing: -0.015em;"><span style="display: block;">Want one of these</span><span style="display: block;">built for your team?</span></h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 30px; font-size: 15px; line-height: 24px; letter-spacing: 0.06em; text-transform: uppercase;">
+        <a href="mailto:hello@lavizpandey.com.np" style="color: var(--color-bg); border-bottom-color: var(--color-bg); overflow-wrap: anywhere;">hello@lavizpandey.com.np</a>
+        <a href="https://github.com/lavizp" style="color: var(--color-bg); border-bottom-color: var(--color-bg);">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+    <footer style="padding: 40px 0 56px; font-size: 13px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Hand-written HTML, no trackers. Three tools, six experiments, one inbox.</footer>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

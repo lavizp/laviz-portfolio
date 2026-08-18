@@ -3,7 +3,7 @@ import { skills } from '@/data/portfolio';
 const TechStackResponse = () => {
   return (
     <div>
-      <h3 className="mb-3 font-serif text-base font-semibold text-foreground">
+      <h3 className="mb-3 font-sans text-base font-extrabold text-foreground">
         Tech stack
       </h3>
       <div className="space-y-3">
@@ -16,7 +16,7 @@ const TechStackResponse = () => {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-brand/30 bg-brand/10 px-2.5 py-1 text-xs font-medium text-brand"
+                  className="border border-brand/30 bg-brand-100 px-2.5 py-1 text-xs font-medium text-brand"
                 >
                   {item}
                 </span>

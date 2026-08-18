@@ -1,17 +1,14 @@
 import { useState } from 'react';
+import { Link } from '@tanstack/react-router';
 import { Menu, Sparkles, X } from 'lucide-react';
-import { profile } from '@/data/portfolio';
 import { useChat } from '@/hooks/use-chat';
 import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Writing', to: '/writing' },
 ];
 
 export function Navbar() {
@@ -19,35 +16,41 @@ export function Navbar() {
   const { openChat } = useChat();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-        <a
-          href="#top"
-          className="font-serif text-lg font-semibold tracking-tight text-foreground"
+    <header className="sticky top-0 z-40 border-b-2 border-divider bg-background">
+      <div className="mx-auto flex h-[62px] max-w-[900px] items-center justify-between px-[clamp(20px,5vw,56px)]">
+        <Link
+          to="/"
+          className="flex items-center gap-2.5 font-sans text-[15px] font-extrabold tracking-[0.02em] text-foreground"
         >
-          {profile.name}
-          <span className="text-brand">.</span>
-        </a>
+          <span aria-hidden className="size-2.5 flex-none bg-brand" />
+          lavizp
+        </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="modernist-label hidden items-center gap-[22px] text-foreground md:flex">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            <Link
+              key={link.to}
+              to={link.to}
+              className="border-b-2 border-transparent text-foreground/70 transition-colors hover:border-brand hover:text-foreground"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
+          <a
+            href="#hello"
+            className="border-b-2 border-transparent text-foreground/70 transition-colors hover:border-brand hover:text-foreground"
+          >
+            Say hello
+          </a>
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
           <Button
             onClick={() => openChat()}
-            className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
             size="sm"
+            className="bg-brand text-brand-foreground hover:bg-brand-600"
           >
             <Sparkles className="size-3.5" />
             Ask my AI
@@ -62,7 +65,6 @@ export function Navbar() {
             size="icon"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
-            className="rounded-full"
           >
             {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
@@ -72,27 +74,34 @@ export function Navbar() {
       {/* Mobile menu */}
       <div
         className={cn(
-          'overflow-hidden border-border/60 transition-[max-height,opacity] duration-300 md:hidden',
-          mobileOpen ? 'max-h-96 border-t opacity-100' : 'max-h-0 opacity-0',
+          'overflow-hidden border-divider transition-[max-height,opacity] duration-300 md:hidden',
+          mobileOpen ? 'max-h-96 border-t-2 opacity-100' : 'max-h-0 opacity-0',
         )}
       >
-        <nav className="flex flex-col gap-1 px-6 py-4">
+        <nav className="flex flex-col gap-1 px-[clamp(20px,5vw,56px)] py-4">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <Link
+              key={link.to}
+              to={link.to}
               onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              className="modernist-label border-b border-divider py-3 text-foreground/70 transition-colors hover:text-brand"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
+          <a
+            href="#hello"
+            onClick={() => setMobileOpen(false)}
+            className="modernist-label border-b border-divider py-3 text-foreground/70 transition-colors hover:text-brand"
+          >
+            Say hello
+          </a>
           <Button
             onClick={() => {
               setMobileOpen(false);
               openChat();
             }}
-            className="mt-2 rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+            className="mt-3 bg-brand text-brand-foreground hover:bg-brand-600"
             size="sm"
           >
             <Sparkles className="size-3.5" />

@@ -37,7 +37,7 @@ export function ChatWidget() {
               onClick={() => openChat()}
               size="lg"
               aria-label="Open AI chat"
-              className="group size-14 rounded-full bg-brand p-0 text-brand-foreground shadow-lg shadow-brand/30 hover:bg-brand/90"
+              className="group size-14 bg-brand p-0 text-brand-foreground shadow-md hover:bg-brand-600"
             >
               <Sparkles className="size-6 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
             </Button>
@@ -62,16 +62,16 @@ export function ChatWidget() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 24, scale: 0.98 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-50 flex flex-col bg-background sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[600px] sm:max-h-[calc(100vh-3rem)] sm:w-[400px] sm:rounded-3xl sm:border sm:border-border sm:shadow-2xl sm:shadow-black/10"
+              className="fixed inset-0 z-50 flex flex-col bg-background sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[600px] sm:max-h-[calc(100vh-3rem)] sm:w-[400px] sm:border-2 sm:border-divider sm:shadow-lg"
             >
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-border px-4 py-3">
+              <div className="flex items-center justify-between border-b-2 border-divider px-4 py-3">
                 <div className="flex items-center gap-2.5">
-                  <span className="flex size-8 items-center justify-center rounded-full bg-brand/10 text-brand">
+                  <span className="flex size-8 items-center justify-center bg-brand-100 text-brand">
                     <Sparkles className="size-4" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">
+                    <p className="font-sans text-sm font-extrabold text-foreground">
                       {profile.firstName}'s AI
                     </p>
                     <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
@@ -86,7 +86,7 @@ export function ChatWidget() {
                       size="icon"
                       onClick={resetMessages}
                       aria-label="Reset conversation"
-                      className="size-8 rounded-full text-muted-foreground hover:text-foreground"
+                      className="size-8 text-muted-foreground hover:text-foreground"
                     >
                       <RotateCcw className="size-4" />
                     </Button>
@@ -96,7 +96,7 @@ export function ChatWidget() {
                     size="icon"
                     onClick={closeChat}
                     aria-label="Close chat"
-                    className="size-8 rounded-full text-muted-foreground hover:text-foreground"
+                    className="size-8 text-muted-foreground hover:text-foreground"
                   >
                     <X className="size-4" />
                   </Button>

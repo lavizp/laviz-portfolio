@@ -11,7 +11,7 @@ const iconMap = {
 const ContactResponse = () => {
   return (
     <div>
-      <h3 className="mb-3 font-serif text-base font-semibold text-foreground">
+      <h3 className="mb-3 font-sans text-base font-extrabold text-foreground">
         Get in touch
       </h3>
       <div className="space-y-1">
@@ -23,9 +23,9 @@ const ContactResponse = () => {
               href={contact.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-accent"
+              className="group flex items-center gap-3 border-b border-divider p-2 transition-colors last:border-0 hover:bg-accent"
             >
-              <span className="flex size-8 items-center justify-center rounded-lg bg-brand/10 text-brand">
+              <span className="flex size-8 items-center justify-center bg-brand-100 text-brand">
                 <Icon className="size-4" />
               </span>
               <span className="min-w-0 flex-1">

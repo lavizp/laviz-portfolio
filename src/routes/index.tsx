@@ -3,10 +3,8 @@ import { useEffect } from 'react';
 import { useChat } from '@/hooks/use-chat';
 import { Hero } from '@/components/sections/hero';
 import { About } from '@/components/sections/about';
-import { Experience } from '@/components/sections/experience';
 import { Projects } from '@/components/sections/projects';
-import { Skills } from '@/components/sections/skills';
-import { Contact } from '@/components/sections/contact';
+import { Writing } from '@/components/sections/writing';
 
 export const Route = createFileRoute('/')({
   validateSearch: (search) => ({
@@ -30,12 +28,12 @@ function HomePage() {
 
   return (
     <>
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Contact />
+      <div className="mx-auto max-w-[900px] px-[clamp(20px,5vw,56px)]">
+        <Hero />
+        <About />
+        <Projects />
+        <Writing />
+      </div>
     </>
   );
 }

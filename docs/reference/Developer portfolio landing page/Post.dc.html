@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-6b6139dc-e6cb-4cf1-8860-b657e1316a43/styles.css">
+<script src="_ds/modernist-6b6139dc-e6cb-4cf1-8860-b657e1316a43/_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); text-wrap: pretty; }
+  a { color: var(--color-text); text-decoration: none; border-bottom: 2px solid var(--color-accent); padding-bottom: 1px; }
+  a:hover { color: var(--color-accent-700); }
+  a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--color-bg); font-family: var(--font-body); font-size: 16px; line-height: 28px;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding: 22px 0 20px; border-bottom: 2px solid var(--color-divider);">
+      <span style="display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; line-height: 20px; letter-spacing: 0.02em;">
+        <span style="width: 10px; height: 10px; background: var(--color-accent); flex: none;"></span>lavizp
+      </span>
+      <nav style="display: flex; gap: 22px; font-size: 12.5px; line-height: 20px; letter-spacing: 0.08em; text-transform: uppercase;">
+        <a href="Indie Dev Page.dc.html">Home</a>
+        <a href="Writing.dc.html">Writing</a>
+        <a href="Projects.dc.html">Projects</a>
+      </nav>
+    </div>
+
+    <article style="padding: clamp(44px, 8vh, 84px) 0 0;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin: 0 0 22px; font-size: 12.5px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); font-feature-settings: 'tnum' 1;">
+        <span>12 June 2026</span>
+        <span style="width: 8px; height: 8px; background: var(--color-accent); flex: none;"></span>
+        <span>7 min read</span>
+        <span style="width: 8px; height: 8px; background: var(--color-accent); flex: none;"></span>
+        <span>Tools</span>
+      </div>
+
+      <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(34px, 5.6vw, 62px); line-height: 1.02; letter-spacing: -0.03em; margin: 0; margin-left: -0.058em; max-width: 22ch;">Why my CLI tools are boring on purpose</h1>
+
+      <p style="margin: clamp(24px, 4vw, 36px) 0 0; font-size: 19px; line-height: 32px; max-width: 46ch; color: color-mix(in srgb, var(--color-text) 88%, transparent);">Flags you can guess, output you can pipe, and no spinner that hides what went wrong. A short defence of tools that behave like the ones from 1994.</p>
+
+      <hr style="height: 2px; border: 0; margin: clamp(32px, 5vw, 48px) 0 0; background: var(--color-divider);" />
+
+      <div style="display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 0 clamp(24px, 5vw, 56px); align-items: start; padding: clamp(32px, 5vw, 44px) 0 0;">
+        <aside style="display: flex; flex-direction: column; gap: 10px; position: sticky; top: 24px;">
+          <span style="font-size: 12px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">In this post</span>
+          <a href="#one" style="font-size: 14px; line-height: 24px; border-bottom-color: color-mix(in srgb, var(--color-accent) 45%, transparent);">The cost of delight</a>
+          <a href="#two" style="font-size: 14px; line-height: 24px; border-bottom-color: color-mix(in srgb, var(--color-accent) 45%, transparent);">Guessable flags</a>
+          <a href="#three" style="font-size: 14px; line-height: 24px; border-bottom-color: color-mix(in srgb, var(--color-accent) 45%, transparent);">Fail loudly</a>
+        </aside>
+
+        <div style="display: flex; flex-direction: column; gap: 28px; max-width: 62ch;">
+          <p style="margin: 0; font-size: 17px; line-height: 30px;">Every tool I have written started with a moment of irritation: something that should have taken one command took nine minutes and a browser tab. The fix is rarely clever. It is usually a smaller program that does exactly one thing and then gets out of the way.</p>
+
+          <h2 id="one" style="margin: 12px 0 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(24px, 2.8vw, 30px); line-height: 1.14; letter-spacing: -0.015em;">The cost of delight</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 30px;">Animated progress bars are lovely until the process hangs and you have no idea which of eleven steps you are on. Colour is lovely until it lands in a log file as escape codes. Most of what we call polish in a CLI is decoration paid for by the person debugging it at 2am — often me, six months later.</p>
+          <p style="margin: 0; font-size: 17px; line-height: 30px; color: color-mix(in srgb, var(--color-text) 82%, transparent);">So <a href="Projects.dc.html">promptic</a> prints lines. One per thing that happened, in the order it happened, with a timestamp when it matters.</p>
+
+          <figure style="margin: 8px 0; padding: 0;">
+            <div style="background: var(--color-text); color: var(--color-bg); padding: 20px 22px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 24px; overflow-wrap: anywhere;">
+              <span><span style="color: var(--color-accent-300);">$</span> promptic add "boring tools ship"</span>
+              <span style="color: color-mix(in srgb, var(--color-bg) 70%, transparent);">wrote notes/2026-06-12.md (+1 line)</span>
+              <span style="color: color-mix(in srgb, var(--color-bg) 70%, transparent);">indexed in 12ms</span>
+            </div>
+            <figcaption style="margin: 12px 0 0; font-size: 13px; line-height: 22px; color: color-mix(in srgb, var(--color-text) 62%, transparent);">Two lines of output. Both greppable, both true.</figcaption>
+          </figure>
+
+          <h2 id="two" style="margin: 12px 0 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(24px, 2.8vw, 30px); line-height: 1.14; letter-spacing: -0.015em;">Guessable flags</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 30px;">If a user has to read the help text twice, the naming is wrong. I steal from tools people already know — <em>--dry-run</em>, <em>--json</em>, <em>-v</em> — because familiarity is a feature nobody has to document.</p>
+
+          <blockquote style="margin: 12px 0; padding: 0 0 0 24px; border-left: 2px solid var(--color-accent); font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(20px, 2.4vw, 26px); line-height: 1.3; letter-spacing: -0.015em; max-width: 34ch;">A tool that surprises you once has a bug. A tool that surprises you twice has a design.</blockquote>
+
+          <h2 id="three" style="margin: 12px 0 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(24px, 2.8vw, 30px); line-height: 1.14; letter-spacing: -0.015em;">Fail loudly, exit honestly</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 30px;">Non-zero exit codes, errors on stderr, and never a caught exception that pretends everything is fine. <a href="Projects.dc.html">confseal</a> refuses to write a partial env file; it would rather stop and tell you which key it could not decrypt.</p>
+          <p style="margin: 0; font-size: 17px; line-height: 30px; color: color-mix(in srgb, var(--color-text) 82%, transparent);">None of this is innovation. It is just the boring contract that lets a small tool live in someone else's pipeline for years without maintenance — which is the only kind of success an evening project can really have.</p>
+        </div>
+      </div>
+    </article>
+
+    <div style="border-top: 2px solid var(--color-divider); margin: clamp(44px, 6vw, 64px) 0 0; padding: 26px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px clamp(24px, 5vw, 56px);">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 12px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Previous</span>
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px; line-height: 26px; letter-spacing: -0.01em;"><a href="Post.dc.html">Typing the untypeable: generics I regret</a></h3>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 12px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Next</span>
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px; line-height: 26px; letter-spacing: -0.01em;"><a href="Post.dc.html">A local AI that only reads my notes</a></h3>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; padding: clamp(32px, 5vw, 44px) 0 0;">
+      <a href="Writing.dc.html" class="btn btn-ghost" style="border-bottom-width: 2px;">← All writing</a>
+    </div>
+
+  </div>
+
+  <section id="hello" style="background: var(--color-neutral-900); color: var(--color-bg); margin-top: clamp(56px, 8vw, 88px);">
+    <div style="max-width: 900px; margin: 0 auto; padding: clamp(48px, 8vw, 76px) clamp(20px, 5vw, 56px);">
+      <span style="display: block; width: 12px; height: 12px; background: var(--color-accent); margin: 0 0 24px;"></span>
+      <h2 style="margin: 0; margin-left: -0.058em; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(28px, 4vw, 46px); line-height: 1.06; letter-spacing: -0.015em;"><span style="display: block;">Disagree with this?</span><span style="display: block;">Write to me — I like that.</span></h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 30px; font-size: 15px; line-height: 24px; letter-spacing: 0.06em; text-transform: uppercase;">
+        <a href="mailto:hello@lavizpandey.com.np" style="color: var(--color-bg); border-bottom-color: var(--color-bg); overflow-wrap: anywhere;">hello@lavizpandey.com.np</a>
+        <a href="https://github.com/lavizp" style="color: var(--color-bg); border-bottom-color: var(--color-bg);">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+    <footer style="padding: 40px 0 56px; font-size: 13px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Hand-written HTML, no trackers. Comments happen by email.</footer>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

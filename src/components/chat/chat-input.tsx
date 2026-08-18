@@ -15,7 +15,7 @@ const ChatInput = () => {
   };
 
   return (
-    <div className="border-t border-border bg-card p-3">
+    <div className="border-t-2 border-divider bg-background p-3">
       <div className="flex items-center gap-2">
         <Input
           value={value}
@@ -27,14 +27,14 @@ const ChatInput = () => {
             }
           }}
           placeholder="Ask me anything..."
-          className="h-10 flex-1 rounded-full border-border bg-background px-4 text-sm focus-visible:ring-brand/40"
+          className="h-10 flex-1 border bg-card px-4 text-sm focus-visible:border-brand"
         />
         <Button
           size="icon"
           onClick={submit}
           disabled={!value.trim() || isLoading}
           aria-label="Send message"
-          className="size-10 shrink-0 rounded-full bg-brand text-brand-foreground hover:bg-brand/90"
+          className="size-10 shrink-0 bg-brand text-brand-foreground hover:bg-brand-600"
         >
           <SendHorizonal className="size-4" />
         </Button>
