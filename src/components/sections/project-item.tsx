@@ -58,15 +58,27 @@ export function ProjectItem({
             </div>
           </div>
         )}
-        <p className="modernist-label m-0">
-          <a
-            href={project.linkHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-b-2 border-brand pb-px text-foreground hover:text-brand-700"
-          >
-            {project.linkLabel}
-          </a>
+        <p className="modernist-label m-0 flex flex-wrap gap-x-5 gap-y-2">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-b-2 border-brand pb-px text-foreground hover:text-brand-700"
+            >
+              Source
+            </a>
+          )}
+          {project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-b-2 border-brand pb-px text-foreground hover:text-brand-700"
+            >
+              Live site
+            </a>
+          )}
         </p>
       </div>
     </article>

@@ -40,19 +40,19 @@ export function Footer() {
 
   return (
     <>
-      <section id="hello" className="bg-neutral-900 text-background">
+      <section id="hello" className="bg-neutral-900 text-[#f3f2f2]">
         <div className="mx-auto max-w-[900px] px-[clamp(20px,5vw,56px)] py-[clamp(56px,9vw,84px)]">
           <span aria-hidden className="mb-[26px] block size-3 bg-brand" />
           <h2 className="ml-[-0.058em] m-0 font-sans text-[clamp(30px,4.4vw,52px)] font-extrabold leading-[1.06] tracking-[-0.015em]">
             <span className="block">{copy.banner[0]}</span>
             <span className="block">{copy.banner[1]}</span>
           </h2>
-          <div className="modernist-label mt-[34px] flex flex-wrap gap-[14px_28px] text-[15px] leading-6 text-background">
+          <div className="modernist-label mt-[34px] flex flex-wrap gap-[14px_28px] text-[15px] leading-6 text-[#f3f2f2]">
             {bannerLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="border-b-2 border-background pb-px text-background [overflow-wrap:anywhere] hover:border-brand-300 hover:text-brand-300"
+                className="border-b-2 border-[#f3f2f2] pb-px text-[#f3f2f2] [overflow-wrap:anywhere] hover:border-brand-300 hover:text-brand-300"
               >
                 {link.label}
               </a>

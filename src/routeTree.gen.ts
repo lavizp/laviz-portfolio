@@ -13,6 +13,7 @@ import { Route as WritingRouteImport } from './routes/writing'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WritingIndexRouteImport } from './routes/writing/index'
 import { Route as WritingPostRouteImport } from './routes/writing.$post'
 
 const WritingRoute = WritingRouteImport.update({
@@ -35,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WritingIndexRoute = WritingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WritingRoute,
+} as any)
 const WritingPostRoute = WritingPostRouteImport.update({
   id: '/$post',
   path: '/$post',
@@ -47,13 +53,14 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
   '/writing/$post': typeof WritingPostRoute
+  '/writing/': typeof WritingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
   '/projects': typeof ProjectsRoute
-  '/writing': typeof WritingRouteWithChildren
   '/writing/$post': typeof WritingPostRoute
+  '/writing': typeof WritingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +69,27 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
   '/writing/$post': typeof WritingPostRoute
+  '/writing/': typeof WritingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chat' | '/projects' | '/writing' | '/writing/$post'
+  fullPaths:
+    | '/'
+    | '/chat'
+    | '/projects'
+    | '/writing'
+    | '/writing/$post'
+    | '/writing/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/projects' | '/writing' | '/writing/$post'
-  id: '__root__' | '/' | '/chat' | '/projects' | '/writing' | '/writing/$post'
+  to: '/' | '/chat' | '/projects' | '/writing/$post' | '/writing'
+  id:
+    | '__root__'
+    | '/'
+    | '/chat'
+    | '/projects'
+    | '/writing'
+    | '/writing/$post'
+    | '/writing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -108,6 +129,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/writing/': {
+      id: '/writing/'
+      path: '/'
+      fullPath: '/writing/'
+      preLoaderRoute: typeof WritingIndexRouteImport
+      parentRoute: typeof WritingRoute
+    }
     '/writing/$post': {
       id: '/writing/$post'
       path: '/$post'
@@ -120,10 +148,12 @@ declare module '@tanstack/react-router' {
 
 interface WritingRouteChildren {
   WritingPostRoute: typeof WritingPostRoute
+  WritingIndexRoute: typeof WritingIndexRoute
 }
 
 const WritingRouteChildren: WritingRouteChildren = {
   WritingPostRoute: WritingPostRoute,
+  WritingIndexRoute: WritingIndexRoute,
 }
 
 const WritingRouteWithChildren =

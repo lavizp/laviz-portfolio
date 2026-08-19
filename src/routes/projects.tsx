@@ -55,14 +55,40 @@ function ProjectsPage() {
             <h3 className="m-0 font-sans text-[18px] font-extrabold leading-[26px] tracking-[-0.01em]">
               {item.title}
             </h3>
-            <p className="m-0 text-[15px] leading-[26px] text-foreground/76">
-              {item.description}
-            </p>
+            <div className="flex flex-col gap-1">
+              <p className="m-0 text-[15px] leading-[26px] text-foreground/76">
+                {item.description}
+              </p>
+              {(item.github || item.demo) && (
+                <div className="modernist-label flex flex-wrap gap-x-5 gap-y-1 pt-1 text-foreground/60">
+                  {item.github && (
+                    <a
+                      href={item.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border-b border-foreground/40 pb-px text-foreground/80 hover:border-brand hover:text-brand"
+                    >
+                      Source
+                    </a>
+                  )}
+                  {item.demo && (
+                    <a
+                      href={item.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border-b border-foreground/40 pb-px text-foreground/80 hover:border-brand hover:text-brand"
+                    >
+                      Live
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </section>
 
-      <div className="flex flex-wrap gap-4 pt-[clamp(36px,5vw,52px)]">
+      <div className="flex flex-wrap gap-4 pb-[clamp(36px,5vw,52px)] pt-[clamp(36px,5vw,52px)]">
         <Link to="/" className={ghostLink}>
           ← Back home
         </Link>

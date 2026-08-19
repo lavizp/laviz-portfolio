@@ -49,7 +49,7 @@ function PostPage() {
         <hr className="mt-[clamp(32px,5vw,48px)] h-0.5 border-0 bg-divider" />
 
         <div className="grid grid-cols-1 items-start gap-y-10 pt-[clamp(32px,5vw,44px)] sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:gap-[0_clamp(24px,5vw,56px)]">
-          <aside className="flex flex-col gap-2.5 sm:sticky sm:top-6">
+          <aside className="flex flex-col gap-2.5 sm:sticky sm:top-[72px]">
             <span className="modernist-label text-foreground/55">
               In this post
             </span>
@@ -155,7 +155,7 @@ function PostPage() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-4 pt-[clamp(32px,5vw,44px)]">
+      <div className="flex flex-wrap gap-4 pb-[clamp(32px,5vw,44px)] pt-[clamp(32px,5vw,44px)]">
         <Link to="/writing" className={ghostLink}>
           ← All writing
         </Link>

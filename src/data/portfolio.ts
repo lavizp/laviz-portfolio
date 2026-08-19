@@ -57,6 +57,8 @@ export interface Project {
 export interface SmallerProject {
   title: string;
   description: string;
+  github?: string;
+  demo?: string;
 }
 
 export interface PostSection {
@@ -130,14 +132,14 @@ export const socials: Social[] = [
   },
   {
     label: 'Email',
-    handle: 'hello@lavizpandey.com.np',
-    href: 'mailto:hello@lavizpandey.com.np',
+    handle: 'pandeylaviz@gmail.com',
+    href: 'mailto:pandeylaviz@gmail.com',
     icon: 'mail',
   },
 ];
 
 export const stats: Stat[] = [
-  { label: 'Building since', value: '2019' },
+  { label: 'Building since', value: '2021' },
   { label: 'Mostly writes', value: 'TypeScript' },
   { label: 'Ships to', value: 'npm & the web' },
 ];
@@ -224,16 +226,20 @@ export const projects: Project[] = [
 
 export const smallerProjects: SmallerProject[] = [
   {
-    title: 'tsconf-doctor',
-    description: 'Explains your tsconfig back to you in plain sentences.',
+    title: 'Spot The Code',
+    description: 'Programmer style Geoguesser Clone',
+    github: 'https://github.com/lavizp/spot-the-code',
+    demo: 'https://spot-the-code-web.vercel.app'
   },
   {
-    title: 'mdlint-min',
-    description: 'Six Markdown rules. The only six I have ever agreed with.',
+    title: 'Perplexvillage',
+    description: 'A perplexity Clone(AI Chatbot)',
+    github: 'https://github.com/lavizp/perplexvillage',
   },
   {
     title: 'dotfiles',
     description: 'Nothing clever. Copy whatever is useful.',
+    github: 'https://github.com/lavizp',
   },
 ];
 

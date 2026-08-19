@@ -2,7 +2,7 @@ import { profile, stats } from '@/data/portfolio';
 
 export function Hero() {
   return (
-    <header id="top" className="flex flex-col items-start">
+    <header id="top" className="flex flex-col items-start pt-[clamp(28px,5vh,48px)]">
       <h1 className="ml-[-0.058em] max-w-[12ch] font-sans text-[clamp(44px,9.4vw,104px)] font-extrabold leading-[0.94] tracking-[-0.035em]">
         {profile.name.split(' ')[0]}
         <br />
