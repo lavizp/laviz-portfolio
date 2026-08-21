@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import type { WritingPost } from '@/data/portfolio';
+import type { WritingPost } from '@/lib/posts';
 
 interface PostRowProps {
   post: WritingPost;

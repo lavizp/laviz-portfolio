@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { writing } from '@/data/portfolio';
+import { writing } from '@/lib/posts';
 import { PostRow } from '@/components/sections/post-row';
 
 export function Writing() {

@@ -1,6 +1,7 @@
 import { createFileRoute, Link, redirect } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { writing } from '@/data/portfolio';
+import { groupSections, writing } from '@/lib/posts';
+import type { InlineSpan, PostBlock } from '@/lib/posts';
 
 export const Route = createFileRoute('/writing/$post')({
   beforeLoad: ({ params }) => {
@@ -14,12 +15,114 @@ export const Route = createFileRoute('/writing/$post')({
 const ghostLink =
   'inline-flex items-center gap-1.5 border-b-2 border-brand pb-px font-sans text-sm font-semibold text-brand hover:text-brand-700';
 
+function Inline({ spans }: { spans: InlineSpan[] }) {
+  return (
+    <>
+      {spans.map((span, index) => {
+        switch (span.type) {
+          case 'strong':
+            return (
+              <strong key={index} className="font-semibold text-foreground">
+                {span.text}
+              </strong>
+            );
+          case 'em':
+            return <em key={index}>{span.text}</em>;
+          case 'code':
+            return (
+              <code
+                key={index}
+                className="rounded-sm bg-foreground/[0.07] px-1 py-0.5 font-mono text-[15px]"
+              >
+                {span.text}
+              </code>
+            );
+          case 'link':
+            return (
+              <a
+                key={index}
+                href={span.href}
+                target="_blank"
+                rel="noreferrer"
+                className="border-b border-brand/45 pb-px transition-colors hover:text-brand-700"
+              >
+                {span.text}
+              </a>
+            );
+          case 'del':
+            return <del key={index}>{span.text}</del>;
+          default:
+            return <span key={index}>{span.text}</span>;
+        }
+      })}
+    </>
+  );
+}
+
+function Block({ block, index }: { block: PostBlock; index: number }) {
+  switch (block.type) {
+    case 'paragraph':
+      return (
+        <p
+          className={`m-0 mt-4 text-[17px] leading-[30px] ${
+            index > 0 ? 'text-foreground/82' : ''
+          }`}
+        >
+          <Inline spans={block.spans} />
+        </p>
+      );
+    case 'code':
+      return (
+        <figure className="m-0 mt-6">
+          <div className="flex flex-col gap-1.5 bg-foreground px-[22px] py-5 text-[14px] leading-6 text-background [overflow-wrap:anywhere]">
+            {block.lines.map((line, lineIndex) =>
+              line.startsWith('$') ? (
+                <span key={lineIndex}>
+                  <span className="text-brand-300">$</span>
+                  {line.slice(1)}
+                </span>
+              ) : (
+                <span key={lineIndex} className="text-background/70">
+                  {line}
+                </span>
+              ),
+            )}
+          </div>
+          {block.caption && (
+            <figcaption className="mt-3 text-[13px] leading-[22px] text-foreground/62">
+              {block.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    case 'blockquote':
+      return (
+        <blockquote className="mt-4 max-w-[34ch] border-l-2 border-brand pl-6 font-sans text-[clamp(20px,2.4vw,26px)] font-extrabold leading-[1.3] tracking-[-0.015em]">
+          <Inline spans={block.spans} />
+        </blockquote>
+      );
+    case 'list':
+      return (
+        <ul className="m-0 mt-4 flex list-disc flex-col gap-2 pl-5 text-[17px] leading-[30px] text-foreground/82 marker:text-brand">
+          {block.items.map((item, itemIndex) => (
+            <li key={itemIndex}>
+              <Inline spans={item} />
+            </li>
+          ))}
+        </ul>
+      );
+    default:
+      return null;
+  }
+}
+
 function PostPage() {
   const { post: slug } = Route.useParams();
   const index = writing.findIndex((post) => post.slug === slug);
-  const post = writing[index];
+  const post = writing[index]!;
   const previous = index > 0 ? writing[index - 1] : undefined;
   const next = index < writing.length - 1 ? writing[index + 1] : undefined;
+  const sections = groupSections(post.blocks);
 
   useEffect(() => {
     document.title = `${post.title} — lavizp`;
@@ -53,67 +156,35 @@ function PostPage() {
             <span className="modernist-label text-foreground/55">
               In this post
             </span>
-            {post.sections.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                className="border-b border-brand/45 pb-px text-[14px] leading-6 text-foreground/70 transition-colors hover:text-brand-700"
-              >
-                {section.heading}
-              </a>
-            ))}
+            {sections.map(
+              (section) =>
+                section.heading &&
+                section.id && (
+                  <a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    className="border-b border-brand/45 pb-px text-[14px] leading-6 text-foreground/70 transition-colors hover:text-brand-700"
+                  >
+                    {section.heading}
+                  </a>
+                ),
+            )}
           </aside>
 
           <div className="flex max-w-[62ch] flex-col gap-7">
-            {post.sections.map((section, sectionIndex) => (
-              <div key={section.id}>
-                <h2
-                  id={section.id}
-                  className="mt-3 m-0 scroll-mt-24 font-sans text-[clamp(24px,2.8vw,30px)] font-extrabold leading-[1.14] tracking-[-0.015em]"
-                >
-                  {section.heading}
-                </h2>
-                {section.paragraphs.map((paragraph, paragraphIndex) => (
-                  <p
-                    key={paragraphIndex}
-                    className={`m-0 text-[17px] leading-[30px] ${
-                      paragraphIndex > 0 ? 'mt-4 text-foreground/82' : 'mt-4'
-                    }`}
+            {sections.map((section, sectionIndex) => (
+              <div key={section.id ?? `intro-${sectionIndex}`}>
+                {section.heading && section.id && (
+                  <h2
+                    id={section.id}
+                    className="mt-3 m-0 scroll-mt-24 font-sans text-[clamp(24px,2.8vw,30px)] font-extrabold leading-[1.14] tracking-[-0.015em]"
                   >
-                    {paragraph}
-                  </p>
-                ))}
-
-                {post.code && sectionIndex === 0 && (
-                  <figure className="m-0 mt-6">
-                    <div className="flex flex-col gap-1.5 bg-foreground px-[22px] py-5 text-[14px] leading-6 text-background [overflow-wrap:anywhere]">
-                      {post.code.lines.map((line, lineIndex) =>
-                        line.startsWith('$') ? (
-                          <span key={lineIndex}>
-                            <span className="text-brand-300">$</span>
-                            {line.slice(1)}
-                          </span>
-                        ) : (
-                          <span key={lineIndex} className="text-background/70">
-                            {line}
-                          </span>
-                        ),
-                      )}
-                    </div>
-                    {post.code.caption && (
-                      <figcaption className="mt-3 text-[13px] leading-[22px] text-foreground/62">
-                        {post.code.caption}
-                      </figcaption>
-                    )}
-                  </figure>
+                    {section.heading}
+                  </h2>
                 )}
-
-                {post.blockquote &&
-                  post.blockquoteSection === section.id && (
-                    <blockquote className="mt-4 max-w-[34ch] border-l-2 border-brand pl-6 font-sans text-[clamp(20px,2.4vw,26px)] font-extrabold leading-[1.3] tracking-[-0.015em]">
-                      {post.blockquote}
-                    </blockquote>
-                  )}
+                {section.blocks.map((block, blockIndex) => (
+                  <Block key={blockIndex} block={block} index={blockIndex} />
+                ))}
               </div>
             ))}
           </div>

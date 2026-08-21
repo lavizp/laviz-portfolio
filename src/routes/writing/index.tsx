@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { PageHeader } from '@/components/sections/page-header';
 import { PostRow } from '@/components/sections/post-row';
-import { writing } from '@/data/portfolio';
+import { writing } from '@/lib/posts';
 
 export const Route = createFileRoute('/writing/')({
   component: WritingIndexPage,
