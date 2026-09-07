@@ -78,7 +78,7 @@ export const profile: Profile = {
     'Docs tooling tinkerer',
   ],
   tagline:
-    'TypeScript software engineer. I make small tools for the terminal and the browser — the kind I wanted to exist, so I wrote them.',
+    'TypeScript software engineer. I make tools for the terminal and the browser — the kind I wanted to exist, so I wrote them.',
   bio: 'I go by lavizp most places online. Days are spent writing TypeScript; evenings are spent building the small things around it — CLIs that do one job, documentation tooling that gets out of the way, and the occasional experiment that never leaves my machine. Everything I ship is something I use myself, which is the only quality bar I really trust.',
   location: 'Kathmandu, Nepal',
   email: 'hello@lavizpandey.com.np',
