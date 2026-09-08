@@ -24,7 +24,7 @@ export function Hero() {
             </div>
           )}
           <p className="m-0 max-w-[28ch] text-[15.5px] leading-[26px] text-foreground/72">
-            Three tools shipped, all still maintained. Mail lands in my inbox,
+            Multiple tools shipped, all still maintained. Mail lands in my inbox,
             not a form.
           </p>
         </div>
@@ -34,9 +34,8 @@ export function Hero() {
         {stats.map((stat, index) => (
           <div
             key={stat.label}
-            className={`flex flex-col gap-2 bg-background pb-[22px] pt-5 ${
-              index > 0 ? 'pl-[22px]' : ''
-            }`}
+            className={`flex flex-col gap-2 bg-background pb-[22px] pt-5 ${index > 0 ? 'pl-[22px]' : ''
+              }`}
           >
             <span className="modernist-label text-foreground/55">
               {stat.label}
