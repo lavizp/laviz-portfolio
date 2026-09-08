@@ -82,7 +82,7 @@ export const profile: Profile = {
   bio: 'I go by lavizp most places online. Days are spent writing TypeScript; evenings are spent building the small things around it — CLIs that do one job, documentation tooling that gets out of the way, and the occasional experiment that never leaves my machine. Everything I ship is something I use myself, which is the only quality bar I really trust.',
   location: 'Kathmandu, Nepal',
   email: 'hello@lavizpandey.com.np',
-  availability: 'Open to small contracts',
+  availability: 'Open to work & network',
   availableForWork: true,
 };
 
@@ -170,7 +170,7 @@ export const projects: Project[] = [
       'Storybook, but for Markdown. Point it at a folder and get a browsable, live-reloading workbench for your docs — no config, no framework opinions.',
     detail:
       'Built in a weekend by cutting themes, plugins and config. That version is the one people use.',
-    command: 'npx storymark ./docs',
+    command: 'npm install @lavizp/storymark',
     linkLabel: 'Live site',
     linkHref: 'https://storymark.lavizpandey.com.np/',
     status: 'Active',

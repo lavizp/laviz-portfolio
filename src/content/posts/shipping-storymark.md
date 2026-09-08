@@ -12,7 +12,7 @@ lead: The weekend version shipped. The one with themes and plugins never would h
 Themes, plugins, a config file, routing options, syntax highlighting themes. Each one was a good idea. Each one was a reason to not ship on Sunday night.
 
 ```bash caption="The entire feature list on one line."
-$ npx storymark ./docs
+$ npm install @lavizp/storymark
 watched 14 files · 3 components · 0 config
 ```
 
