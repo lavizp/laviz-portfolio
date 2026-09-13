@@ -18,7 +18,7 @@ function WritingIndexPage() {
     <div className="mx-auto max-w-[900px] px-[clamp(20px,5vw,56px)]">
       <PageHeader
         title="Writing"
-        intro="Notes on building small tools, the parts of TypeScript I keep relearning, and the occasional post about why I deleted a feature."
+        intro="Notes on building software, the parts of TypeScript I keep relearning, and the occasional post about why I deleted a feature."
       />
 
       <section className="pt-[clamp(40px,6vw,64px)]">
