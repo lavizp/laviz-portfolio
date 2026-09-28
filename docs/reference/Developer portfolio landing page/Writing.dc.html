@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-6b6139dc-e6cb-4cf1-8860-b657e1316a43/styles.css">
+<script src="_ds/modernist-6b6139dc-e6cb-4cf1-8860-b657e1316a43/_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); text-wrap: pretty; }
+  a { color: var(--color-text); text-decoration: none; border-bottom: 2px solid var(--color-accent); padding-bottom: 1px; }
+  a:hover { color: var(--color-accent-700); }
+  a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--color-bg); font-family: var(--font-body); font-size: 16px; line-height: 28px;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding: 22px 0 20px; border-bottom: 2px solid var(--color-divider);">
+      <span style="display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; line-height: 20px; letter-spacing: 0.02em;">
+        <span style="width: 10px; height: 10px; background: var(--color-accent); flex: none;"></span>lavizp
+      </span>
+      <nav style="display: flex; gap: 22px; font-size: 12.5px; line-height: 20px; letter-spacing: 0.08em; text-transform: uppercase;">
+        <a href="Indie Dev Page.dc.html">Home</a>
+        <a href="Indie Dev Page.dc.html#projects">Projects</a>
+        <a href="#hello">Say hello</a>
+      </nav>
+    </div>
+
+    <header style="padding: clamp(48px, 9vh, 96px) 0 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px clamp(24px, 5vw, 56px); align-items: end;">
+      <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(40px, 7.6vw, 84px); line-height: 0.96; letter-spacing: -0.03em; margin: 0; margin-left: -0.058em;">Writing</h1>
+      <p style="margin: 0 0 6px; font-size: 16.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 80%, transparent); max-width: 34ch;">Notes on building small tools, the parts of TypeScript I keep relearning, and the occasional post about why I deleted a feature.</p>
+    </header>
+
+    <section style="padding: clamp(40px, 6vw, 64px) 0 0;">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px 32px; margin: 0 0 10px;">
+        <span style="font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); font-feature-settings: 'tnum' 1;">2026</span>
+        <span style="font-size: 12.5px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-feature-settings: 'tnum' 1;">Four posts</span>
+      </div>
+
+      <article style="border-top: 2px solid var(--color-divider); padding: 24px 0 26px; display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px clamp(20px, 4vw, 44px); align-items: baseline;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent); font-feature-settings: 'tnum' 1;">12 Jun</p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <h2 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(21px, 2.6vw, 28px); line-height: 1.14; letter-spacing: -0.015em;"><a href="Post.dc.html">Why my CLI tools are boring on purpose</a></h2>
+          <p style="margin: 0; font-size: 15.5px; line-height: 27px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 52ch;">Flags you can guess, output you can pipe, and no spinner that hides what went wrong. A short defence of tools that behave like the ones from 1994.</p>
+        </div>
+      </article>
+
+      <article style="border-top: 2px solid var(--color-divider); padding: 24px 0 26px; display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px clamp(20px, 4vw, 44px); align-items: baseline;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent); font-feature-settings: 'tnum' 1;">28 Apr</p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <h2 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(21px, 2.6vw, 28px); line-height: 1.14; letter-spacing: -0.015em;"><a href="Post.dc.html">Typing the untypeable: generics I regret</a></h2>
+          <p style="margin: 0; font-size: 15.5px; line-height: 27px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 52ch;">Three signatures from confseal that were clever, correct and completely unreadable — and what I replaced them with.</p>
+        </div>
+      </article>
+
+      <article style="border-top: 2px solid var(--color-divider); padding: 24px 0 26px; display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px clamp(20px, 4vw, 44px); align-items: baseline;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent); font-feature-settings: 'tnum' 1;">09 Mar</p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <h2 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(21px, 2.6vw, 28px); line-height: 1.14; letter-spacing: -0.015em;"><a href="Post.dc.html">A local AI that only reads my notes</a></h2>
+          <p style="margin: 0; font-size: 15.5px; line-height: 27px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 52ch;">How promptic keeps its context small: no crawling, no embeddings I can't inspect, and one plaintext folder as the only source of truth.</p>
+        </div>
+      </article>
+
+      <article style="border-top: 2px solid var(--color-divider); border-bottom: 2px solid var(--color-divider); padding: 24px 0 26px; display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px clamp(20px, 4vw, 44px); align-items: baseline;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent); font-feature-settings: 'tnum' 1;">02 Feb</p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <h2 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(21px, 2.6vw, 28px); line-height: 1.14; letter-spacing: -0.015em;"><a href="Post.dc.html">Shipping storymark: a docs tool in a weekend</a></h2>
+          <p style="margin: 0; font-size: 15.5px; line-height: 27px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 52ch;">What I cut to finish it — themes, plugins, config — and why the version with none of them is the one people use.</p>
+        </div>
+      </article>
+    </section>
+
+    <section style="padding: clamp(40px, 6vw, 60px) 0 0;">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px 32px; margin: 0 0 10px;">
+        <span style="font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); font-feature-settings: 'tnum' 1;">2025</span>
+        <span style="font-size: 12.5px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-feature-settings: 'tnum' 1;">Archive</span>
+      </div>
+
+      <div style="border-top: 2px solid var(--color-divider); display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px clamp(20px, 4vw, 44px); align-items: baseline; padding: 18px 0;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent); font-feature-settings: 'tnum' 1;">17 Nov</p>
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 19px; line-height: 26px; letter-spacing: -0.01em;"><a href="Post.dc.html">Reading a codebase by deleting it</a></h3>
+      </div>
+
+      <div style="border-top: 2px solid var(--color-divider); display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px clamp(20px, 4vw, 44px); align-items: baseline; padding: 18px 0;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent); font-feature-settings: 'tnum' 1;">30 Aug</p>
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 19px; line-height: 26px; letter-spacing: -0.01em;"><a href="Post.dc.html">Every .env file I have ever lost</a></h3>
+      </div>
+
+      <div style="border-top: 2px solid var(--color-divider); border-bottom: 2px solid var(--color-divider); display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px clamp(20px, 4vw, 44px); align-items: baseline; padding: 18px 0;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent); font-feature-settings: 'tnum' 1;">14 May</p>
+        <h3 style="margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 19px; line-height: 26px; letter-spacing: -0.01em;"><a href="Post.dc.html">Notes on writing docs before code</a></h3>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; padding: clamp(36px, 5vw, 52px) 0 0;">
+      <a href="Indie Dev Page.dc.html" class="btn btn-ghost" style="border-bottom-width: 2px;">← Back home</a>
+      <a href="#" class="btn btn-ghost" style="border-bottom-width: 2px;">RSS</a>
+    </div>
+
+  </div>
+
+  <section id="hello" style="background: var(--color-neutral-900); color: var(--color-bg); margin-top: clamp(56px, 8vw, 88px);">
+    <div style="max-width: 900px; margin: 0 auto; padding: clamp(48px, 8vw, 76px) clamp(20px, 5vw, 56px);">
+      <span style="display: block; width: 12px; height: 12px; background: var(--color-accent); margin: 0 0 24px;"></span>
+      <h2 style="margin: 0; margin-left: -0.058em; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(28px, 4vw, 46px); line-height: 1.06; letter-spacing: -0.015em;"><span style="display: block;">Disagree with a post?</span><span style="display: block;">Tell me — I like that.</span></h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 30px; font-size: 15px; line-height: 24px; letter-spacing: 0.06em; text-transform: uppercase;">
+        <a href="mailto:hello@lavizpandey.com.np" style="color: var(--color-bg); border-bottom-color: var(--color-bg); overflow-wrap: anywhere;">hello@lavizpandey.com.np</a>
+        <a href="https://github.com/lavizp" style="color: var(--color-bg); border-bottom-color: var(--color-bg);">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+    <footer style="padding: 40px 0 56px; font-size: 13px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Hand-written HTML, no trackers. Seven posts, no newsletter.</footer>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

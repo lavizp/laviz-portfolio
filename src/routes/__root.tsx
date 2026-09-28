@@ -1,28 +1,30 @@
-
-import Navigation from '@/components/navigation';
+// src/routes/__root.tsx
 import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ChatProvider } from '@/hooks/use-chat';
+import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
+import { ChatWidget } from '@/components/chat/chat-widget';
 
 export const Route = createRootRoute({
   component: RootLayout,
-
 });
 
 function RootLayout() {
   return (
-    <div className="min-h-screen bg-brand-dark text-slate-200 selection:bg-brand-accent selection:text-white overflow-hidden">
-      <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none z-1"></div>
-      
-      <div className="relative z-10 flex flex-col min-h-screen">
-        <Navigation />
-        <main className="grow">
-          <Outlet/>
-        </main>
-        
-        <footer className="py-6 text-center text-xs text-slate-700 font-mono border-t border-slate-900/50">
-          &copy; {new Date().getFullYear()} Laviz Pandey. Engineered with React.
-        </footer>
-      </div>
-    </div>
+    <ThemeProvider>
+      <ChatProvider>
+        <div className="flex min-h-screen flex-col">
+          <Navbar />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+        <ChatWidget />
+        <TanStackRouterDevtools position="bottom-left" />
+      </ChatProvider>
+    </ThemeProvider>
   );
 }
-        // <TanStackRouterDevtools position="bottom-right" />
