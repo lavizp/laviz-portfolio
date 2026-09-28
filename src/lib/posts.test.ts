@@ -50,7 +50,7 @@ describe('writing posts', () => {
       lang: 'bash',
       caption: 'The entire feature list on one line.',
       lines: [
-        'npm install @lavizp/storymark',
+        '$ npm install @lavizp/storymark',
         'watched 14 files · 3 components · 0 config',
       ],
     });
