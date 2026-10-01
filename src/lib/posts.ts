@@ -2,8 +2,8 @@ import { marked } from 'marked';
 import type { Token, Tokens } from 'marked';
 // ─────────────────────────────────────────────────────────────
 // Blog posts — one markdown file per post in src/content/posts/.
-// The filename becomes the post slug (e.g. boring-cli-tools.md
-// → /writing/boring-cli-tools).
+// The filename becomes the post slug. The site is a single page, so these
+// are listed in the Writing section rather than given their own routes.
 //
 // Frontmatter:
 //   title, date (YYYY-MM-DD), category, excerpt  (required)

@@ -9,184 +9,58 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WritingRouteImport } from './routes/writing'
-import { Route as SkillsRouteImport } from './routes/skills'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as ChatRouteImport } from './routes/chat'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WritingIndexRouteImport } from './routes/writing/index'
 import { Route as WritingPostRouteImport } from './routes/writing.$post'
 
-const WritingRoute = WritingRouteImport.update({
-  id: '/writing',
-  path: '/writing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SkillsRoute = SkillsRouteImport.update({
-  id: '/skills',
-  path: '/skills',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChatRoute = ChatRouteImport.update({
-  id: '/chat',
-  path: '/chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WritingIndexRoute = WritingIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => WritingRoute,
+  id: '/writing/',
+  path: '/writing/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const WritingPostRoute = WritingPostRouteImport.update({
-  id: '/$post',
-  path: '/$post',
-  getParentRoute: () => WritingRoute,
+  id: '/writing/$post',
+  path: '/writing/$post',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/chat': typeof ChatRoute
-  '/contact': typeof ContactRoute
-  '/projects': typeof ProjectsRoute
-  '/skills': typeof SkillsRoute
-  '/writing': typeof WritingRouteWithChildren
   '/writing/$post': typeof WritingPostRoute
-  '/writing/': typeof WritingIndexRoute
+  '/writing': typeof WritingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/chat': typeof ChatRoute
-  '/contact': typeof ContactRoute
-  '/projects': typeof ProjectsRoute
-  '/skills': typeof SkillsRoute
   '/writing/$post': typeof WritingPostRoute
   '/writing': typeof WritingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/chat': typeof ChatRoute
-  '/contact': typeof ContactRoute
-  '/projects': typeof ProjectsRoute
-  '/skills': typeof SkillsRoute
-  '/writing': typeof WritingRouteWithChildren
   '/writing/$post': typeof WritingPostRoute
   '/writing/': typeof WritingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/chat'
-    | '/contact'
-    | '/projects'
-    | '/skills'
-    | '/writing'
-    | '/writing/$post'
-    | '/writing/'
+  fullPaths: '/' | '/writing/$post' | '/writing'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/chat'
-    | '/contact'
-    | '/projects'
-    | '/skills'
-    | '/writing/$post'
-    | '/writing'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/chat'
-    | '/contact'
-    | '/projects'
-    | '/skills'
-    | '/writing'
-    | '/writing/$post'
-    | '/writing/'
+  to: '/' | '/writing/$post' | '/writing'
+  id: '__root__' | '/' | '/writing/$post' | '/writing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ChatRoute: typeof ChatRoute
-  ContactRoute: typeof ContactRoute
-  ProjectsRoute: typeof ProjectsRoute
-  SkillsRoute: typeof SkillsRoute
-  WritingRoute: typeof WritingRouteWithChildren
+  WritingPostRoute: typeof WritingPostRoute
+  WritingIndexRoute: typeof WritingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/writing': {
-      id: '/writing'
-      path: '/writing'
-      fullPath: '/writing'
-      preLoaderRoute: typeof WritingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/skills': {
-      id: '/skills'
-      path: '/skills'
-      fullPath: '/skills'
-      preLoaderRoute: typeof SkillsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chat': {
-      id: '/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof ChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -196,42 +70,25 @@ declare module '@tanstack/react-router' {
     }
     '/writing/': {
       id: '/writing/'
-      path: '/'
-      fullPath: '/writing/'
+      path: '/writing'
+      fullPath: '/writing'
       preLoaderRoute: typeof WritingIndexRouteImport
-      parentRoute: typeof WritingRoute
+      parentRoute: typeof rootRouteImport
     }
     '/writing/$post': {
       id: '/writing/$post'
-      path: '/$post'
+      path: '/writing/$post'
       fullPath: '/writing/$post'
       preLoaderRoute: typeof WritingPostRouteImport
-      parentRoute: typeof WritingRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface WritingRouteChildren {
-  WritingPostRoute: typeof WritingPostRoute
-  WritingIndexRoute: typeof WritingIndexRoute
-}
-
-const WritingRouteChildren: WritingRouteChildren = {
-  WritingPostRoute: WritingPostRoute,
-  WritingIndexRoute: WritingIndexRoute,
-}
-
-const WritingRouteWithChildren =
-  WritingRoute._addFileChildren(WritingRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ChatRoute: ChatRoute,
-  ContactRoute: ContactRoute,
-  ProjectsRoute: ProjectsRoute,
-  SkillsRoute: SkillsRoute,
-  WritingRoute: WritingRouteWithChildren,
+  WritingPostRoute: WritingPostRoute,
+  WritingIndexRoute: WritingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
