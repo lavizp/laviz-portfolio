@@ -20,11 +20,13 @@ const STORAGE_KEY = 'lavizp-theme';
 
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark';
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored === 'light' || stored === 'dark') return stored;
-  return window.matchMedia('(prefers-color-scheme: light)').matches
-    ? 'light'
-    : 'dark';
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored === 'light' || stored === 'dark') return stored;
+  } catch {
+    /* The portfolio also works when storage is unavailable. */
+  }
+  return 'light';
 }
 
 function applyTheme(theme: Theme) {
@@ -38,7 +40,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     applyTheme(theme);
-    window.localStorage.setItem(STORAGE_KEY, theme);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, theme);
+    } catch {
+      /* Optional persistence. */
+    }
   }, [theme]);
 
   const setTheme = (next: Theme) => setThemeState(next);
