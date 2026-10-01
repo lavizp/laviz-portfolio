@@ -13,8 +13,8 @@ export const Route = createRootRoute({
 
 function RootLayout() {
   const { pathname } = useLocation();
-  // Re-arms the reveals for each route's fresh DOM.
-  useReveal(pathname);
+  // Watches for content arriving on any route, so it does not need re-arming.
+  useReveal();
   return (
     <ThemeProvider>
       <ChatProvider>
