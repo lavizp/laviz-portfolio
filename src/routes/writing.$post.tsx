@@ -1,7 +1,9 @@
 import { createFileRoute, Link, redirect } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { groupSections, writing } from '@/lib/posts';
 import type { InlineSpan, PostBlock } from '@/lib/posts';
+import { Lines } from '@/components/sections/portfolio-home';
 
 export const Route = createFileRoute('/writing/$post')({
   beforeLoad: ({ params }) => {
@@ -12,40 +14,20 @@ export const Route = createFileRoute('/writing/$post')({
   component: PostPage,
 });
 
-const ghostLink =
-  'inline-flex items-center gap-1.5 border-b-2 border-brand pb-px font-sans text-sm font-semibold text-brand hover:text-brand-700';
-
 function Inline({ spans }: { spans: InlineSpan[] }) {
   return (
     <>
       {spans.map((span, index) => {
         switch (span.type) {
           case 'strong':
-            return (
-              <strong key={index} className="font-semibold text-foreground">
-                {span.text}
-              </strong>
-            );
+            return <strong key={index}>{span.text}</strong>;
           case 'em':
             return <em key={index}>{span.text}</em>;
           case 'code':
-            return (
-              <code
-                key={index}
-                className="rounded-sm bg-foreground/[0.07] px-1 py-0.5 font-mono text-[15px]"
-              >
-                {span.text}
-              </code>
-            );
+            return <code key={index}>{span.text}</code>;
           case 'link':
             return (
-              <a
-                key={index}
-                href={span.href}
-                target="_blank"
-                rel="noreferrer"
-                className="border-b border-brand/45 pb-px transition-colors hover:text-brand-700"
-              >
+              <a key={index} href={span.href} target="_blank" rel="noreferrer">
                 {span.text}
               </a>
             );
@@ -59,53 +41,45 @@ function Inline({ spans }: { spans: InlineSpan[] }) {
   );
 }
 
-function Block({ block, index }: { block: PostBlock; index: number }) {
+function Block({ block }: { block: PostBlock }) {
   switch (block.type) {
     case 'paragraph':
       return (
-        <p
-          className={`m-0 mt-4 text-[17px] leading-[30px] ${
-            index > 0 ? 'text-foreground/82' : ''
-          }`}
-        >
+        <p>
           <Inline spans={block.spans} />
         </p>
       );
     case 'code':
       return (
-        <figure className="m-0 mt-6">
-          <div className="flex flex-col gap-1.5 bg-foreground px-[22px] py-5 text-[14px] leading-6 text-background [overflow-wrap:anywhere]">
-            {block.lines.map((line, lineIndex) =>
-              line.startsWith('$') ? (
-                <span key={lineIndex}>
-                  <span className="text-brand-300">$</span>
-                  {line.slice(1)}
-                </span>
-              ) : (
-                <span key={lineIndex} className="text-background/70">
-                  {line}
-                </span>
-              ),
-            )}
-          </div>
-          {block.caption && (
-            <figcaption className="mt-3 text-[13px] leading-[22px] text-foreground/62">
-              {block.caption}
-            </figcaption>
-          )}
+        <figure className="article-code">
+          <pre>
+            {block.lines.map((line) => (
+              <span key={line}>
+                {line.startsWith('$') ? (
+                  <>
+                    <b>$</b>
+                    {line.slice(1)}
+                  </>
+                ) : (
+                  line
+                )}
+              </span>
+            ))}
+          </pre>
+          {block.caption && <figcaption>{block.caption}</figcaption>}
         </figure>
       );
     case 'blockquote':
       return (
-        <blockquote className="mt-4 max-w-[34ch] border-l-2 border-brand pl-6 font-sans text-[clamp(20px,2.4vw,26px)] font-extrabold leading-[1.3] tracking-[-0.015em]">
+        <blockquote>
           <Inline spans={block.spans} />
         </blockquote>
       );
     case 'list':
       return (
-        <ul className="m-0 mt-4 flex list-disc flex-col gap-2 pl-5 text-[17px] leading-[30px] text-foreground/82 marker:text-brand">
-          {block.items.map((item, itemIndex) => (
-            <li key={itemIndex}>
+        <ul>
+          {block.items.map((item, index) => (
+            <li key={index}>
               <Inline spans={item} />
             </li>
           ))}
@@ -125,112 +99,83 @@ function PostPage() {
   const sections = groupSections(post.blocks);
 
   useEffect(() => {
-    document.title = `${post.title} — lavizp`;
+    document.title = `${post.title} — Laviz Pandey`;
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [post]);
 
   return (
-    <div className="mx-auto max-w-[900px] px-[clamp(20px,5vw,56px)]">
-      <article className="pt-[clamp(44px,8vh,84px)]">
-        <div className="modernist-label mb-[22px] flex flex-wrap items-center gap-[12px_18px] text-foreground/60 [font-feature-settings:'tnum'1]">
-          <span>{post.dateFull}</span>
-          <span aria-hidden className="size-2 flex-none bg-brand" />
-          <span>{post.readTime}</span>
-          <span aria-hidden className="size-2 flex-none bg-brand" />
-          <span>{post.category}</span>
-        </div>
+    <div className="wide-section article-page">
+      <article>
+        <header className="article-head">
+          <div className="eyebrow" data-reveal="up">
+            <span>{post.category}</span>
+            {post.dateFull} · {post.readTime}
+          </div>
+          <h1 data-reveal="lines">
+            <Lines>{[post.title]}</Lines>
+          </h1>
+          {post.lead && (
+            <p
+              className="article-lead"
+              data-reveal="up"
+              style={{ ['--i' as string]: 1 }}
+            >
+              {post.lead}
+            </p>
+          )}
+        </header>
 
-        <h1 className="ml-[-0.058em] m-0 max-w-[22ch] font-sans text-[clamp(34px,5.6vw,62px)] font-extrabold leading-[1.02] tracking-[-0.03em]">
-          {post.title}
-        </h1>
-
-        {post.lead && (
-          <p className="mt-[clamp(24px,4vw,36px)] m-0 max-w-[46ch] text-[19px] leading-8 text-foreground/88">
-            {post.lead}
-          </p>
-        )}
-
-        <hr className="mt-[clamp(32px,5vw,48px)] h-0.5 border-0 bg-divider" />
-
-        <div className="grid grid-cols-1 items-start gap-y-10 pt-[clamp(32px,5vw,44px)] sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:gap-[0_clamp(24px,5vw,56px)]">
-          <aside className="flex flex-col gap-2.5 sm:sticky sm:top-[72px]">
-            <span className="modernist-label text-foreground/55">
-              In this post
-            </span>
+        <div className="article-body">
+          <aside className="article-toc">
+            <span className="eyebrow">In this post</span>
             {sections.map(
               (section) =>
                 section.heading &&
                 section.id && (
-                  <a
-                    key={section.id}
-                    href={`#${section.id}`}
-                    className="border-b border-brand/45 pb-px text-[14px] leading-6 text-foreground/70 transition-colors hover:text-brand-700"
-                  >
+                  <a key={section.id} href={`#${section.id}`}>
                     {section.heading}
                   </a>
                 ),
             )}
           </aside>
 
-          <div className="flex max-w-[62ch] flex-col gap-7">
+          <div className="article-prose">
             {sections.map((section, sectionIndex) => (
-              <div key={section.id ?? `intro-${sectionIndex}`}>
+              <section key={section.id ?? `intro-${sectionIndex}`}>
                 {section.heading && section.id && (
-                  <h2
-                    id={section.id}
-                    className="mt-3 m-0 scroll-mt-24 font-sans text-[clamp(24px,2.8vw,30px)] font-extrabold leading-[1.14] tracking-[-0.015em]"
-                  >
-                    {section.heading}
-                  </h2>
+                  <h2 id={section.id}>{section.heading}</h2>
                 )}
                 {section.blocks.map((block, blockIndex) => (
-                  <Block key={blockIndex} block={block} index={blockIndex} />
+                  <Block key={blockIndex} block={block} />
                 ))}
-              </div>
+              </section>
             ))}
           </div>
         </div>
       </article>
 
-      <div className="mt-[clamp(44px,6vw,64px)] grid grid-cols-1 gap-y-6 border-t-2 border-divider pt-[26px] sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] sm:gap-[20px_clamp(24px,5vw,56px)]">
-        <div className="flex flex-col gap-2">
-          <span className="modernist-label text-foreground/55">Previous</span>
-          <h3 className="m-0 font-sans text-[18px] font-extrabold leading-[26px] tracking-[-0.01em]">
-            {previous ? (
-              <Link
-                to="/writing/$post"
-                params={{ post: previous.slug }}
-                className="transition-colors hover:text-brand-700"
-              >
-                {previous.title}
+      <nav className="article-nav" aria-label="More posts">
+        {[
+          { label: 'Previous', post: previous },
+          { label: 'Next', post: next },
+        ].map((item) => (
+          <div key={item.label}>
+            <span className="eyebrow">{item.label}</span>
+            {item.post ? (
+              <Link to="/writing/$post" params={{ post: item.post.slug }}>
+                {item.post.title}
+                <ArrowUpRight size={18} />
               </Link>
             ) : (
-              <span className="text-foreground/40">—</span>
+              <span className="article-nav-empty">Nothing here</span>
             )}
-          </h3>
-        </div>
-        <div className="flex flex-col gap-2">
-          <span className="modernist-label text-foreground/55">Next</span>
-          <h3 className="m-0 font-sans text-[18px] font-extrabold leading-[26px] tracking-[-0.01em]">
-            {next ? (
-              <Link
-                to="/writing/$post"
-                params={{ post: next.slug }}
-                className="transition-colors hover:text-brand-700"
-              >
-                {next.title}
-              </Link>
-            ) : (
-              <span className="text-foreground/40">—</span>
-            )}
-          </h3>
-        </div>
-      </div>
+          </div>
+        ))}
+      </nav>
 
-      <div className="flex flex-wrap gap-4 pb-[clamp(32px,5vw,44px)] pt-[clamp(32px,5vw,44px)]">
-        <Link to="/writing" className={ghostLink}>
-          ← All writing
-        </Link>
-      </div>
+      <Link className="text-link article-back" to="/writing">
+        <ArrowLeft size={18} /> All writing
+      </Link>
     </div>
   );
 }

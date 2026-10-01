@@ -1,74 +1,63 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { PageHeader } from '@/components/sections/page-header';
-import { PostRow } from '@/components/sections/post-row';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { writing } from '@/lib/posts';
+import { Reveal, Lines } from '@/components/sections/portfolio-home';
 
 export const Route = createFileRoute('/writing/')({
   component: WritingIndexPage,
 });
 
-const ghostLink =
-  'inline-flex items-center gap-1.5 border-b-2 border-brand pb-px font-sans text-sm font-semibold text-brand hover:text-brand-700';
-
 function WritingIndexPage() {
-  const current = writing.filter((post) => post.year === 2026);
-  const archive = writing.filter((post) => post.year !== 2026);
-
+  const years = [...new Set(writing.map((post) => post.year))].sort(
+    (a, b) => b - a,
+  );
   return (
-    <div className="mx-auto max-w-[900px] px-[clamp(20px,5vw,56px)]">
-      <PageHeader
-        title="Writing"
-        intro="Notes on building software, the parts of TypeScript I keep relearning, and the occasional post about why I deleted a feature."
-      />
-
-      <section className="pt-[clamp(40px,6vw,64px)]">
-        <div className="mb-2.5 flex flex-wrap items-baseline justify-between gap-[10px_32px]">
-          <span className="modernist-label text-foreground/60 [font-feature-settings:'tnum'1]">
-            2026
-          </span>
-          <span className="modernist-label text-foreground/55 [font-feature-settings:'tnum'1]">
-            Four posts
-          </span>
+    <div className="wide-section article-page">
+      <header className="section-head">
+        <div>
+          <div className="eyebrow" data-reveal="up">
+            <span>Writing</span>
+            {writing.length} posts
+          </div>
+          <h2 data-reveal="lines">
+            <Lines>{['Notes from', 'the workbench.']}</Lines>
+          </h2>
         </div>
+        <p data-reveal="up" style={{ ['--i' as string]: 1 }}>
+          What I learned building things — TypeScript, tooling, and the parts I
+          had to relearn.
+        </p>
+      </header>
 
-        {current.map((post, index) => (
-          <PostRow
-            key={post.slug}
-            post={post}
-            variant="full"
-            isLast={index === current.length - 1}
-          />
-        ))}
-      </section>
+      {years.map((year) => (
+        <section key={year} className="writing-year">
+          <div className="eyebrow" data-reveal="up">
+            <span>{year}</span>
+          </div>
+          {writing
+            .filter((post) => post.year === year)
+            .map((post, index) => (
+              <Reveal key={post.slug} index={index}>
+                <Link
+                  className="writing-row is-link"
+                  to="/writing/$post"
+                  params={{ post: post.slug }}
+                >
+                  <span className="eyebrow">{post.category}</span>
+                  <h3>{post.title}</h3>
+                  <span>
+                    {post.readTime}
+                    <ArrowUpRight size={22} />
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+        </section>
+      ))}
 
-      <section className="pt-[clamp(40px,6vw,60px)]">
-        <div className="mb-2.5 flex flex-wrap items-baseline justify-between gap-[10px_32px]">
-          <span className="modernist-label text-foreground/60 [font-feature-settings:'tnum'1]">
-            2025
-          </span>
-          <span className="modernist-label text-foreground/55 [font-feature-settings:'tnum'1]">
-            Archive
-          </span>
-        </div>
-
-        {archive.map((post, index) => (
-          <PostRow
-            key={post.slug}
-            post={post}
-            variant="compact"
-            isLast={index === archive.length - 1}
-          />
-        ))}
-      </section>
-
-      <div className="flex flex-wrap gap-4 pb-[clamp(36px,5vw,52px)] pt-[clamp(36px,5vw,52px)]">
-        <Link to="/" className={ghostLink}>
-          ← Back home
-        </Link>
-        <a href="#" className={ghostLink}>
-          RSS
-        </a>
-      </div>
+      <Link className="text-link article-back" to="/">
+        <ArrowLeft size={18} /> Back home
+      </Link>
     </div>
   );
 }
