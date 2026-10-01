@@ -1,114 +1,178 @@
-import { useState } from 'react';
-import { Link } from '@tanstack/react-router';
-import { Menu, Sparkles, X } from 'lucide-react';
-import { useChat } from '@/hooks/use-chat';
-import { ThemeToggle } from '@/components/layout/theme-toggle';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from '@tanstack/react-router';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { profile } from '@/data/portfolio';
+import { useSlidingIndicator } from '@/hooks/use-sliding-indicator';
 
-const navLinks = [
-  { label: 'Projects', to: '/projects' },
-  { label: 'Writing', to: '/writing' },
+const links = [
+  { label: 'Work', id: 'work' },
+  { label: 'Experience', id: 'experience' },
+  { label: 'About', id: 'about' },
+  { label: 'Writing', id: 'writing' },
 ];
 
 export function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const { openChat } = useChat();
-
+  const headerRef = useRef<HTMLElement>(null);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('');
+  const [hovered, setHovered] = useState('');
+  const { pathname } = useLocation();
+  const home = pathname === '/';
+  // The pill follows the pointer while hovering, and falls back to whichever
+  // section is currently on screen.
+  const navRef = useSlidingIndicator<HTMLElement>(
+    'indicator',
+    hovered || active,
+  );
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 761px)');
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    desktop.addEventListener('change', closeOnDesktop);
+    const update = () => setScrolled(window.scrollY > 80);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    const key = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', key);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('keydown', key);
+      desktop.removeEventListener('change', closeOnDesktop);
+    };
+  }, []);
+  useEffect(() => {
+    setOpen(false);
+    setActive('');
+    if (!home) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          if (entry.isIntersecting) setActive(entry.target.id);
+      },
+      { rootMargin: '-20% 0px -55% 0px' },
+    );
+    links.forEach((link) => {
+      const element = document.getElementById(link.id);
+      if (element) observer.observe(element);
+    });
+    return () => observer.disconnect();
+  }, [pathname, home]);
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+      const elements = Array.from(
+        headerRef.current?.querySelectorAll<HTMLElement>('a[href], button') ??
+          [],
+      ).filter(
+        (element) =>
+          element.getClientRects().length > 0 && !element.closest('[inert]'),
+      );
+      const first = elements[0],
+        last = elements[elements.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      }
+      if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    window.addEventListener('keydown', trapFocus);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener('keydown', trapFocus);
+    };
+  }, [open]);
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-divider bg-background">
-      <div className="mx-auto flex h-[62px] max-w-[900px] items-center justify-between px-[clamp(20px,5vw,56px)]">
-        <Link
-          to="/"
-          className="flex items-center gap-2.5 font-sans text-[15px] font-extrabold tracking-[0.02em] text-foreground"
-        >
-          <span aria-hidden className="size-2.5 flex-none bg-brand" />
-          lavizp
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="modernist-label hidden items-center gap-[22px] text-foreground md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="border-b-2 border-transparent text-foreground/70 transition-colors hover:border-brand hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href="#hello"
-            className="border-b-2 border-transparent text-foreground/70 transition-colors hover:border-brand hover:text-foreground"
-          >
-            Say hello
-          </a>
-        </nav>
-
-        <div className="hidden items-center gap-3 md:flex">
-          <ThemeToggle />
-          <Button
-            onClick={() => openChat()}
-            size="sm"
-            className="bg-brand text-brand-foreground hover:bg-brand-600"
-          >
-            <Sparkles className="size-3.5" />
-            Ask my AI
-          </Button>
-        </div>
-
-        {/* Mobile controls */}
-        <div className="flex items-center gap-1 md:hidden">
-          <ThemeToggle />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      <div
-        className={cn(
-          'overflow-hidden border-divider transition-[max-height,opacity] duration-300 md:hidden',
-          mobileOpen ? 'max-h-96 border-t-2 opacity-100' : 'max-h-0 opacity-0',
-        )}
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <header
+        ref={headerRef}
+        className={`portfolio-nav ${scrolled ? 'is-scrolled' : ''} ${home ? 'on-home' : ''} ${open ? 'menu-open' : ''}`}
       >
-        <nav className="flex flex-col gap-1 px-[clamp(20px,5vw,56px)] py-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileOpen(false)}
-              className="modernist-label border-b border-divider py-3 text-foreground/70 transition-colors hover:text-brand"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href="#hello"
-            onClick={() => setMobileOpen(false)}
-            className="modernist-label border-b border-divider py-3 text-foreground/70 transition-colors hover:text-brand"
+        <div className="nav-shell">
+          <Link
+            to="/"
+            className="portfolio-brand"
+            aria-label="Laviz Pandey, home"
           >
-            Say hello
+            <span>
+              lp
+              <i />
+            </span>
+            <b>{profile.name}</b>
+          </Link>
+          <nav
+            className="portfolio-desktop-nav"
+            aria-label="Main navigation"
+            ref={navRef}
+            onMouseLeave={() => setHovered('')}
+          >
+            {links.map((link) => (
+              <a
+                key={link.id}
+                href={`/#${link.id}`}
+                data-key={link.id}
+                onMouseEnter={() => setHovered(link.id)}
+                onFocus={() => setHovered(link.id)}
+                onBlur={() => setHovered('')}
+                aria-current={active === link.id ? 'location' : undefined}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <a className="nav-contact" href="/#contact">
+            <i className="live-dot" />
+            Let’s talk <ArrowUpRight size={18} />
           </a>
-          <Button
-            onClick={() => {
-              setMobileOpen(false);
-              openChat();
-            }}
-            className="mt-3 bg-brand text-brand-foreground hover:bg-brand-600"
-            size="sm"
+          <button
+            className="portfolio-menu-toggle"
+            type="button"
+            aria-label={open ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={open}
+            aria-controls="portfolio-mobile-nav"
+            onClick={() => setOpen((value) => !value)}
           >
-            <Sparkles className="size-3.5" />
-            Ask my AI
-          </Button>
-        </nav>
-      </div>
-    </header>
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
+        <div
+          id="portfolio-mobile-nav"
+          className="portfolio-mobile-nav"
+          inert={!open}
+          aria-hidden={!open}
+        >
+          <nav aria-label="Mobile navigation">
+            {[...links, { label: 'Contact', id: 'contact' }].map(
+              (link, index) => (
+                <a
+                  key={link.id}
+                  href={`/#${link.id}`}
+                  style={{ ['--i' as string]: index }}
+                  onClick={() => setOpen(false)}
+                >
+                  <small>0{index + 1}</small>
+                  {link.label}
+                  <ArrowUpRight />
+                </a>
+              ),
+            )}
+          </nav>
+          <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          <span>Kathmandu, Nepal</span>
+        </div>
+      </header>
+    </>
   );
 }

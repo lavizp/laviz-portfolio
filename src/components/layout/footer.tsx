@@ -1,71 +1,70 @@
-import { useLocation } from '@tanstack/react-router';
+import { ArrowUpRight, ArrowUp } from 'lucide-react';
 import { profile, socials } from '@/data/portfolio';
 
-const copyByPath = [
-  {
-    match: /^\/writing\//,
-    banner: ['Disagree with this?', 'Write to me — I like that.'],
-    footer: 'Hand-written HTML, no trackers. Comments happen by email.',
-  },
-  {
-    match: /^\/writing$/,
-    banner: ['Disagree with a post?', 'Tell me — I like that.'],
-    footer: 'Hand-written HTML, no trackers. Seven posts, no newsletter.',
-  },
-  {
-    match: /^\/projects$/,
-    banner: ['Want one of these', 'built for your team?'],
-    footer:
-      'Hand-written HTML, no trackers. Three tools, six experiments, one inbox.',
-  },
-  {
-    match: /^\//,
-    banner: ['Come say hello.', 'I answer everything.'],
-    footer:
-      'Hand-written HTML, no trackers. Three tools, six experiments, one inbox.',
-  },
-];
-
 export function Footer() {
-  const { pathname } = useLocation();
-  const copy =
-    copyByPath.find((entry) => entry.match.test(pathname)) ?? copyByPath[0];
-
-  const bannerLinks = [
-    { label: profile.email, href: `mailto:${profile.email}` },
-    ...socials
-      .filter((s) => s.icon !== 'mail' && s.icon !== 'linkedin')
-      .map((s) => ({ label: s.label, href: s.href })),
-  ];
-
   return (
-    <>
-      <section id="hello" className="bg-neutral-900 text-[#f3f2f2]">
-        <div className="mx-auto max-w-[900px] px-[clamp(20px,5vw,56px)] py-[clamp(56px,9vw,84px)]">
-          <span aria-hidden className="mb-[26px] block size-3 bg-brand" />
-          <h2 className="ml-[-0.058em] m-0 font-sans text-[clamp(30px,4.4vw,52px)] font-extrabold leading-[1.06] tracking-[-0.015em]">
-            <span className="block">{copy.banner[0]}</span>
-            <span className="block">{copy.banner[1]}</span>
-          </h2>
-          <div className="modernist-label mt-[34px] flex flex-wrap gap-[14px_28px] text-[15px] leading-6 text-[#f3f2f2]">
-            {bannerLinks.map((link) => (
+    <footer className="portfolio-footer">
+      <div className="footer-top" data-reveal="up">
+        <p>
+          Built with intent.
+          <br />
+          Made to be useful.
+        </p>
+        <div>
+          {socials
+            .filter((social) => social.icon !== 'twitter')
+            .map((social) => (
               <a
-                key={link.label}
-                href={link.href}
-                className="border-b-2 border-[#f3f2f2] pb-px text-[#f3f2f2] [overflow-wrap:anywhere] hover:border-brand-300 hover:text-brand-300"
+                key={social.label}
+                href={
+                  social.icon === 'mail'
+                    ? `mailto:${profile.email}`
+                    : social.href
+                }
               >
-                {link.label}
+                {social.label}
+                <ArrowUpRight size={14} />
               </a>
             ))}
-          </div>
         </div>
-      </section>
-
-      <div className="mx-auto max-w-[900px] px-[clamp(20px,5vw,56px)]">
-        <footer className="pb-14 pt-11 text-[13px] leading-7 text-foreground/70">
-          {copy.footer}
-        </footer>
+        <span>
+          Kathmandu, Nepal
+          <br />
+          Nepal Time · UTC+5:45
+        </span>
       </div>
-    </>
+      <a
+        className="footer-wordmark"
+        href="#top"
+        aria-label="Laviz Pandey, back to top"
+        data-reveal="lines"
+      >
+        <span className="line-mask">
+          <span className="line-in">Laviz Pandey</span>
+        </span>
+        <span className="footer-star">✳</span>
+      </a>
+      <div className="footer-bottom" data-reveal="up">
+        <span>
+          © {new Date().getFullYear()} {profile.name}
+        </span>
+        <span>TypeScript. Tools. Curiosity.</span>
+        <a
+          href="#top"
+          onClick={(event) => {
+            event.preventDefault();
+            window.scrollTo({
+              top: 0,
+              behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+                .matches
+                ? 'instant'
+                : 'smooth',
+            });
+          }}
+        >
+          Back to top <ArrowUp size={14} />
+        </a>
+      </div>
+    </footer>
   );
 }
