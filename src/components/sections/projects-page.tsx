@@ -36,7 +36,8 @@ function ProjectTile({ project, tone }: { project: Tile; tone: number }) {
           ))}
         </ul>
         <div className="more-card-links">
-          {project.demo && (
+          {/* The live app or site leads; without one, the npm page does. */}
+          {project.demo ? (
             <a
               className="pill-button"
               href={project.demo}
@@ -45,17 +46,26 @@ function ProjectTile({ project, tone }: { project: Tile; tone: number }) {
             >
               {project.demoLabel ?? 'Open the app'} <ArrowUpRight size={18} />
             </a>
+          ) : (
+            project.npm && (
+              <a
+                className="pill-button"
+                href={project.npm}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View on npm <ArrowUpRight size={18} />
+              </a>
+            )
           )}
-          {/* A published package links to its npm page instead of the repo. */}
-          {(project.npm ?? project.github) && (
+          {project.github && (
             <a
               className="text-link"
-              href={project.npm ?? project.github}
+              href={project.github}
               target="_blank"
               rel="noreferrer"
             >
-              {project.npm ? 'View on npm' : 'View the source'}
-              <ArrowUpRight size={18} />
+              View the source <ArrowUpRight size={18} />
             </a>
           )}
         </div>
@@ -113,6 +123,7 @@ export function ProjectsPage() {
                 tech: project.tech,
                 github: project.github,
                 demo: project.demo,
+                demoLabel: project.linkLabel,
                 npm: project.npm,
               }}
             />

@@ -942,6 +942,12 @@ section[id] {
   padding: 7px 13px;
   font: var(--label) / 1.4 var(--font-mono);
 }
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 30px;
+}
 .world-1 .pill-button {
   background: var(--lime);
   color: var(--ink);

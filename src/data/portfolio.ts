@@ -53,7 +53,7 @@ export interface Project {
   tech: string[];
   github?: string;
   demo?: string;
-  /** The package page, used in place of the source link where there is one. */
+  /** The package's npm page, linked alongside the source. */
   npm?: string;
   featured?: boolean;
   /** Which project surface the card sits on: 0 lavender, 1 night, 2 sand. */
@@ -71,7 +71,7 @@ export interface OtherProject {
   demo?: string;
   /** Label for the demo button, when "Open the app" is not right. */
   demoLabel?: string;
-  /** The package page, used in place of the source link where there is one. */
+  /** The package's npm page, linked alongside the source. */
   npm?: string;
 }
 
@@ -200,13 +200,13 @@ export const projects: Project[] = [
     detail:
       'Built on Node’s native crypto module. Zero-config setup, with keys supplied by file or environment variable.',
     command: 'confseal pull staging',
-    linkLabel: 'View on npm',
-    linkHref: 'https://www.npmjs.com/package/confseal',
+    linkLabel: 'Visit the site',
+    linkHref: 'https://confseal-web.vercel.app',
     status: 'Active',
     released: '2026',
     tech: ['Node.js', 'TypeScript', 'npm', 'AES-256-GCM'],
     github: 'https://github.com/lavizp/confseal',
-    npm: 'https://www.npmjs.com/package/confseal',
+    demo: 'https://confseal-web.vercel.app',
     featured: true,
     tone: 2,
   },

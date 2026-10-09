@@ -389,15 +389,27 @@ function ProjectCard({ project }: { project: Project }) {
                 <li key={tech}>{tech}</li>
               ))}
             </ul>
-            <a
-              className="pill-button"
-              href={project.linkHref}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {project.linkLabel}
-              <ArrowUpRight size={18} />
-            </a>
+            <div className="project-actions">
+              <a
+                className="pill-button"
+                href={project.linkHref}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {project.linkLabel}
+                <ArrowUpRight size={18} />
+              </a>
+              {project.github && project.github !== project.linkHref && (
+                <a
+                  className="text-link"
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View the source <ArrowUpRight size={18} />
+                </a>
+              )}
+            </div>
           </div>
           {Demo && <Demo />}
         </div>
