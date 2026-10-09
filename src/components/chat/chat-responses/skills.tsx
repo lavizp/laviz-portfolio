@@ -16,7 +16,7 @@ const SkillsResponse = () => {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="border border-divider bg-background px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                  className="rounded-full border border-foreground/15 bg-background px-3 py-1 text-xs font-medium text-secondary-foreground"
                 >
                   {item}
                 </span>

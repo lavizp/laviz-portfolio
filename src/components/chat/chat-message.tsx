@@ -49,10 +49,10 @@ const ChatMessage = ({ chat }: ChatMessageProps) => {
         }`}
       >
         <div
-          className={`px-4 py-2.5 ${
+          className={`rounded-[20px] px-4 py-3 ${
             isUser
-              ? 'bg-brand text-brand-foreground'
-              : 'border-2 border-divider bg-card text-card-foreground'
+              ? 'rounded-br-md bg-brand text-brand-foreground'
+              : 'rounded-bl-md bg-card text-card-foreground'
           }`}
         >
           {isUser ? (

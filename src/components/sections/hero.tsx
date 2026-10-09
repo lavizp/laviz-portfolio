@@ -182,7 +182,7 @@ export function Hero() {
           <span>2+ years · AI-driven products</span>
           <span>Platforms serving 10,000+ users</span>
           <span>
-            Open to full-stack roles <ArrowDownRight size={16} />
+            Scroll for selected work <ArrowDownRight size={16} />
           </span>
         </div>
       </div>

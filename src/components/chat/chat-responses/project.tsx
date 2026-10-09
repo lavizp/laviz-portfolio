@@ -11,7 +11,7 @@ const ProjectsResponse = () => {
         {projects.map((project) => (
           <div
             key={project.title}
-            className="border-2 border-divider bg-card p-3.5"
+            className="rounded-2xl border border-foreground/10 bg-background p-3.5"
           >
             <div className="flex items-start justify-between gap-2">
               <h4 className="text-sm font-semibold text-foreground">
@@ -24,7 +24,7 @@ const ProjectsResponse = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Source code"
-                    className="p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    className="p-1.5 text-muted-foreground transition-colors rounded-full hover:bg-foreground/5 hover:text-foreground"
                   >
                     <Github className="size-3.5" />
                   </a>
@@ -35,7 +35,7 @@ const ProjectsResponse = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Live demo"
-                    className="p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    className="p-1.5 text-muted-foreground transition-colors rounded-full hover:bg-foreground/5 hover:text-foreground"
                   >
                     <ArrowUpRight className="size-3.5" />
                   </a>
@@ -49,7 +49,7 @@ const ProjectsResponse = () => {
               {project.tech.map((tech) => (
                 <span
                   key={tech}
-                  className="border border-divider bg-background px-2 py-0.5 font-mono text-[10px] font-medium text-secondary-foreground"
+                  className="rounded-full border border-foreground/15 bg-background px-2 py-0.5 font-mono text-[10px] font-medium text-secondary-foreground"
                 >
                   {tech}
                 </span>

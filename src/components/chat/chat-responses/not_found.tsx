@@ -14,7 +14,7 @@ const NotFoundResponse = () => {
           <button
             key={suggestion}
             onClick={() => void sendMessage(suggestion)}
-            className="border border-divider bg-background px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
+            className="rounded-full border border-foreground/15 bg-background px-3 py-1 text-xs font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
           >
             {suggestion}
           </button>

@@ -23,9 +23,9 @@ const ContactResponse = () => {
               href={contact.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 border-b border-divider p-2 transition-colors last:border-0 hover:bg-accent"
+              className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-foreground/5"
             >
-              <span className="flex size-8 items-center justify-center bg-brand-100 text-brand">
+              <span className="flex size-8 items-center justify-center rounded-full bg-brand-100 text-brand">
                 <Icon className="size-4" />
               </span>
               <span className="min-w-0 flex-1">
