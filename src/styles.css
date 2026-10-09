@@ -1001,41 +1001,173 @@ section[id] {
 .demo-tabs button[aria-pressed='true'] {
   color: white;
 }
-.terminal-screen {
-  background: #15224c;
-  color: #f6f8ff;
+/* grindOS: an app screen inside the lavender exhibit. */
+.grind-screen {
   margin: 20px;
-  padding: 24px;
-  border-radius: 12px;
-  min-height: 210px;
-  font: 12px/1.75 var(--font-mono);
+  padding: 22px;
+  min-height: 236px;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid #15224c14;
+}
+.grind-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #15224c14;
+}
+.grind-head span {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.grind-head small {
+  font: 11px var(--font-mono);
+  color: #475789;
+}
+.grind-sets li {
+  display: grid;
+  grid-template-columns: 1fr auto 56px 30px;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px dashed #15224c1a;
+  font-size: 14px;
+}
+.grind-sets li > span:nth-child(2),
+.grind-sets b {
+  font: 12px var(--font-mono);
+  color: #475789;
+  text-align: right;
+}
+.grind-sets b {
+  color: #15224c;
+  font-weight: 500;
+}
+.grind-sets em {
+  justify-self: end;
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: var(--lime);
+  color: var(--ink);
+  font: 600 10px/1.4 var(--font-mono);
+  font-style: normal;
+}
+.grind-figure {
+  margin-top: 26px;
+  font-size: 44px;
+  font-weight: 800;
+  font-stretch: calc(var(--display-wdth) * 1%);
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+.grind-figure small {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #475789;
+}
+.grind-meter {
+  height: 8px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: #15224c12;
+  overflow: hidden;
+}
+.grind-meter span,
+.grind-bars i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cobalt);
+}
+.grind-bars li {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  font-size: 13px;
+}
+.grind-bars i {
+  height: 10px;
+  border-radius: 999px;
+}
+.grind-bars li:first-child i {
+  background: var(--ink);
+}
+.grind-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #475789;
+}
+
+/* l3.code: skills down the side, each with a dot per agent that can read it. */
+.skills-exhibit .docs-window {
+  grid-template-columns: 184px 1fr;
+}
+.skills-exhibit .docs-window aside button {
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.skill-dots {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.skill-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.skill-dots i[data-agent='Codex'] {
+  background: #8da2ff;
+}
+.skills-exhibit .docs-page code {
+  margin-top: 16px;
+  color: #c8cedb;
+  line-height: 1.7;
+}
+.skill-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.skill-badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #d1f28018;
+  color: var(--lime);
+  font-size: 12px;
+}
+.skill-badges span[data-agent='Codex'] {
+  background: #8da2ff1f;
+  color: #b4c2ff;
+}
+.skill-paths {
+  margin-top: 16px;
+  display: grid;
+  gap: 4px;
+  font: 11px/1.6 var(--font-mono);
+  color: #a7b0c3;
   overflow-wrap: anywhere;
 }
-.terminal-prompt {
-  color: #acbfff;
-  display: block;
-  margin-bottom: 16px;
-}
-.terminal-screen b {
-  color: var(--lime);
-}
-.terminal-result {
-  color: #d1dbff;
+.skills-exhibit .docs-page > p {
   margin-top: 14px;
+  font-size: 12px;
 }
-.terminal-cursor {
-  display: block;
-  height: 14px;
-  width: 7px;
-  margin-top: 18px;
-  background: var(--lime);
-  animation: blink 1.2s steps(1) infinite;
-}
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
+
 .git-status {
   margin: 0 20px 20px;
   display: grid;
@@ -1146,17 +1278,6 @@ section[id] {
   color: #a7b0c3;
   font-size: 13px;
 }
-.skeleton-line {
-  height: 4px;
-  border-radius: 3px;
-  width: 95%;
-  background: #2b3345;
-  margin-top: 16px;
-}
-.skeleton-line.short {
-  width: 70%;
-  margin-top: 9px;
-}
 .docs-page code {
   display: block;
   background: #0e1118;
@@ -1165,14 +1286,6 @@ section[id] {
   border-radius: 8px;
   font-size: 12px;
   margin-top: 22px;
-}
-.docs-callout {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 20px;
-  font-size: 12px;
-  color: #a7b0c3;
 }
 .seal-exhibit {
   background: #faf6ee;
@@ -2550,19 +2663,36 @@ section[id] {
     padding: 2px 7px;
   }
   .demo-tabs,
-  .terminal-screen,
+  .grind-screen,
   .seal-file {
     margin: 14px;
-  }
-  .terminal-screen {
-    padding: 18px;
-    font-size: 11px;
   }
   .docs-window {
     grid-template-columns: 108px 1fr;
   }
   .docs-window aside {
     padding-inline: 5px;
+  }
+  .grind-screen {
+    padding: 16px;
+  }
+  .grind-sets li {
+    grid-template-columns: 1fr auto 46px 26px;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .grind-sets li > span:first-child {
+    white-space: nowrap;
+  }
+  /* On a phone the skill list sits above the file, full width. */
+  .skills-exhibit .docs-window {
+    grid-template-columns: 1fr;
+  }
+  .skills-exhibit .docs-window aside {
+    display: grid;
+    border-right: 0;
+    border-bottom: 1px solid #2b3345;
+    padding: 10px;
   }
   .docs-window aside button {
     font-size: 11px;

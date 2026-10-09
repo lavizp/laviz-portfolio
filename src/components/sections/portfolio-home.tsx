@@ -5,12 +5,16 @@ import {
   ArrowRight,
   Plus,
   Minus,
-  Terminal,
   FileText,
   LockKeyhole,
   ShieldCheck,
   Check,
   Sparkles,
+  Activity,
+  BookOpen,
+  Moon,
+  RotateCcw,
+  TrendingUp,
 } from 'lucide-react';
 import {
   projects,
@@ -122,132 +126,181 @@ function Tabs({
   );
 }
 
-/** promptic in miniature: one keyboard-driven surface over notes, search and chat. */
-function PrompticDemo() {
+/** grindOS in miniature: three logs, kept on the phone. */
+function GrindDemo() {
   const [active, setActive] = useState(0);
-  const panes = [
-    {
-      label: 'Capture',
-      entry: 'note  Ship the retry queue before Friday',
-      lines: [
-        '✓ saved · indexed · reminder set for Thu 18:00',
-        'todos, notes and reminders all land in one store.',
-      ],
-    },
-    {
-      label: 'Search',
-      entry: '/ retry queue',
-      lines: [
-        '01  Ship the retry queue before Friday      todo',
-        '02  Queue drains out of order under load    note',
-        'sqlite fts5 · 2 hits in 3ms',
-      ],
-    },
-    {
-      label: 'Ask',
-      entry: '? what did I decide about retries',
-      lines: [
-        'You settled on exponential backoff capped at 30s,',
-        'and wrote it down the same evening.',
-      ],
-    },
-  ];
   return (
-    <div className="exhibit terminal-exhibit">
+    <div className="exhibit grind-exhibit">
       <div className="exhibit-bar">
-        <Terminal size={16} />
-        <span>A second brain in the terminal</span>
+        <Activity size={16} />
+        <span>Training, sleep and spending, on the device</span>
         <span className="demo-label">Concept demo</span>
       </div>
       <Tabs
-        items={panes.map((pane) => pane.label)}
+        items={['Workouts', 'Sleep', 'Spending']}
         active={active}
         onSelect={setActive}
       />
-      <div className="terminal-screen" aria-live="polite">
-        <span className="terminal-prompt">promptic ~ lavizp</span>
-        <p key={active} className="demo-enter">
-          <b>›</b> {panes[active].entry}
-        </p>
-        {panes[active].lines.map((line, index) => (
-          <p
-            key={line}
-            className="terminal-result demo-enter"
-            style={step(index + 1)}
-          >
-            {line}
-          </p>
-        ))}
-        <span className="terminal-cursor" />
+      <div className="grind-screen" aria-live="polite">
+        {active === 0 && (
+          <div className="demo-enter" key="workouts">
+            <div className="grind-head">
+              <span>Push</span>
+              <small>From template</small>
+            </div>
+            <ul className="grind-sets">
+              {[
+                ['Bench press', '3 × 8', '60 kg', true],
+                ['Overhead press', '3 × 8', '35 kg', false],
+                ['Incline dumbbell', '3 × 10', '22 kg', false],
+              ].map(([name, sets, load, record], index) => (
+                <li
+                  key={name as string}
+                  className="demo-enter"
+                  style={step(index + 1)}
+                >
+                  <span>{name}</span>
+                  <span>{sets}</span>
+                  <b>{load}</b>
+                  {record ? <em>PR</em> : <i />}
+                </li>
+              ))}
+            </ul>
+            <p className="grind-note">
+              <RotateCcw size={14} /> Repeat last session
+            </p>
+          </div>
+        )}
+        {active === 1 && (
+          <div className="demo-enter" key="sleep">
+            <div className="grind-head">
+              <span>Last night</span>
+              <small>23:40 → 07:10</small>
+            </div>
+            <p className="grind-figure">
+              7h 30m <small>of an 8h target</small>
+            </p>
+            <div className="grind-meter" aria-hidden="true">
+              <span style={{ width: '94%' }} />
+            </div>
+            <p className="grind-note">
+              <Moon size={14} /> Bedtime within 20 minutes on 5 of 7 nights
+            </p>
+          </div>
+        )}
+        {active === 2 && (
+          <div className="demo-enter" key="spending">
+            <div className="grind-head">
+              <span>This month</span>
+              <small>By category</small>
+            </div>
+            <ul className="grind-bars">
+              {[
+                ['Food', 64],
+                ['Transport', 38],
+                ['Other', 21],
+              ].map(([label, width], index) => (
+                <li key={label} className="demo-enter" style={step(index + 1)}>
+                  <span>{label}</span>
+                  <i style={{ width: `${width}%` }} />
+                </li>
+              ))}
+            </ul>
+            <p className="grind-note">
+              <TrendingUp size={14} /> Food spending is up 30% on last month
+            </p>
+          </div>
+        )}
       </div>
       <div className="exhibit-caption">
-        One store, four AI providers — OpenAI, Anthropic, Gemini, Groq.
+        Illustrative entries. In the app, nothing leaves the phone.
       </div>
     </div>
   );
 }
 
-function DocsDemo() {
+const agentSkills = [
+  {
+    name: 'release-notes',
+    description: 'Draft release notes from the merged pull requests.',
+    agents: ['Claude Code', 'Codex'],
+    paths: ['~/.claude/skills/release-notes', '~/.codex/skills/release-notes'],
+    note: 'One file, symlinked into both. One row, two badges.',
+  },
+  {
+    name: 'db-migrations',
+    description: 'Write a Drizzle migration and check it runs.',
+    agents: ['Claude Code'],
+    paths: ['api/.claude/skills/db-migrations'],
+    note: 'Lives in one repository, so only that project sees it.',
+  },
+  {
+    name: 'review-checklist',
+    description: 'Walk a diff against the team’s review checklist.',
+    agents: ['Codex'],
+    paths: ['~/.codex/skills/review-checklist'],
+    note: 'Claude Code does not look here, and the row says so.',
+  },
+];
+
+/** l3.code in miniature: every skill, and which agents can actually see it. */
+function SkillsDemo() {
   const [active, setActive] = useState(0);
+  const skill = agentSkills[active];
   return (
-    <div className="exhibit docs-exhibit">
+    <div className="exhibit docs-exhibit skills-exhibit">
       <div className="exhibit-bar">
-        <FileText size={16} />
-        <span>From Markdown to workbench</span>
+        <BookOpen size={16} />
+        <span>The skills your coding agents read</span>
         <span className="demo-label">Concept demo</span>
       </div>
       <div className="docs-window">
         <aside>
-          {['Introduction', 'Quick start', 'Components'].map((label, index) => (
+          {agentSkills.map((item, index) => (
             <button
-              key={label}
+              key={item.name}
               type="button"
               aria-pressed={index === active}
               onClick={() => setActive(index)}
             >
-              <FileText size={13} />
-              {label}
+              <span>{item.name}</span>
+              <span className="skill-dots" aria-hidden="true">
+                {item.agents.map((agent) => (
+                  <i key={agent} data-agent={agent} />
+                ))}
+              </span>
             </button>
           ))}
         </aside>
         <div className="docs-page demo-enter" key={active}>
-          <span className="eyebrow">STORYMARK / DOCS</span>
-          <h4>
-            {
-              [
-                'Good docs start here.',
-                'Up and running.',
-                'Every detail, together.',
-              ][active]
-            }
-          </h4>
-          <p>
-            {
-              [
-                'Your Markdown. A little room to breathe.',
-                'Point it at a folder. Get back to writing.',
-                'A live workbench for the things you build.',
-              ][active]
-            }
-          </p>
-          <div className="skeleton-line" />
-          <div className="skeleton-line short" />
+          <span className="eyebrow">SKILL.md</span>
+          <h4>{skill.name}</h4>
           <code>
-            {
-              [
-                '# Hello, storymark',
-                'npx storymark ./docs',
-                '## Your next component',
-              ][active]
-            }
+            ---
+            <br />
+            name: {skill.name}
+            <br />
+            description: {skill.description}
+            <br />
+            ---
           </code>
-          <div className="docs-callout">
-            <Check size={16} /> Live preview. No configuration.
+          <div className="skill-badges">
+            {skill.agents.map((agent) => (
+              <span key={agent} data-agent={agent}>
+                <Check size={13} /> {agent}
+              </span>
+            ))}
           </div>
+          <ul className="skill-paths">
+            {skill.paths.map((path) => (
+              <li key={path}>{path}</li>
+            ))}
+          </ul>
+          <p>{skill.note}</p>
         </div>
       </div>
       <div className="exhibit-caption">
-        Choose a page. See the documentation take shape.
+        Illustrative skills. Choose one to see who can read it.
       </div>
     </div>
   );
@@ -306,12 +359,21 @@ function ConfsealDemo() {
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+const demos: Record<string, () => ReactNode> = {
+  grindOS: GrindDemo,
+  confseal: ConfsealDemo,
+  'l3.code': SkillsDemo,
+};
+
+function ProjectCard({ project }: { project: Project }) {
+  const Demo = demos[project.title];
   return (
-    <Reveal className={`project-world world-${index}`} mode="rise">
+    <Reveal className={`project-world world-${project.tone}`} mode="rise">
       <article>
         <div className="project-meta">
-          <span>{project.index} / 03</span>
+          <span>
+            {project.index} / {String(projects.length).padStart(2, '0')}
+          </span>
           <span>{project.tag}</span>
           <span>{project.released}</span>
         </div>
@@ -333,19 +395,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               target="_blank"
               rel="noreferrer"
             >
-              {project.linkLabel === 'Live site'
-                ? 'Explore the project'
-                : 'View the source'}
+              {project.linkLabel}
               <ArrowUpRight size={18} />
             </a>
           </div>
-          {index === 0 ? (
-            <PrompticDemo />
-          ) : index === 1 ? (
-            <DocsDemo />
-          ) : (
-            <ConfsealDemo />
-          )}
+          {Demo && <Demo />}
         </div>
       </article>
     </Reveal>
@@ -449,11 +503,11 @@ export function PortfolioHome() {
           number="01"
           label="Selected work"
           lines={['Less talk.', 'More built.']}
-          copy="Three tools I built and published. A terminal second brain, a Markdown viewer on npm, and encrypted secrets that are safe to commit."
+          copy="Three things I built and use. A private tracker for training, sleep and spending, encrypted secrets that are safe to commit, and one place to see what your coding agents know."
         />
         <div className="project-stack">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+          {projects.map((project) => (
+            <ProjectCard key={project.title} project={project} />
           ))}
         </div>
         <Link className="text-link all-projects" to="/projects">

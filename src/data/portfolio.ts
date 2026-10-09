@@ -53,7 +53,11 @@ export interface Project {
   tech: string[];
   github?: string;
   demo?: string;
+  /** The package page, used in place of the source link where there is one. */
+  npm?: string;
   featured?: boolean;
+  /** Which project surface the card sits on: 0 lavender, 1 night, 2 sand. */
+  tone: 0 | 1 | 2;
 }
 
 /** A project on the /projects page — everything beyond the three showcased. */
@@ -65,6 +69,10 @@ export interface OtherProject {
   tech: string[];
   github: string;
   demo?: string;
+  /** Label for the demo button, when "Open the app" is not right. */
+  demoLabel?: string;
+  /** The package page, used in place of the source link where there is one. */
+  npm?: string;
 }
 
 /** An earlier project, listed in the archive by year. */
@@ -166,41 +174,25 @@ export const experience: Experience[] = [
 export const projects: Project[] = [
   {
     index: '01',
-    tag: 'TUI · Bun',
-    title: 'promptic',
+    tag: 'Web app · PWA',
+    title: 'grindOS',
     description:
-      'A keyboard-driven terminal second brain. AI chat, todos, notes and reminders in one persistent TUI, with a local search index over all of it and reminders you can schedule in plain language.',
+      'A private, local-first tracker for workouts, sleep and spending on iPhone. Everything stays on the device in IndexedDB — no account, no server — and it installs to the Home Screen and works offline.',
     detail:
-      'SQLite FTS5 under the hood, and four AI providers behind one interface — OpenAI, Anthropic, Gemini and Groq.',
-    command: 'promptic',
-    linkLabel: 'Source',
-    linkHref: 'https://github.com/lavizp/promptic',
+      'Rule-based insights are computed on the device, and backups are one JSON file you can merge or replace.',
+    command: 'Add to Home Screen',
+    linkLabel: 'Open the app',
+    linkHref: 'https://grind-os-red.vercel.app',
     status: 'Active',
-    released: '2025',
-    tech: ['TypeScript', 'Bun', 'SQLite', 'OpenTUI'],
-    github: 'https://github.com/lavizp/promptic',
+    released: '2026',
+    tech: ['TypeScript', 'IndexedDB', 'PWA'],
+    github: 'https://github.com/lavizp/grindOS',
+    demo: 'https://grind-os-red.vercel.app',
     featured: true,
+    tone: 0,
   },
   {
     index: '02',
-    tag: 'npm · TypeScript',
-    title: 'storymark',
-    description:
-      'A published npm package that renders a folder of local Markdown as a styled, browsable viewer. Point it at your docs and get a live frontend — no config, no framework opinions.',
-    detail:
-      'Built by cutting themes, plugins and configuration. That version is the one people use.',
-    command: 'npm install @lavizp/storymark',
-    linkLabel: 'Live site',
-    linkHref: 'https://storymark.lavizpandey.com.np/',
-    status: 'Active',
-    released: '2026',
-    tech: ['TypeScript', 'Next.js', 'Vite', 'npm'],
-    github: 'https://github.com/lavizp/storymark',
-    demo: 'https://storymark.lavizpandey.com.np/',
-    featured: true,
-  },
-  {
-    index: '03',
     tag: 'CLI · Cryptography',
     title: 'confseal',
     description:
@@ -208,52 +200,64 @@ export const projects: Project[] = [
     detail:
       'Built on Node’s native crypto module. Zero-config setup, with keys supplied by file or environment variable.',
     command: 'confseal pull staging',
-    linkLabel: 'Source',
-    linkHref: 'https://github.com/lavizp/confseal',
+    linkLabel: 'View on npm',
+    linkHref: 'https://www.npmjs.com/package/confseal',
     status: 'Active',
     released: '2026',
     tech: ['Node.js', 'TypeScript', 'npm', 'AES-256-GCM'],
     github: 'https://github.com/lavizp/confseal',
+    npm: 'https://www.npmjs.com/package/confseal',
     featured: true,
+    tone: 2,
+  },
+  {
+    index: '03',
+    tag: 'Developer tool',
+    title: 'l3.code',
+    description:
+      'A local web pane for the skills your coding agents read. Every SKILL.md on the machine in one list, each row showing which agents — Claude Code, Codex — can actually see it, and opening into an editor.',
+    detail:
+      'Paths are resolved through symlinks and grouped by real file, so one skill found by two agents is one row with two badges.',
+    command: 'bun install',
+    linkLabel: 'View the source',
+    linkHref: 'https://github.com/lavizp/l3.code',
+    status: 'Active',
+    released: '2026',
+    tech: ['TypeScript', 'Bun', 'WebSocket', 'MongoDB'],
+    github: 'https://github.com/lavizp/l3.code',
+    featured: true,
+    tone: 1,
   },
 ];
 
 export const otherProjects: OtherProject[] = [
   {
-    title: 'grindOS',
-    kind: 'Web app · PWA',
+    title: 'storymark',
+    kind: 'npm · TypeScript',
     year: '2026',
     description:
-      'A private, local-first tracker for workouts, sleep and spending on iPhone. Everything stays on the device in IndexedDB — no account, no server — and it installs to the Home Screen and works offline.',
-    tech: ['TypeScript', 'IndexedDB', 'PWA'],
-    github: 'https://github.com/lavizp/grindOS',
-    demo: 'https://grind-os-red.vercel.app',
+      'A published npm package that renders a folder of local Markdown as a styled, browsable viewer. Point it at your docs and get a live frontend — no config, no framework opinions.',
+    tech: ['TypeScript', 'Next.js', 'Vite', 'npm'],
+    github: 'https://github.com/lavizp/storymark',
+    demo: 'https://storymark.lavizpandey.com.np/',
+    demoLabel: 'Visit the site',
   },
   {
-    title: 'l3.code',
-    kind: 'Developer tool',
-    year: '2026',
-    description:
-      'A local web pane for the skills your coding agents read. Every SKILL.md on the machine in one list, each row showing which agents — Claude Code, Codex — can actually see it, and opening into an editor.',
-    tech: ['TypeScript', 'Bun', 'WebSocket', 'MongoDB'],
-    github: 'https://github.com/lavizp/l3.code',
-  },
-  {
-    title: 'dependency-visualiser',
-    kind: 'npm · CLI',
+    title: 'promptic',
+    kind: 'TUI · Bun',
     year: '2025',
     description:
-      'Prints your node_modules as a tree, so you can see how packages nest and where a dependency came from. Nothing to install — run it with npx.',
-    tech: ['JavaScript', 'Node.js', 'npm'],
-    github: 'https://github.com/lavizp/dependency-visualiser',
+      'A keyboard-driven terminal second brain. AI chat, todos, notes and reminders in one persistent TUI, with a local search index over all of it and reminders you can schedule in plain language.',
+    tech: ['TypeScript', 'Bun', 'SQLite', 'OpenTUI'],
+    github: 'https://github.com/lavizp/promptic',
   },
   {
     title: 'Spot The Code',
-    kind: 'Web game',
+    kind: 'Web game · Multiplayer',
     year: '2026',
     description:
-      'Geoguessr for programmers. Guess the origin, language or context of a code snippet. A Bun monorepo with the API layer kept apart from the web app.',
-    tech: ['TypeScript', 'TanStack Start', 'Tailwind CSS', 'Bun'],
+      'Geoguessr for programmers: guess the origin, language or context of a code snippet. Play alone, or host a multiplayer room over Socket.io and challenge your friends.',
+    tech: ['TypeScript', 'TanStack Start', 'Socket.io', 'Bun'],
     github: 'https://github.com/lavizp/spot-the-code',
     demo: 'https://spot-the-code-web.vercel.app',
   },
@@ -265,6 +269,16 @@ export const otherProjects: OtherProject[] = [
       'A Perplexity-style AI chatbot. A React front end rendering Markdown answers, over an Express API that talks to Groq and rate-limits its callers.',
     tech: ['React', 'Express', 'Groq'],
     github: 'https://github.com/lavizp/perplexvillage',
+  },
+  {
+    title: 'dependency-visualiser',
+    kind: 'npm · CLI',
+    year: '2025',
+    description:
+      'Prints your node_modules as a tree, so you can see how packages nest and where a dependency came from. Nothing to install — run it with npx.',
+    tech: ['JavaScript', 'Node.js', 'npm'],
+    github: 'https://github.com/lavizp/dependency-visualiser',
+    npm: 'https://www.npmjs.com/package/dependency-visualiser',
   },
   {
     title: 'http-server',
@@ -279,13 +293,6 @@ export const otherProjects: OtherProject[] = [
 
 export const archivedProjects: ArchivedProject[] = [
   {
-    title: 'nvim',
-    year: '2026',
-    description: 'My Neovim setup, built on LazyVim.',
-    tech: ['Lua'],
-    github: 'https://github.com/lavizp/nvim',
-  },
-  {
     title: 'Pokémon guessing game',
     year: '2023',
     description: 'A Pokémon guessing game.',
@@ -299,41 +306,6 @@ export const archivedProjects: ArchivedProject[] = [
     description: 'An augmented reality project to promote local tourism.',
     tech: ['Unity', 'C#'],
     github: 'https://github.com/lavizp/AR-Unity',
-  },
-  {
-    title: 'Personal blog',
-    year: '2022',
-    description: 'A personal blog site, on the MERN stack.',
-    tech: ['MongoDB', 'Express', 'React', 'Node.js'],
-    github: 'https://github.com/lavizp/personal-blog',
-  },
-  {
-    title: 'Exercise tracker',
-    year: '2022',
-    description: 'An exercise tracking app, on the MERN stack.',
-    tech: ['MongoDB', 'Express', 'React', 'Node.js'],
-    github: 'https://github.com/lavizp/ExerciseTracker-MERN',
-  },
-  {
-    title: 'Circular scroll',
-    year: '2022',
-    description: 'A dynamic circular scroll view for Unity.',
-    tech: ['Unity', 'C#'],
-    github: 'https://github.com/lavizp/Circular-Scroll',
-  },
-  {
-    title: 'GetFlix',
-    year: '2022',
-    description: 'A Netflix redesign, in plain HTML, CSS and JavaScript.',
-    tech: ['HTML', 'CSS', 'JavaScript'],
-    github: 'https://github.com/lavizp/GetFlix-NetflixClone',
-  },
-  {
-    title: 'LearningDSA',
-    year: '2022',
-    description: 'Learning data structures and algorithms.',
-    tech: ['JavaScript'],
-    github: 'https://github.com/lavizp/LearningDSA',
   },
 ];
 

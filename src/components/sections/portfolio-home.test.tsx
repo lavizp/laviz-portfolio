@@ -35,26 +35,34 @@ afterEach(() => {
 });
 
 describe('portfolio interactions', () => {
-  it('switches promptic panes and announces the selected content', () => {
+  it('switches grindOS between workouts, sleep and spending', () => {
     render(<PortfolioHome />);
-    expect(screen.getByText(/reminder set for Thu/)).toBeTruthy();
+    expect(screen.getByText('Bench press')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Search' }));
-    expect(screen.getByText(/sqlite fts5/)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Sleep' }));
+    expect(screen.getByText(/of an 8h target/)).toBeTruthy();
+    expect(screen.queryByText('Bench press')).toBeNull();
 
-    const ask = screen.getByRole('button', { name: 'Ask' });
-    fireEvent.click(ask);
-    expect(ask.getAttribute('aria-pressed')).toBe('true');
-    expect(screen.getByText(/exponential backoff capped at 30s/)).toBeTruthy();
+    const spending = screen.getByRole('button', { name: 'Spending' });
+    fireEvent.click(spending);
+    expect(spending.getAttribute('aria-pressed')).toBe('true');
+    expect(screen.getByText(/Food spending is up 30%/)).toBeTruthy();
   });
 
-  it('navigates document previews without leaving the portfolio', () => {
+  it('shows which agents can read each l3.code skill', () => {
     render(<PortfolioHome />);
-    fireEvent.click(screen.getByRole('button', { name: 'Quick start' }));
-    expect(screen.getByText('Up and running.')).toBeTruthy();
-    expect(screen.getByText('npx storymark ./docs')).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Components' }));
-    expect(screen.getByText('Every detail, together.')).toBeTruthy();
+    const exhibit = document.querySelector('.skills-exhibit') as HTMLElement;
+    // One skill reached by two agents is one row with two badges.
+    expect(within(exhibit).getByText('Claude Code')).toBeTruthy();
+    expect(within(exhibit).getByText('Codex')).toBeTruthy();
+
+    fireEvent.click(
+      within(exhibit).getByRole('button', { name: /review-checklist/ }),
+    );
+    expect(within(exhibit).queryByText('Claude Code')).toBeNull();
+    expect(
+      within(exhibit).getByText('~/.codex/skills/review-checklist'),
+    ).toBeTruthy();
   });
 
   it('keeps confseal secrets sealed until previewed, and never commits them', () => {

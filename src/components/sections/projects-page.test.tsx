@@ -31,7 +31,7 @@ describe('projects page', () => {
       expect(within(archive).getByText(project.title)).toBeTruthy();
   });
 
-  it('links each project to its source, and to a live app where one exists', () => {
+  it('links packages to npm, the rest to their source, and live apps where they exist', () => {
     render(<Page />);
     const hrefs = Array.from(document.querySelectorAll('a')).map((link) =>
       link.getAttribute('href'),
@@ -41,7 +41,11 @@ describe('projects page', () => {
       ...otherProjects,
       ...archivedProjects,
     ]) {
-      if (project.github) expect(hrefs).toContain(project.github);
+      const npm = 'npm' in project ? project.npm : undefined;
+      if (npm) {
+        expect(hrefs).toContain(npm);
+        expect(hrefs).not.toContain(project.github);
+      } else if (project.github) expect(hrefs).toContain(project.github);
       if (project.demo) expect(hrefs).toContain(project.demo);
     }
   });

@@ -13,6 +13,7 @@ interface Tile {
   github?: string;
   demo?: string;
   demoLabel?: string;
+  npm?: string;
 }
 
 /** One project card, on one of the three home-page surfaces. */
@@ -45,14 +46,16 @@ function ProjectTile({ project, tone }: { project: Tile; tone: number }) {
               {project.demoLabel ?? 'Open the app'} <ArrowUpRight size={18} />
             </a>
           )}
-          {project.github && (
+          {/* A published package links to its npm page instead of the repo. */}
+          {(project.npm ?? project.github) && (
             <a
               className="text-link"
-              href={project.github}
+              href={project.npm ?? project.github}
               target="_blank"
               rel="noreferrer"
             >
-              View the source <ArrowUpRight size={18} />
+              {project.npm ? 'View on npm' : 'View the source'}
+              <ArrowUpRight size={18} />
             </a>
           )}
         </div>
@@ -87,21 +90,21 @@ export function ProjectsPage() {
           </h2>
         </div>
         <p data-reveal="up" style={{ ['--i' as string]: 1 }}>
-          The three tools I maintain, then recent experiments, small tools, and
-          the projects I learned on.
+          The three from the home page, then recent experiments, small tools,
+          and the projects I learned on.
         </p>
       </header>
 
       <section className="more-projects" aria-labelledby="maintained-projects">
         <div className="eyebrow" data-reveal="up" id="maintained-projects">
-          <span>Maintained</span>
-          Published and in use
+          <span>Featured</span>
+          Also on the home page
         </div>
         <div className="more-grid is-featured">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <ProjectTile
               key={project.title}
-              tone={index}
+              tone={project.tone}
               project={{
                 title: project.title,
                 kind: project.tag,
@@ -110,7 +113,7 @@ export function ProjectsPage() {
                 tech: project.tech,
                 github: project.github,
                 demo: project.demo,
-                demoLabel: 'Visit the site',
+                npm: project.npm,
               }}
             />
           ))}
@@ -124,13 +127,9 @@ export function ProjectsPage() {
         </div>
         <div className="more-grid">
           {otherProjects.map((project, index) => (
-            // Offset by one: the row opens on night, so it repeats neither
-            // the maintained row above (desktop) nor the card above (mobile).
-            <ProjectTile
-              key={project.title}
-              project={project}
-              tone={index + 1}
-            />
+            // Featured ends on night, so this row opens on lavender: no two
+            // neighbouring cards share a surface on desktop or mobile.
+            <ProjectTile key={project.title} project={project} tone={index} />
           ))}
         </div>
       </section>
@@ -138,7 +137,9 @@ export function ProjectsPage() {
       <section className="archive" aria-labelledby="project-archive">
         <div className="eyebrow" data-reveal="up" id="project-archive">
           <span>Archive</span>
-          {Math.min(...years)} — {Math.max(...years)}
+          {Math.min(...years) === Math.max(...years)
+            ? Math.min(...years)
+            : `${Math.min(...years)} — ${Math.max(...years)}`}
         </div>
         <div className="archive-list">
           {archivedProjects.map((project, index) => (
