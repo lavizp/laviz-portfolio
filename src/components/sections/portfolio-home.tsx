@@ -456,6 +456,9 @@ export function PortfolioHome() {
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
+        <Link className="text-link all-projects" to="/projects">
+          More projects <ArrowUpRight size={18} />
+        </Link>
       </section>
       <Marquee
         text={['TypeScript', 'Small tools', 'Open source', 'Built with intent']}

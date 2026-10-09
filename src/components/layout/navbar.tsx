@@ -4,8 +4,10 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { profile } from '@/data/portfolio';
 import { useSlidingIndicator } from '@/hooks/use-sliding-indicator';
 
-const links = [
+// Sections are anchors on the home page; Projects is its own route.
+const links: { label: string; id: string; route?: '/projects' }[] = [
   { label: 'Work', id: 'work' },
+  { label: 'Projects', id: 'projects', route: '/projects' },
   { label: 'Experience', id: 'experience' },
   { label: 'About', id: 'about' },
   { label: 'Writing', id: 'writing' },
@@ -46,7 +48,7 @@ export function Navbar() {
   }, []);
   useEffect(() => {
     setOpen(false);
-    setActive('');
+    setActive(pathname === '/projects' ? 'projects' : '');
     if (!home) return;
     const observer = new IntersectionObserver(
       (entries) => {
@@ -118,19 +120,33 @@ export function Navbar() {
             ref={navRef}
             onMouseLeave={() => setHovered('')}
           >
-            {links.map((link) => (
-              <a
-                key={link.id}
-                href={`/#${link.id}`}
-                data-key={link.id}
-                onMouseEnter={() => setHovered(link.id)}
-                onFocus={() => setHovered(link.id)}
-                onBlur={() => setHovered('')}
-                aria-current={active === link.id ? 'location' : undefined}
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const props = {
+                'data-key': link.id,
+                onMouseEnter: () => setHovered(link.id),
+                onFocus: () => setHovered(link.id),
+                onBlur: () => setHovered(''),
+              };
+              return link.route ? (
+                <Link
+                  key={link.id}
+                  to={link.route}
+                  {...props}
+                  aria-current={active === link.id ? 'page' : undefined}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.id}
+                  href={`/#${link.id}`}
+                  {...props}
+                  aria-current={active === link.id ? 'location' : undefined}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
           <a className="nav-contact" href="/#contact">
             <i className="live-dot" />
@@ -155,18 +171,28 @@ export function Navbar() {
         >
           <nav aria-label="Mobile navigation">
             {[...links, { label: 'Contact', id: 'contact' }].map(
-              (link, index) => (
-                <a
-                  key={link.id}
-                  href={`/#${link.id}`}
-                  style={{ ['--i' as string]: index }}
-                  onClick={() => setOpen(false)}
-                >
-                  <small>0{index + 1}</small>
-                  {link.label}
-                  <ArrowUpRight />
-                </a>
-              ),
+              (link, index) => {
+                const content = (
+                  <>
+                    <small>0{index + 1}</small>
+                    {link.label}
+                    <ArrowUpRight />
+                  </>
+                );
+                const props = {
+                  style: { ['--i' as string]: index },
+                  onClick: () => setOpen(false),
+                };
+                return 'route' in link && link.route ? (
+                  <Link key={link.id} to={link.route} {...props}>
+                    {content}
+                  </Link>
+                ) : (
+                  <a key={link.id} href={`/#${link.id}`} {...props}>
+                    {content}
+                  </a>
+                );
+              },
             )}
           </nav>
           <a href={`mailto:${profile.email}`}>{profile.email}</a>

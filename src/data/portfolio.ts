@@ -56,10 +56,24 @@ export interface Project {
   featured?: boolean;
 }
 
-export interface SmallerProject {
+/** A project on the /projects page — everything beyond the three showcased. */
+export interface OtherProject {
   title: string;
+  kind: string;
+  year: string;
   description: string;
-  github?: string;
+  tech: string[];
+  github: string;
+  demo?: string;
+}
+
+/** An earlier project, listed in the archive by year. */
+export interface ArchivedProject {
+  title: string;
+  year: string;
+  description: string;
+  tech: string[];
+  github: string;
   demo?: string;
 }
 
@@ -136,7 +150,7 @@ export const experience: Experience[] = [
   {
     role: 'Full Stack Developer',
     company: 'Fagoon AI · Sydney, Australia (Remote)',
-    period: 'Apr 2024 — Nov 2025',
+    period: 'Sep 2023 — Nov 2025',
     description:
       'Led a team of five engineers delivering AI-driven products end to end and enforcing architectural standards across frontend and backend. I built the full-stack architecture behind the Fagoon Calling Agent — an AI voice platform handling human-like phone conversations at scale across cellular, WhatsApp and app-to-app channels — integrating LLM, STT/TTS and Speech-to-Speech APIs for natural, emotion-aware calls. The result was a system delivering 3,000 minutes of AI call time for as little as $700, letting clients automate sales outreach at a fraction of human-agent cost. I owned cloud deployment and CI/CD on GCP at 99.9% uptime.',
   },
@@ -204,22 +218,122 @@ export const projects: Project[] = [
   },
 ];
 
-export const smallerProjects: SmallerProject[] = [
+export const otherProjects: OtherProject[] = [
+  {
+    title: 'grindOS',
+    kind: 'Web app · PWA',
+    year: '2026',
+    description:
+      'A private, local-first tracker for workouts, sleep and spending on iPhone. Everything stays on the device in IndexedDB — no account, no server — and it installs to the Home Screen and works offline.',
+    tech: ['TypeScript', 'IndexedDB', 'PWA'],
+    github: 'https://github.com/lavizp/grindOS',
+    demo: 'https://grind-os-red.vercel.app',
+  },
+  {
+    title: 'l3.code',
+    kind: 'Developer tool',
+    year: '2026',
+    description:
+      'A local web pane for the skills your coding agents read. Every SKILL.md on the machine in one list, each row showing which agents — Claude Code, Codex — can actually see it, and opening into an editor.',
+    tech: ['TypeScript', 'Bun', 'WebSocket', 'MongoDB'],
+    github: 'https://github.com/lavizp/l3.code',
+  },
+  {
+    title: 'dependency-visualiser',
+    kind: 'npm · CLI',
+    year: '2025',
+    description:
+      'Prints your node_modules as a tree, so you can see how packages nest and where a dependency came from. Nothing to install — run it with npx.',
+    tech: ['JavaScript', 'Node.js', 'npm'],
+    github: 'https://github.com/lavizp/dependency-visualiser',
+  },
   {
     title: 'Spot The Code',
-    description: 'A programmer-flavoured Geoguessr clone.',
+    kind: 'Web game',
+    year: '2026',
+    description:
+      'Geoguessr for programmers. Guess the origin, language or context of a code snippet. A Bun monorepo with the API layer kept apart from the web app.',
+    tech: ['TypeScript', 'TanStack Start', 'Tailwind CSS', 'Bun'],
     github: 'https://github.com/lavizp/spot-the-code',
     demo: 'https://spot-the-code-web.vercel.app',
   },
   {
     title: 'Perplexvillage',
-    description: 'A Perplexity-style AI chatbot.',
+    kind: 'AI · Full stack',
+    year: '2026',
+    description:
+      'A Perplexity-style AI chatbot. A React front end rendering Markdown answers, over an Express API that talks to Groq and rate-limits its callers.',
+    tech: ['React', 'Express', 'Groq'],
     github: 'https://github.com/lavizp/perplexvillage',
   },
   {
-    title: 'dotfiles',
-    description: 'Nothing clever. Copy whatever is useful.',
-    github: 'https://github.com/lavizp',
+    title: 'http-server',
+    kind: 'Go · From scratch',
+    year: '2025',
+    description:
+      'An HTTP server in Go with its own router, wildcard routes, logging and panic-recovery middleware, and a graceful shutdown on SIGTERM.',
+    tech: ['Go'],
+    github: 'https://github.com/lavizp/http-server',
+  },
+];
+
+export const archivedProjects: ArchivedProject[] = [
+  {
+    title: 'nvim',
+    year: '2026',
+    description: 'My Neovim setup, built on LazyVim.',
+    tech: ['Lua'],
+    github: 'https://github.com/lavizp/nvim',
+  },
+  {
+    title: 'Pokémon guessing game',
+    year: '2023',
+    description: 'A Pokémon guessing game.',
+    tech: ['React', 'React Query', 'Framer Motion'],
+    github: 'https://github.com/lavizp/pokemon-guessing-game',
+    demo: 'https://pokemon-guessing-game-sigma.vercel.app',
+  },
+  {
+    title: 'AR-Unity',
+    year: '2023',
+    description: 'An augmented reality project to promote local tourism.',
+    tech: ['Unity', 'C#'],
+    github: 'https://github.com/lavizp/AR-Unity',
+  },
+  {
+    title: 'Personal blog',
+    year: '2022',
+    description: 'A personal blog site, on the MERN stack.',
+    tech: ['MongoDB', 'Express', 'React', 'Node.js'],
+    github: 'https://github.com/lavizp/personal-blog',
+  },
+  {
+    title: 'Exercise tracker',
+    year: '2022',
+    description: 'An exercise tracking app, on the MERN stack.',
+    tech: ['MongoDB', 'Express', 'React', 'Node.js'],
+    github: 'https://github.com/lavizp/ExerciseTracker-MERN',
+  },
+  {
+    title: 'Circular scroll',
+    year: '2022',
+    description: 'A dynamic circular scroll view for Unity.',
+    tech: ['Unity', 'C#'],
+    github: 'https://github.com/lavizp/Circular-Scroll',
+  },
+  {
+    title: 'GetFlix',
+    year: '2022',
+    description: 'A Netflix redesign, in plain HTML, CSS and JavaScript.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    github: 'https://github.com/lavizp/GetFlix-NetflixClone',
+  },
+  {
+    title: 'LearningDSA',
+    year: '2022',
+    description: 'Learning data structures and algorithms.',
+    tech: ['JavaScript'],
+    github: 'https://github.com/lavizp/LearningDSA',
   },
 ];
 

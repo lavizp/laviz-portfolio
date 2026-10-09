@@ -408,7 +408,7 @@ section[id] {
   border-color: var(--lime);
 }
 .is-scrolled .nav-shell {
-  max-width: 790px;
+  max-width: 880px;
   background: #0c0e13e8;
   backdrop-filter: blur(16px) saturate(1.4);
   padding: 0 10px 0 24px;
@@ -1713,6 +1713,18 @@ section[id] {
   opacity: 1;
 }
 
+/* Off the home page, the unscrolled nav sits on paper, so its pill is ink. */
+.portfolio-nav:not(.on-home):not(.is-scrolled) .portfolio-desktop-nav::before {
+  background: #0c0e1312;
+}
+.portfolio-nav:not(.on-home):not(.is-scrolled) .portfolio-desktop-nav a:hover {
+  background: transparent;
+}
+/* Standalone pages open closer to the nav than home-page sections do. */
+.article-page > .section-head {
+  padding-top: clamp(48px, 6vw, 96px);
+}
+
 /* The rule retracts to the right and redraws from the left. */
 .text-link,
 .contact-email {
@@ -2053,6 +2065,200 @@ section[id] {
 .article-back {
   margin-top: clamp(40px, 5vw, 64px);
 }
+/* ── Projects page ──────────────────────────────────────────────────
+   Recent work reuses the three surfaces of the home-page project cards,
+   so the page reads as the rest of the same shelf. The archive is a plain
+   list, like the writing index. */
+.projects-page {
+  max-width: 1680px;
+}
+.more-projects,
+.archive {
+  padding-top: clamp(40px, 5vw, 72px);
+}
+.more-projects > .eyebrow,
+.archive > .eyebrow {
+  padding-bottom: 24px;
+}
+.more-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 1.6vw, 28px);
+}
+.more-card {
+  border-radius: var(--radius-card);
+  padding: clamp(24px, 3vw, 48px);
+  background: #dde5ff;
+  color: #15224c;
+}
+.more-card.tone-1 {
+  background: #0e1118;
+  color: var(--paper);
+}
+.more-card.tone-2 {
+  background: #e9e1d1;
+  color: #352d1f;
+}
+.more-card article {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.more-card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  font: var(--label) / 1.5 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.more-card h3 {
+  margin-top: clamp(28px, 3.4vw, 52px);
+  font-size: clamp(36px, 3.9vw, 62px);
+  font-weight: 800;
+  font-stretch: calc(var(--display-wdth) * 1%);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
+}
+.more-card h3 > span {
+  color: var(--cobalt);
+}
+.more-card.tone-1 h3 > span {
+  color: var(--lime);
+}
+.more-card article > p {
+  margin: 20px 0 26px;
+  max-width: 46ch;
+  font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.6;
+  opacity: 0.82;
+}
+.more-card .project-tags {
+  margin-bottom: 0;
+}
+.more-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 28px;
+  margin-top: auto;
+  padding-top: 32px;
+}
+.more-card.tone-1 .pill-button {
+  background: var(--lime);
+  color: var(--ink);
+}
+.more-card.tone-1 .pill-button:hover {
+  background: white;
+}
+.archive-list > div:last-child .archive-row {
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--foreground) 22%, transparent);
+}
+.archive-row {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    90px minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1fr)
+    70px;
+  align-items: baseline;
+  gap: 24px;
+  padding: 26px 0;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent);
+  transition: color 0.3s;
+}
+.archive-row::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--cobalt);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.6s var(--ease);
+}
+.archive-row:hover::after,
+.archive-row:focus-within::after {
+  transform: none;
+}
+.archive-row:hover h3 {
+  color: var(--cobalt);
+}
+/* The title link covers the whole row; the "Live" link sits above it. */
+.archive-row h3 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.archive-row h3 a:focus-visible {
+  outline: none;
+}
+.archive-row:has(h3 a:focus-visible) {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.archive-row h3 {
+  font-size: clamp(21px, 2vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  transition: color 0.3s;
+}
+.archive-row p {
+  color: var(--muted-foreground);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.archive-year,
+.archive-tech {
+  font: 12px/1.6 var(--font-mono);
+  color: var(--muted-foreground);
+}
+.archive-links {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 14px;
+  align-self: center;
+  font: 12px var(--font-mono);
+}
+.archive-links a {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid currentColor;
+  transition: color 0.3s;
+}
+.archive-links a:hover {
+  color: var(--cobalt);
+}
+.archive-links svg {
+  flex-shrink: 0;
+  transition: transform 0.5s var(--spring);
+}
+.archive-row:hover .archive-links svg {
+  transform: translate(4px, -4px);
+}
+.projects-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: clamp(48px, 6vw, 80px);
+}
+.all-projects {
+  display: inline-flex;
+  margin-top: 36px;
+}
+.work-section {
+  padding-bottom: clamp(64px, 7vw, 110px);
+}
+
 @media (max-width: 860px) {
   .article-body {
     grid-template-columns: 1fr;
@@ -2124,6 +2330,17 @@ section[id] {
   .lab-section > div {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+  .archive-row {
+    grid-template-columns: 70px minmax(0, 1fr) minmax(0, 1.3fr) 50px;
+  }
+  .archive-tech {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .more-grid {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 760px) {
@@ -2445,6 +2662,32 @@ section[id] {
   }
   .contact-body {
     align-items: start;
+  }
+  .more-card {
+    border-radius: 22px;
+    padding: 24px 20px;
+  }
+  .more-card-meta {
+    font-size: 10px;
+  }
+  .archive-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 16px;
+    padding: 22px 0;
+  }
+  .archive-year {
+    grid-column: 1 / -1;
+  }
+  .archive-row h3 {
+    grid-column: 1;
+  }
+  .archive-row p {
+    grid-column: 1;
+    font-size: 15px;
+  }
+  .archive-links {
+    grid-column: 2;
+    grid-row: 2 / span 2;
   }
   .contact-status {
     font-size: 10px;
