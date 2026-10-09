@@ -457,7 +457,7 @@ export function PortfolioHome() {
           ))}
         </div>
         <Link className="text-link all-projects" to="/projects">
-          More projects <ArrowUpRight size={18} />
+          All projects <ArrowUpRight size={18} />
         </Link>
       </section>
       <Marquee

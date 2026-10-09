@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen, within } from '@testing-library/react';
+import { cleanup, render, within } from '@testing-library/react';
 import type { ReactNode } from 'react';
 
 vi.mock('@tanstack/react-router', () => ({
@@ -17,16 +17,18 @@ import { archivedProjects, otherProjects, projects } from '@/data/portfolio';
 afterEach(cleanup);
 
 describe('projects page', () => {
-  it('lists every other project, and none of the three showcased ones', () => {
+  it('lists the showcased projects first, then recent work and the archive', () => {
     render(<Page />);
-    const recent = document.querySelector('.more-projects') as HTMLElement;
+    const [maintained, recent] = Array.from(
+      document.querySelectorAll<HTMLElement>('.more-projects'),
+    );
     const archive = document.querySelector('.archive') as HTMLElement;
+    for (const project of projects)
+      expect(within(maintained).getByText(project.title)).toBeTruthy();
     for (const project of otherProjects)
       expect(within(recent).getByText(project.title)).toBeTruthy();
     for (const project of archivedProjects)
       expect(within(archive).getByText(project.title)).toBeTruthy();
-    for (const project of projects)
-      expect(screen.queryByRole('heading', { name: project.title })).toBeNull();
   });
 
   it('links each project to its source, and to a live app where one exists', () => {
@@ -34,8 +36,12 @@ describe('projects page', () => {
     const hrefs = Array.from(document.querySelectorAll('a')).map((link) =>
       link.getAttribute('href'),
     );
-    for (const project of [...otherProjects, ...archivedProjects]) {
-      expect(hrefs).toContain(project.github);
+    for (const project of [
+      ...projects,
+      ...otherProjects,
+      ...archivedProjects,
+    ]) {
+      if (project.github) expect(hrefs).toContain(project.github);
       if (project.demo) expect(hrefs).toContain(project.demo);
     }
   });

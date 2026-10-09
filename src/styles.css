@@ -2085,6 +2085,18 @@ section[id] {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(16px, 1.6vw, 28px);
 }
+/* The maintained three sit in one row, in the same order and surfaces as
+   on the home page. */
+.more-grid.is-featured {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.more-grid.is-featured .more-card {
+  padding: clamp(24px, 2.4vw, 40px);
+}
+/* Recent work sits a step below the maintained three. */
+.more-grid:not(.is-featured) .more-card h3 {
+  font-size: clamp(32px, 3.2vw, 50px);
+}
 .more-card {
   border-radius: var(--radius-card);
   padding: clamp(24px, 3vw, 48px);
@@ -2336,6 +2348,11 @@ section[id] {
   }
   .archive-tech {
     display: none;
+  }
+}
+@media (max-width: 1180px) {
+  .more-grid.is-featured {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 900px) {

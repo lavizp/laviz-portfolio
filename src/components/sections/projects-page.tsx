@@ -4,10 +4,68 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { archivedProjects, otherProjects, projects } from '@/data/portfolio';
 import { Reveal, Lines } from '@/components/sections/portfolio-home';
 
-/** Everything beyond the three projects showcased on the home page. */
+interface Tile {
+  title: string;
+  kind: string;
+  year: string;
+  description: string;
+  tech: string[];
+  github?: string;
+  demo?: string;
+  demoLabel?: string;
+}
+
+/** One project card, on one of the three home-page surfaces. */
+function ProjectTile({ project, tone }: { project: Tile; tone: number }) {
+  return (
+    <Reveal mode="rise" className={`more-card tone-${tone % 3}`}>
+      <article>
+        <div className="more-card-meta">
+          <span>{project.kind}</span>
+          <span>{project.year}</span>
+        </div>
+        <h3>
+          {project.title}
+          <span>.</span>
+        </h3>
+        <p>{project.description}</p>
+        <ul className="project-tags">
+          {project.tech.map((tech) => (
+            <li key={tech}>{tech}</li>
+          ))}
+        </ul>
+        <div className="more-card-links">
+          {project.demo && (
+            <a
+              className="pill-button"
+              href={project.demo}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {project.demoLabel ?? 'Open the app'} <ArrowUpRight size={18} />
+            </a>
+          )}
+          {project.github && (
+            <a
+              className="text-link"
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              View the source <ArrowUpRight size={18} />
+            </a>
+          )}
+        </div>
+      </article>
+    </Reveal>
+  );
+}
+
+/** Every project: the three maintained ones, recent work, and the archive. */
 export function ProjectsPage() {
-  const showcased = projects.map((project) => project.title);
   const years = archivedProjects.map((project) => Number(project.year));
+  const total =
+    projects.length + otherProjects.length + archivedProjects.length;
 
   useEffect(() => {
     document.title = 'Projects — Laviz Pandey';
@@ -22,18 +80,42 @@ export function ProjectsPage() {
         <div>
           <div className="eyebrow" data-reveal="up">
             <span>Projects</span>
-            {otherProjects.length + archivedProjects.length} more
+            {total} in all
           </div>
           <h2 data-reveal="lines">
-            <Lines>{['Everything', 'else I built.']}</Lines>
+            <Lines>{['Everything', 'I’ve built.']}</Lines>
           </h2>
         </div>
         <p data-reveal="up" style={{ ['--i' as string]: 1 }}>
-          {showcased.slice(0, -1).join(', ')} and {showcased.at(-1)} are on the
-          home page. These are the rest: recent experiments, small tools, and
+          The three tools I maintain, then recent experiments, small tools, and
           the projects I learned on.
         </p>
       </header>
+
+      <section className="more-projects" aria-labelledby="maintained-projects">
+        <div className="eyebrow" data-reveal="up" id="maintained-projects">
+          <span>Maintained</span>
+          Published and in use
+        </div>
+        <div className="more-grid is-featured">
+          {projects.map((project, index) => (
+            <ProjectTile
+              key={project.title}
+              tone={index}
+              project={{
+                title: project.title,
+                kind: project.tag,
+                year: project.released,
+                description: project.description,
+                tech: project.tech,
+                github: project.github,
+                demo: project.demo,
+                demoLabel: 'Visit the site',
+              }}
+            />
+          ))}
+        </div>
+      </section>
 
       <section className="more-projects" aria-labelledby="recent-projects">
         <div className="eyebrow" data-reveal="up" id="recent-projects">
@@ -42,48 +124,13 @@ export function ProjectsPage() {
         </div>
         <div className="more-grid">
           {otherProjects.map((project, index) => (
-            <Reveal
+            // Offset by one: the row opens on night, so it repeats neither
+            // the maintained row above (desktop) nor the card above (mobile).
+            <ProjectTile
               key={project.title}
-              mode="rise"
-              className={`more-card tone-${index % 3}`}
-            >
-              <article>
-                <div className="more-card-meta">
-                  <span>{project.kind}</span>
-                  <span>{project.year}</span>
-                </div>
-                <h3>
-                  {project.title}
-                  <span>.</span>
-                </h3>
-                <p>{project.description}</p>
-                <ul className="project-tags">
-                  {project.tech.map((tech) => (
-                    <li key={tech}>{tech}</li>
-                  ))}
-                </ul>
-                <div className="more-card-links">
-                  {project.demo && (
-                    <a
-                      className="pill-button"
-                      href={project.demo}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Open the app <ArrowUpRight size={18} />
-                    </a>
-                  )}
-                  <a
-                    className="text-link"
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View the source <ArrowUpRight size={18} />
-                  </a>
-                </div>
-              </article>
-            </Reveal>
+              project={project}
+              tone={index + 1}
+            />
           ))}
         </div>
       </section>
