@@ -431,6 +431,15 @@ function Marquee({ text, small = false }: { text: string[]; small?: boolean }) {
   );
 }
 
+const labPrompts = [
+  {
+    label: 'Tell me about Laviz’s projects',
+    prompt: 'What projects have you worked on?',
+  },
+  { label: 'What does he build with?', prompt: 'What is your tech stack?' },
+  { label: 'Where has he worked?', prompt: 'Where have you worked?' },
+];
+
 export function PortfolioHome() {
   const { openChat } = useChat();
   return (
@@ -540,20 +549,31 @@ export function PortfolioHome() {
       </section>
       <section className="lab-section wide-section">
         <Reveal mode="rise">
-          <div className="eyebrow">
-            <Sparkles size={15} />
-            The lab
+          <div>
+            <div className="eyebrow">
+              <Sparkles size={15} />
+              The lab
+            </div>
+            <h2>Still curious?</h2>
+            <p>
+              Ask the assistant about the stack, the work, or the person behind
+              it.
+            </p>
           </div>
-          <h2>Still curious?</h2>
-          <p>Ask about the stack, the work, or the person behind it.</p>
-          <button
-            type="button"
-            className="lab-prompt"
-            onClick={() => openChat('What projects have you worked on?')}
-          >
-            <span>›</span> Tell me about Laviz’s projects{' '}
-            <ArrowUpRight size={20} />
-          </button>
+          <div className="lab-prompts">
+            {labPrompts.map((item) => (
+              <button
+                key={item.label}
+                type="button"
+                className="lab-prompt"
+                onClick={() => openChat(item.prompt)}
+              >
+                <span>›</span>
+                {item.label}
+                <ArrowRight size={20} />
+              </button>
+            ))}
+          </div>
         </Reveal>
       </section>
       <section id="contact" className="contact-section wide-section">

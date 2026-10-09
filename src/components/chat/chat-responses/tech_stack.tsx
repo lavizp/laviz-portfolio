@@ -16,7 +16,7 @@ const TechStackResponse = () => {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="border border-brand/30 bg-brand-100 px-2.5 py-1 text-xs font-medium text-brand"
+                  className="rounded-full border border-brand/30 bg-brand-100 px-3 py-1 text-xs font-medium text-brand"
                 >
                   {item}
                 </span>
